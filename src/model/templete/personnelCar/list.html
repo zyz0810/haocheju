@@ -1,0 +1,14 @@
+{{#each this}}
+<a href="/weixin/personnelCar/view/index.html?id={{id}}" class="weui-cells">
+    <div class="weui-cell">
+        <div class="weui-cell__bd f16 gray05">{{job}}</div>
+        <div class="weui-cell__ft f11 gray05"><span class="baseColor f16">{{money}}</span></div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd gray02 f13">{{home}}</div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd gray02 f13">{{address}} {{experience}}</div>
+    </div>
+</a>
+{{/each}}

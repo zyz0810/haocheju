@@ -1,0 +1,19 @@
+{{#each this}}
+<a href="/weixin/news/view/index.html?id={{id}}" data-id="{{id}}" class="weui-cell hot_list">
+    <div class="weui-cell__bd">
+        <p class="f12 overtwo">{{title}}</p>
+        <p class="clearfix f10 gray04">
+            <span class="fl">{{hitcount}}阅读</span>
+            <span class="fr">{{addtime}}</span>
+        </p>
+    </div>
+    <div class="weui-cell__ft">
+        {{#compare icon '!=' null}}
+        <img src="/weixin/images/placeholder/logo.png" data-original="{{imgurl}}" alt="">
+        {{/compare}}
+        {{#compare icon '==' null}}
+        <img src="/weixin/images/placeholder/logo.png" alt=""/>
+        {{/compare}}
+    </div>
+</a>
+{{/each}}

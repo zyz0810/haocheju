@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>首页</title>
+    @import "../include/header.inc";
+
+</head>
+<body ontouchstart>
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+<div class="container" id="container"></div>
+
+<!--首页-->
+<link rel="import" href="../../../pages/trial/index.html">
+
+@import "../../../model/widget/include/toast.html";
+@import "../../../model/widget/include/dialog.html";
+<script src="/weixin/js/wap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        pageManager.show("index");
+        //顶部选项卡
+        $('.tab .weui-flex__item').click(function () {
+            // $(document).on('click', '.tab .weui-flex__item', function () {
+            var dataId = $(this).attr('data-id');
+            if (dataId == '0') {
+                $('.hire_car').addClass('active').siblings('.weui-flex__item').removeClass('active');
+                $('.peccancy').removeClass('none');
+                $('.trial_cont').addClass('none');
+            } else if (dataId == '1') {
+                $('.driving').addClass('active').siblings('.weui-flex__item').removeClass('active');
+                $('.peccancy').addClass('none');
+                $('.trial_cont').removeClass('none');
+            }
+        });
+
+        $('.peccancy .area').click(function () {
+            $("#areaCont").actionsheet();
+        });
+        $('#areaCont ul li').click(function () {
+            $('.peccancy .area_txt').html($(this).html());
+            $("#areaCont").actionsheetClose();
+        });
+
+        $('.trial_cont .area').click(function () {
+            $("#areaCont2").actionsheet();
+        });
+        $('#areaCont2 ul li').click(function () {
+            $('.trial_cont .area_txt').html($(this).html());
+            $("#areaCont2").actionsheetClose();
+        })
+
+    });
+</script>
+
+</body>
+</html>

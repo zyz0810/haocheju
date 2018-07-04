@@ -1,0 +1,28 @@
+@charset "UTF-8";
+.discountView{
+  .intro{
+    padding: 2%;
+    background: @white;
+    s{
+      margin-left: 10px;
+    }
+  }
+  .tenant_intro{
+    padding: 0 0 2%;
+    margin-top: 2%;
+    background: @white;
+
+    p{
+      padding: 0 2%;
+      &.tit01{
+        line-height: 2em;
+        padding: 0;
+        margin-bottom: 2%;
+        position: relative;
+        &:after{
+          .mixin(bottom,solid,@gray03);
+        }
+      }
+    }
+  }
+}

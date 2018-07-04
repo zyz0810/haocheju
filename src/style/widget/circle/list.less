@@ -1,0 +1,61 @@
+@charset "UTF-8";
+.circle_banner{
+}
+//车友圈列表
+.circle_list{
+  .weui-cell{
+    padding-bottom: 0;
+    .weui-cell__hd{
+      font-size: 0;
+      width: 10%;
+      margin-right: 2%;
+      img{
+        border-radius: 50%;
+      }
+    }
+  }
+  .circle_txt,.circle_img,.zan_people,.operation,.comment{
+    padding: 2%;
+    width: 84%;
+    margin-left: 12%;
+  }
+  .circle_txt{
+    padding-top: 0;
+  }
+  .circle_img{
+    img{
+      width: 32%;
+      margin: 0 2% 2% 0;
+      cursor: pointer;
+      float: left;
+      &:nth-child(3n){
+        margin-right: 0;
+      }
+    }
+  }
+  .zan_people{
+    img{
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+    }
+  }
+  .comment{
+    position: relative;
+  }
+}
+
+.publish{
+  display: block;
+  position: fixed;
+  bottom: 66px;
+  right: 10px;
+  z-index: 9999;
+  background: @baseColor;
+  width: 50px;
+  height: 50px;
+  line-height: 45px;
+  color: @white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px @baseColor;
+}

@@ -1,0 +1,74 @@
+@baseColor:#0f84de;   //挑货网橙色系列
+@white:#fff;//白色
+//灰色系
+@gray01:#908f8f;
+@gray02:#666666;
+@gray03:#cdcdcd;
+@gray04:#cccccc;
+@gray05:#333333;
+@gray06:#5d5d5d;
+.baseColor{
+  color: @baseColor;
+}
+.gray01{
+  color: @gray01;
+}
+.gray02{
+  color: @gray02;
+}
+.gray03{
+  color: @gray03;
+}
+.gray04{
+  color: @gray04;
+}
+.gray05{
+  color: @gray05;
+}
+.gray06{
+  color: @gray06;
+}
+@blue05:#1ccad5;
+@yellow01:#febf00;
+.bg_blue05{
+  background: @blue05 !important;
+}
+.yellow01{
+  color: @yellow01 !important;
+}
+
+//界面规范尺寸
+@topNav:44px;//顶部导航栏高度
+@LRmargint:14px;//列表左右的间距
+
+
+//浮动和对齐
+@left:left;
+@right:right;
+@center:center;
+
+//间距
+@5:5px;
+@10:10px;
+@15:15px;
+
+.colortorgb(@color){
+  @red:red(@color);
+  @green:green(@color);
+  @blue:blue(@color);
+  background: linear-gradient(rgba(@red, @green, @blue, 1), rgba(@red, @green, @blue, 0.7)); /* 标准的语法 */
+}
+
+//解决DIV无法撑开的问题
+.kong{clear:both;height:0;font-size: 1px;line-height: 0px; border:0;padding:0;margin: 0;}
+
+
+//改变WEIUI的一些组件的色值
+//搜索取消色值
+.weui-search-bar__cancel-btn{ color:#a3a3a3;}
+.weui-cells_checkbox .weui-icon-checked:before{ font-size:18px}
+
+.weui-navbar__item{padding:10px 0;}
+
+
+

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>二手车区</title>
+    @import "../include/header.inc";
+
+</head>
+<body ontouchstart>
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+<div class="container" id="container"></div>
+
+<!--首页-->
+<link rel="import" href="../../../pages/usedCar/index.html">
+
+@import "../../../model/widget/include/toast.html";
+@import "../../../model/widget/include/dialog.html";
+<script src="/weixin/js/wap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        pageManager.show("index");
+        $('#nav .weui-flex__item.brand_btn').click(function () {
+                $('.brand').toggle('none');
+                $('.mask').toggle('none');
+        });
+        $('.mask').click(function () {
+            $('.brand').css({'display':'none !important'});
+            $('.mask').css({'display':'none !important'});
+        });
+        // $(document).on('click','.mask',function () {
+        //     $('.brand').css({'display':'none !important'});
+        //     $('.mask').css({'display':'none !important'});
+        // });
+        $('.brand li').click(function () {
+            var brand = $(this).html();
+            $('.brand_btn').html(brand);
+            $('.brand').css({'display':'none !important'});
+            $('.mask').css({'display':'none !important'});
+        });
+        // $(document).on('click','.brand li',function () {
+        //     var brand = $(this).html();
+        //     $('.brand_btn').html(brand);
+        //     $('.brand').css({'display':'none !important'});
+        //     $('.mask').css({'display':'none !important'});
+        // })
+    });
+</script>
+
+</body>
+</html>

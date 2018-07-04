@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>车辆详情-新车</title>
+    @import "../../include/header.inc";
+
+</head>
+<body ontouchstart>
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+<div class="container" id="container"></div>
+
+<!--首页-->
+<link rel="import" href="../../../../pages/car/new/index.html">
+
+@import "../../../../model/widget/include/toast.html";
+@import "../../../../model/widget/include/dialog.html";
+<script src="/weixin/js/wap.min.js"></script>
+<script type="text/javascript">
+
+
+    $(function () {
+        pageManager.show("index");
+        //顶部轮播图片
+        // var ads = new ad(
+        //     function (data) {
+        //         if (data.length > 0) {
+        //             $("#index_slider").silderDot(data, 1800, "", "true");
+        //         }
+        //     }
+        // );
+        // ads.do(187);
+        var list = [
+            {
+                content: '/weixin/images/static/home/banner01.jpg'
+            },
+            {
+                content: '/weixin/images/static/home/banner02.jpg'
+            }
+        ];
+        var S = new iSlider({
+            dom: document.getElementById('index_slider'),
+            data: list,
+            isLooping: 1,
+            isOverspread: 1,
+            animateTime: 800, // ms
+            plugins: ['dot']
+        });
+    });
+
+
+</script>
+
+</body>
+</html>

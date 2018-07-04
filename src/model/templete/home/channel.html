@@ -1,0 +1,13 @@
+{{#each this}}
+<li class="channel_li fl" data-id="{{id}}">
+    <a href="{{url}}">
+        {{#compare icon '==' null}}
+        <img src="/weixin/images/placeholder/logo.png" alt="">
+        {{/compare}}
+        {{#compare icon '!=' null}}
+        <img src="{{icon}}" alt="">
+        {{/compare}}
+        <p class="f10">{{name}}</p>
+    </a>
+</li>
+{{/each}}

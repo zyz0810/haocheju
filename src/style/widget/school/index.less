@@ -1,0 +1,65 @@
+@charset "UTF-8";
+.school{
+  .list{
+    padding: 0 2%;
+    .weui-cells{
+      display: block;
+      padding: 0 2%;
+      border-radius: 8px;
+      .weui-cell{
+        padding: 2% 0;
+        .school_img{
+          font-size: 0;
+          img{
+            border-radius: 8px;
+          }
+        }
+      }
+      a{
+        &.weui-cell{
+          padding-top: 0;
+        }
+      }
+    }
+  }
+}
+
+.schoolView{
+  .info{
+    background: @white;
+    .weui-flex{
+      padding: 0 2% 2%;
+    }
+    .weui-cell{
+      &:before{
+        width: 96%;
+        left: 2%;
+        border-color: @gray02;
+      }
+    }
+  }
+  .intro{
+    margin-top: 2%;
+    background: @white;
+    .tit{
+      padding: 2% 3%;
+      background: @white;
+      position: relative;
+      &:after{
+        .mixin(bottom,solid,@gray02);
+        width: 96%;
+        left: 2%;
+      }
+    }
+    .intro_cont{
+      padding: 2%;
+    }
+  }
+  .environment{
+    padding: 2% 0 2% 2%;
+    img{
+      width: 48%;
+      margin: 0 2% 2% 0;
+    }
+  }
+}

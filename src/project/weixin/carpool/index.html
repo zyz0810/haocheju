@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>在线拼车</title>
+    @import "../include/header.inc";
+
+</head>
+<body ontouchstart>
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+<div class="container" id="container"></div>
+
+<!--首页-->
+<link rel="import" href="../../../pages/carpool/index.html">
+
+@import "../../../model/widget/include/toast.html";
+@import "../../../model/widget/include/dialog.html";
+<script src="/weixin/js/wap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        pageManager.show("index");
+        //顶部轮播图片
+        // var ads = new ad(
+        //     function (data) {
+        //         if (data.length > 0) {
+        //             $("#index_slider").silderDotTxt(data, 1800, "", "true");
+        //         }
+        //     }
+        // );
+        // ads.do(187);
+
+        var list = [
+            {
+                content: '<img src="/weixin/images/static/home/banner01.jpg" /><p class="f10">1.好车居拼车平台免责声明</p>'
+            },
+            {
+                content: '<img src="/weixin/images/static/home/banner02.jpg" /><p class="f10">2.好车居拼车平台免责声明</p>'
+            }
+        ];
+        var S = new iSlider({
+            dom: document.getElementById('index_slider'),
+            data: list,
+            isLooping: 1,
+            isOverspread: 1,
+            animateTime: 800, // ms
+            plugins: ['dot'],
+        });
+        setTimeout(function () {
+            var heig = $('#iSlider-wrapper').find('img').height();
+            var total = heig+30;
+            console.log('heig='+heig)
+            $('#iSlider-wrapper').css({'height':total+'px'})
+        },100)
+
+
+        $(document).on('click','.nav .weui-flex__item',function () {
+            $(this).addClass('active').siblings().removeClass('active');
+        })
+
+
+
+    });
+</script>
+
+</body>
+</html>

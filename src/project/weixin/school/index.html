@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>网上驾校</title>
+    @import "../include/header.inc";
+
+</head>
+<body ontouchstart>
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+<div class="container" id="container"></div>
+
+<!--首页-->
+<link rel="import" href="../../../pages/school/index.html">
+
+<!--模板-->
+<link rel="import" href="../../../model/templete/include/newList.html">
+
+
+@import "../../../model/widget/include/toast.html";
+@import "../../../model/widget/include/dialog.html";
+<script src="/weixin/js/wap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        pageManager.show("index");
+        var aa = new zixun(function (data) {
+            $("#index_slider").silderDot(data, 1800, "");
+        });
+        aa.list();
+
+        // var pge = $(".pageable").pageable({
+        //     loadUpFn: function (me) {
+        //         var tu = new zixun(function (data) {
+        //             var h = render.fill($("#tpl_newList"), data.return_new);
+        //             $(".pageable .hot_cont").html(h);
+        //             $('img').picLazyLoad();
+        //             pge.resetload();
+        //         });
+        //         me.pageNumber = 1;
+        //         tu.list({page:me.pageNumber});
+        //     },
+        //     loadDownFn: function (me) {
+        //         var td = new zixun(function (data) {
+        //             me.pageNumber = me.pageNumber + 1;
+        //             var h = render.fill($("#tpl_newList"), data.return_new);
+        //             $(".pageable .hot_cont").append(h);
+        //             $('img').picLazyLoad();
+        //             if (data.length < 10) {
+        //                 pge.lock();
+        //                 pge.noData();
+        //             }
+        //             pge.resetload();
+        //         });
+        //         td.list({page:me.pageNumber});
+        //     }
+        // });
+    });
+</script>
+
+</body>
+</html>

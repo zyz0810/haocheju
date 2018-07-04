@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>发布找车</title>
+    @import "../../include/header.inc";
+
+</head>
+<body ontouchstart>
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+<div class="container" id="container"></div>
+
+<!--首页-->
+<link rel="import" href="../../../../pages/carpool/screen/index.html">
+
+@import "../../../../model/widget/include/toast.html";
+@import "../../../../model/widget/include/dialog.html";
+<script src="/weixin/js/wap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        pageManager.show("index");
+
+        function p(s) {
+            return s < 10 ? '0' + s: s;
+        }
+        var myDate = new Date();
+        var year=myDate.getFullYear();
+        var month=myDate.getMonth()+1;
+        var date=myDate.getDate();
+        var h=myDate.getHours();       //获取当前小时数(0-23)
+        var m=myDate.getMinutes();     //获取当前分钟数(0-59)
+        var s=myDate.getSeconds();
+        var now=year+'-'+p(month)+"-"+p(date);
+        var time=p(h)+':'+p(m)+":"+p(s);
+        $('.showDatePicker').html(now);
+        $('.showTimePicker').html(time);
+        $(document).on('click','#showDatePicker',function () {
+            weui.datePicker({
+                start: new Date().getFullYear(),
+                end: new Date().getFullYear(),
+                onChange: function (result) {
+                    console.log(result);
+                },
+                onConfirm: function (result) {
+                    $('.showDatePicker').html(result);
+                }
+            });
+        });
+        $(document).on('click','#showTimePicker',function () {
+            weui.datePicker({
+                start: new Date().getFullYear(),
+                end: new Date().getFullYear(),
+                onChange: function (result) {
+                    console.log(result);
+                },
+                onConfirm: function (result) {
+                    $('.showTimePicker').html(result);
+                }
+            });
+        });
+        $('#showPeoplePicker').on('click', function () {
+            weui.picker([{
+                label: '1',
+                value: 1
+            }, {
+                label: '2',
+                value: 2
+            }, {
+                label: '3',
+                value: 3
+            },{
+                label: '4',
+                value: 4
+            }], {
+                onChange: function (result) {
+                    console.log(result);
+                },
+                onConfirm: function (result) {
+                    $('.showPeoplePicker').val(result);
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

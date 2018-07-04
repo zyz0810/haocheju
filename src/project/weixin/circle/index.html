@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>车友圈</title>
+    @import "../include/header.inc";
+
+</head>
+<body ontouchstart>
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+<div class="container" id="container"></div>
+
+<!--首页-->
+<link rel="import" href="../../../pages/circle/index.html">
+
+@import "../../../model/widget/include/toast.html";
+@import "../../../model/widget/include/dialog.html";
+<script src="/weixin/js/wap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        pageManager.show("index");
+
+        $('#publish').click(function () {
+            window.location.href = '/weixin/circle/send.html';
+        });
+
+        var oDiv = document.getElementById('publish');
+        var disX, disY, moveX, moveY, L, T, starX, starY, starXEnd, starYEnd;
+
+        // oDiv.addEventListener('touchstart', function (e) {
+        //     e.preventDefault();//阻止触摸时页面的滚动，缩放
+        //     disX = e.touches[0].clientX - this.offsetLeft;
+        //     disY = e.touches[0].clientY - this.offsetTop;
+        //     //手指按下时的坐标
+        //     starX = e.touches[0].clientX;
+        //     starY = e.touches[0].clientY;
+        //     //console.log(disX);
+        // });
+        // oDiv.addEventListener('touchmove', function (e) {
+        //     L = e.touches[0].clientX - disX;
+        //     T = e.touches[0].clientY - disY;
+        //     //移动时 当前位置与起始位置之间的差值
+        //     starXEnd = e.touches[0].clientX - starX;
+        //     starYEnd = e.touches[0].clientY - starY;
+        //     //console.log(L);
+        //     if (L < 0) {//限制拖拽的X范围，不能拖出屏幕
+        //         L = 0;
+        //     }
+        //     else if (L > document.documentElement.clientWidth - this.offsetWidth) {
+        //         L = document.documentElement.clientWidth - this.offsetWidth;
+        //     }
+        //
+        //     if (T < 0) {//限制拖拽的Y范围，不能拖出屏幕
+        //         T = 0;
+        //     }
+        //     else if (T > document.documentElement.clientHeight - this.offsetHeight) {
+        //         T = document.documentElement.clientHeight - this.offsetHeight - 53;
+        //     }
+        //     moveX = L + 'px';
+        //     moveY = T + 'px';
+        //     this.style.left = moveX;
+        //     this.style.top = moveY;
+        // });
+
+
+        var imgsObj = $('.sendimg');
+        var imgs = new Array();
+        for(var i = 0; i < imgsObj.size(); i++){
+            imgs.push(imgsObj.eq(i).attr('src'));
+        };
+        $(document).on('click','.sendimg',function () {
+            WeixinJSBridge.invoke('imagePreview', {
+                'current': $(this).attr('src'),
+                'urls': imgs
+            });
+        });
+
+
+    });
+</script>
+
+</body>
+</html>

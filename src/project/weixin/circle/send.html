@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>车友圈</title>
+    @import "../include/header.inc";
+
+</head>
+<body ontouchstart>
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+<div class="container" id="container"></div>
+
+<!--首页-->
+<link rel="import" href="../../../pages/circle/send.html">
+
+@import "../../../model/widget/include/toast.html";
+@import "../../../model/widget/include/dialog.html";
+<script src="/weixin/js/wap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        pageManager.show("send");
+
+        var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)"></li>',
+            $gallery = $("#gallery"),
+            $galleryImg = $("#galleryImg"),
+            $uploaderInput = $("#uploaderInput"),
+            $uploaderFiles = $("#uploaderFiles");
+        var maxSize = 1024 * 1024;
+        $uploaderInput.on("change", function (e) {
+            if ($('.weui-uploader__files').find('li').length >= 9) {
+                toast.show('最多添加9张');
+                return
+            }
+            var src, url = window.URL || window.webkitURL || window.mozURL,
+                files = e.target.files;
+            if(files.length>9){
+                toast.show('不能超过9张');
+                return
+            }
+            for (var i = 0, len = files.length; i < len; ++i) {
+                var file = files[i];
+
+                if (file.size > maxSize) {
+                    toast.show('图片不能超过1M');
+                    continue;
+                }
+
+                if (url) {
+                    src = url.createObjectURL(file);
+                } else {
+                    src = e.target.result;
+                }
+
+                $uploaderFiles.append($(tmpl.replace('#url#', src)));
+            }
+        });
+
+        var index; //第几张图片
+        $uploaderFiles.on("click", "li", function () {
+            index = $(this).index();
+            $galleryImg.attr("style", this.getAttribute("style"));
+            $gallery.fadeIn(100);
+        });
+        $gallery.on("click", function () {
+            $gallery.fadeOut(100);
+        });
+        //删除图片
+        $(".weui-gallery__del").click(function () {
+            dialog.btn('确定删除此图片吗','确定',function () {
+                $uploaderFiles.find("li").eq(index).remove();
+            })
+        });
+
+
+        $('#canal').click(function () {
+            window.location.href = '/weixin/circle/index.html';
+        });
+        $('#publish').click(function () {
+            toast.show('发表成功');
+            window.location.href = '/weixin/circle/index.html';
+        })
+
+
+    });
+</script>
+
+</body>
+</html>

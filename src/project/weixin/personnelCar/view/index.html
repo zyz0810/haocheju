@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>招聘详情</title>
+    @import "../../include/header.inc";
+
+</head>
+<body ontouchstart>
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+<div class="container" id="container"></div>
+
+<!--首页-->
+<link rel="import" href="../../../../pages/personnelCar/view/index.html">
+
+@import "../../../../model/widget/include/toast.html";
+@import "../../../../model/widget/include/dialog.html";
+<script src="/weixin/js/wap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        pageManager.show("index");
+        var aa = new personnel(function (data) {
+
+
+
+            document.title = data.job;
+            $('#personnel_name').html(data.job);
+
+            $('#personnel_money').html(data.money);
+            $('#personnel_address').html(data.address);
+            $('#personnel_experience').html(data.experience);
+
+            $('#personnel_education').html(data.education);
+            $('#interviewer_name').html(data.name);
+            $('#interviewer_position').html(data.position);
+
+
+            $('#interviewer_phone').attr({'href':'tel:'+data.mobile});
+            $('.details_cont').html(data.content);
+
+            console.log(data);
+        });
+        aa.view({id: pageManager.GetQueryString("id")});
+    });
+</script>
+
+</body>
+</html>

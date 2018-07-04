@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>租车</title>
+    @import "../include/header.inc";
+
+</head>
+<body ontouchstart>
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+<div class="container" id="container"></div>
+
+<!--首页-->
+<link rel="import" href="../../../pages/hire/index.html">
+
+@import "../../../model/widget/include/toast.html";
+@import "../../../model/widget/include/dialog.html";
+<script src="/weixin/js/wap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        pageManager.show("index");
+
+        var d = new Date();
+        var a = (d.getMonth() + 1) + "月" + d.getDate() + '日';
+        var b = d.getFullYear() + '-' + (d.getMonth() + 1) + "-" + d.getDate();
+        d.setTime(d.getTime() + 24 * 60 * 60 * 1000);
+        var s = (d.getMonth() + 1) + "月" + d.getDate() + '日';
+        var c = d.getFullYear() + '-' + (d.getMonth() + 1) + "-" + d.getDate();
+        $('#showDatePicker').attr('data-id', b);
+        $('#showDatePicker .date').html(a);
+        $('#showReturnPicker').attr('data-id', c);
+        $('#showReturnPicker .date').html(s);
+        $('#days').html(GetDateDiff(b, c, 'day'));
+
+
+        function GetDateDiff(startTime, endTime, diffType) {
+            //将xxxx-xx-xx的时间格式，转换为 xxxx/xx/xx的格式
+            startTime = startTime.replace(/\-/g, "/");
+            endTime = endTime.replace(/\-/g, "/");
+            //将计算间隔类性字符转换为小写
+            diffType = diffType.toLowerCase();
+            var sTime = new Date(startTime); //开始时间
+            var eTime = new Date(endTime); //结束时间
+            //作为除数的数字
+            var timeType = 1;
+            switch (diffType) {
+                case"second":
+                    timeType = 1000;
+                    break;
+                case"minute":
+                    timeType = 1000 * 60;
+                    break;
+                case"hour":
+                    timeType = 1000 * 3600;
+                    break;
+                case"day":
+                    timeType = 1000 * 3600 * 24;
+                    break;
+                default:
+                    break;
+            }
+            var days = parseInt((eTime.getTime() - sTime.getTime()) / parseInt(timeType));
+            if (days < 0) {
+                toast.show('xiaoyu ')
+            }
+            return days;
+        }
+
+
+        //顶部选项卡
+        $('.tab .weui-flex__item').click(function () {
+            // $(document).on('click', '.tab .weui-flex__item', function () {
+            var dataId = $(this).attr('data-id');
+            if (dataId == '0') {
+                $('.hire_car').addClass('active').siblings('.weui-flex__item').removeClass('active');
+                $('.hire_car_cont').removeClass('none');
+                $('.driving_cont').addClass('none');
+            } else if (dataId == '1') {
+                $('.driving').addClass('active').siblings('.weui-flex__item').removeClass('active');
+                $('.hire_car_cont').addClass('none');
+                $('.driving_cont').removeClass('none');
+            }
+        });
+
+        //选择门店
+        $('#pickUp_address').click(function () {
+            // $(document).on('click', '#pickUp_address', function () {
+            $('.shop').removeClass('none');
+            $('.shop .weui-cell').click(function () {
+                // $(document).on('click', '.shop .weui-cell', function () {
+                $('#pickUp_address').html($(this).find('.weui-cell__bd').html());
+                $('.shop').addClass('none')
+            })
+        });
+        $('#return_address').click(function () {
+            // $(document).on('click', '#return_address', function () {
+            $('.shop').removeClass('none');
+            $('.shop .weui-cell').click(function () {
+                // $(document).on('click', '.shop .weui-cell', function () {
+                $('#return_address').html($(this).find('.weui-cell__bd').html());
+                $('.shop').addClass('none')
+
+            })
+        });
+
+        //城市三级联动
+        $('#pickUp').click(function () {
+            // $(document).on('click', '#pickUp', function () {
+            var nameEl = document.getElementById('pickUp');
+            var first = [];
+            /* 省，直辖市 */
+            var second = [];
+            /* 市 */
+            var third = [];
+            /* 镇 */
+            var selectedIndex = [0, 0, 0];
+            /* 默认选中的地区 */
+            var checked = [0, 0, 0];
+
+            /* 已选选项 */
+            function creatList(obj, list) {
+                obj.forEach(function (item, index, arr) {
+                    var temp = new Object();
+                    temp.text = item.name;
+                    temp.value = index;
+                    list.push(temp);
+                })
+            }
+
+            creatList(city, first);
+            if (city[selectedIndex[0]].hasOwnProperty('sub')) {
+                creatList(city[selectedIndex[0]].sub, second);
+            } else {
+                second = [{text: '', value: 0}];
+            }
+            if (city[selectedIndex[0]].sub[selectedIndex[1]].hasOwnProperty('sub')) {
+                creatList(city[selectedIndex[0]].sub[selectedIndex[1]].sub, third);
+            } else {
+                third = [{text: '', value: 0}];
+            }
+            var picker1 = new Picker({
+                data: [first, second, third],
+                selectedIndex: selectedIndex,
+                title: '地址选择'
+            });
+            picker1.on('picker.select', function (selectedVal, selectedIndex) {
+                var text1 = first[selectedIndex[0]].text;
+                var text2 = second[selectedIndex[1]].text;
+                var text3 = third[selectedIndex[2]] ? third[selectedIndex[2]].text : '';
+                // nameEl.innerText = text1 + ' ' + text2 + ' ' + text3;
+                $('#pickUp').html(text1 + ' ' + text2 + ' ' + text3);
+
+            });
+            picker1.on('picker.change', function (index, selectedIndex) {
+                if (index === 0) {
+                    firstChange();
+                } else if (index === 1) {
+                    secondChange();
+                }
+
+                function firstChange() {
+                    second = [];
+                    third = [];
+                    checked[0] = selectedIndex;
+                    var firstCity = city[selectedIndex];
+                    if (firstCity.hasOwnProperty('sub')) {
+                        creatList(firstCity.sub, second);
+                        var secondCity = city[selectedIndex].sub[0]
+                        if (secondCity.hasOwnProperty('sub')) {
+                            creatList(secondCity.sub, third);
+                        } else {
+                            third = [{text: '', value: 0}];
+                            checked[2] = 0;
+                        }
+                    } else {
+                        second = [{text: '', value: 0}];
+                        third = [{text: '', value: 0}];
+                        checked[1] = 0;
+                        checked[2] = 0;
+                    }
+                    picker1.refillColumn(1, second);
+                    picker1.refillColumn(2, third);
+                    picker1.scrollColumn(1, 0)
+                    picker1.scrollColumn(2, 0)
+                }
+
+                function secondChange() {
+                    third = [];
+                    checked[1] = selectedIndex;
+                    var first_index = checked[0];
+                    if (city[first_index].sub[selectedIndex].hasOwnProperty('sub')) {
+                        var secondCity = city[first_index].sub[selectedIndex];
+                        creatList(secondCity.sub, third);
+                        picker1.refillColumn(2, third);
+                        picker1.scrollColumn(2, 0)
+                    } else {
+                        third = [{text: '', value: 0}];
+                        checked[2] = 0;
+                        picker1.refillColumn(2, third);
+                        picker1.scrollColumn(2, 0)
+                    }
+                }
+            });
+            picker1.on('picker.valuechange', function (selectedVal, selectedIndex) {
+                console.log(selectedVal);
+                console.log(selectedIndex);
+            });
+            picker1.show();
+        });
+
+        $('#return').click(function () {
+            // $(document).on('click', '#return', function () {
+            var nameEl2 = document.getElementById('return');
+            var first = [];
+            /* 省，直辖市 */
+            var second = [];
+            /* 市 */
+            var third = [];
+            /* 镇 */
+            var selectedIndex = [0, 0, 0];
+            /* 默认选中的地区 */
+            var checked = [0, 0, 0];
+
+            /* 已选选项 */
+            function creatList(obj, list) {
+                obj.forEach(function (item, index, arr) {
+                    var temp = new Object();
+                    temp.text = item.name;
+                    temp.value = index;
+                    list.push(temp);
+                })
+            }
+
+            creatList(city, first);
+            if (city[selectedIndex[0]].hasOwnProperty('sub')) {
+                creatList(city[selectedIndex[0]].sub, second);
+            } else {
+                second = [{text: '', value: 0}];
+            }
+            if (city[selectedIndex[0]].sub[selectedIndex[1]].hasOwnProperty('sub')) {
+                creatList(city[selectedIndex[0]].sub[selectedIndex[1]].sub, third);
+            } else {
+                third = [{text: '', value: 0}];
+            }
+            var picker2 = new Picker({
+                data: [first, second, third],
+                selectedIndex: selectedIndex,
+                title: '地址选择'
+            });
+            picker2.on('picker.select', function (selectedVal, selectedIndex) {
+                var text1 = first[selectedIndex[0]].text;
+                var text2 = second[selectedIndex[1]].text;
+                var text3 = third[selectedIndex[2]] ? third[selectedIndex[2]].text : '';
+                // nameEl2.innerText = text1 + ' ' + text2 + ' ' + text3;
+                $('#return').html(text1 + ' ' + text2 + ' ' + text3);
+            });
+            picker2.on('picker.change', function (index, selectedIndex) {
+                if (index === 0) {
+                    firstChange();
+                } else if (index === 1) {
+                    secondChange();
+                }
+
+                function firstChange() {
+                    second = [];
+                    third = [];
+                    checked[0] = selectedIndex;
+                    var firstCity = city[selectedIndex];
+                    if (firstCity.hasOwnProperty('sub')) {
+                        creatList(firstCity.sub, second);
+                        var secondCity = city[selectedIndex].sub[0]
+                        if (secondCity.hasOwnProperty('sub')) {
+                            creatList(secondCity.sub, third);
+                        } else {
+                            third = [{text: '', value: 0}];
+                            checked[2] = 0;
+                        }
+                    } else {
+                        second = [{text: '', value: 0}];
+                        third = [{text: '', value: 0}];
+                        checked[1] = 0;
+                        checked[2] = 0;
+                    }
+                    picker2.refillColumn(1, second);
+                    picker2.refillColumn(2, third);
+                    picker2.scrollColumn(1, 0)
+                    picker2.scrollColumn(2, 0)
+                }
+
+                function secondChange() {
+                    third = [];
+                    checked[1] = selectedIndex;
+                    var first_index = checked[0];
+                    if (city[first_index].sub[selectedIndex].hasOwnProperty('sub')) {
+                        var secondCity = city[first_index].sub[selectedIndex];
+                        creatList(secondCity.sub, third);
+                        picker2.refillColumn(2, third);
+                        picker2.scrollColumn(2, 0)
+                    } else {
+                        third = [{text: '', value: 0}];
+                        checked[2] = 0;
+                        picker2.refillColumn(2, third);
+                        picker2.scrollColumn(2, 0)
+                    }
+                }
+            });
+            picker2.on('picker.valuechange', function (selectedVal, selectedIndex) {
+                console.log(selectedVal);
+                console.log(selectedIndex);
+            });
+            picker2.show();
+        });
+
+
+        //取车时间
+        $('#showDatePicker').click(function () {
+            // $(document).on('click', '#showDatePicker', function () {
+            var _this = this;
+            weui.datePicker({
+                start: new Date(),
+                end: new Date().getFullYear() + 1,
+                defaultValue: [new Date().getFullYear(), new Date().getMonth() + 1, new Date().getDate()],
+                onConfirm: function (result) {
+                    var year = result[0].value;
+                    var month = result[1].value;
+                    var date = result[2].value;
+                    $('#showDatePicker').attr('data-id', year + '-' + month + '-' + date);
+                    $('#showDatePicker .date').html(month + '月' + date + '日');
+                    // 二级调用：时间
+                    $('.ma_expect_date_picker .weui-picker').on('animationend webkitAnimationEnd', function () {
+                        show_expect_time_picker(_this, result);
+                    });
+                },
+                id: 'ma_expect_date',
+                className: 'ma_expect_date_picker'
+            });
+
+            var hours = [],
+                minites = [],
+                symbol = [{label: ':', value: 0}];
+
+            function show_expect_time_picker(_this, date) {
+                // var date = date[0].label + date[1].label + date[2].label;
+                if (!hours.length) {
+                    for (var i = 0; i < 24; i++) {
+                        var hours_item = {};
+                        hours_item.label = ('' + i).length === 1 ? '0' + i : '' + i;
+                        hours_item.value = i;
+                        hours.push(hours_item);
+                    }
+                }
+                if (!minites.length) {
+                    for (var j = 0; j < 60; j++) {
+                        var minites_item = {};
+                        minites_item.label = ('' + j).length === 1 ? '0' + j : '' + j;
+                        minites_item.value = j;
+                        minites.push(minites_item);
+                    }
+                }
+                weui.picker(hours, symbol, minites, {
+                    defaultValue: [new Date().getHours() + 1, 0, 0],
+                    onConfirm: function (result) {
+                        var time = result[0].label + ':' + result[2].label;
+                        var expect_date = date + ' ' + time;
+                        $('#showDatePicker .hour').html(time);
+                        $(_this).find('.weui-cell__ft').text(expect_date);
+                    },
+                    id: 'ma_expect_time'
+                });
+            }
+        });
+
+        //还车时间
+        $('#showReturnPicker').click(function () {
+            // $(document).on('click', '#showReturnPicker', function () {
+
+            var _this = this;
+            weui.datePicker({
+                start: new Date(),
+                end: new Date().getFullYear() + 1,
+                defaultValue: [new Date().getFullYear(), new Date().getMonth() + 1, new Date().getDate()],
+                onConfirm: function (result) {
+                    var year = result[0].value;
+                    var month = result[1].value;
+                    var date = result[2].value;
+
+                    $('#showReturnPicker').attr('data-id', year + '-' + month + '-' + date);
+                    $('#showReturnPicker .date').html(month + '月' + date + '日');
+                    var date1 = $('#showDatePicker').attr('data-id');
+                    var data2 = $('#showReturnPicker').attr('data-id');
+                    $('#days').html(GetDateDiff(date1, data2, 'day'));
+                    // 二级调用：时间
+                    $('.ma_expect_date_picker .weui-picker').on('animationend webkitAnimationEnd', function () {
+                        show_expect_time_picker(_this, result);
+                    });
+                },
+                id: 'ma_expect_date',
+                className: 'ma_expect_date_picker'
+            });
+
+            var hours = [],
+                minites = [],
+                symbol = [{label: ':', value: 0}];
+
+            function show_expect_time_picker(_this, date) {
+                // var date = date[0].label + date[1].label + date[2].label;
+                if (!hours.length) {
+                    for (var i = 0; i < 24; i++) {
+                        var hours_item = {};
+                        hours_item.label = ('' + i).length === 1 ? '0' + i : '' + i;
+                        hours_item.value = i;
+                        hours.push(hours_item);
+                    }
+                }
+                if (!minites.length) {
+                    for (var j = 0; j < 60; j++) {
+                        var minites_item = {};
+                        minites_item.label = ('' + j).length === 1 ? '0' + j : '' + j;
+                        minites_item.value = j;
+                        minites.push(minites_item);
+                    }
+                }
+                weui.picker(hours, symbol, minites, {
+                    defaultValue: [new Date().getHours() + 1, 0, 0],
+                    onConfirm: function (result) {
+                        var time = result[0].label + ':' + result[2].label;
+                        var expect_date = date + ' ' + time;
+                        $('#showReturnPicker .hour').html(time);
+                        $(_this).find('.weui-cell__ft').text(expect_date);
+                    },
+                    id: 'ma_expect_time'
+                });
+            }
+        });
+
+
+        //代驾
+
+        function p(s) {
+            return s < 10 ? '0' + s : s;
+        }
+
+        var myDate = new Date();
+//获取当前年
+        var year = myDate.getFullYear();
+//获取当前月
+        var month = myDate.getMonth() + 1;
+//获取当前日
+        var date = myDate.getDate();
+        var h = myDate.getHours();       //获取当前小时数(0-23)
+        var m = myDate.getMinutes();     //获取当前分钟数(0-59)
+        var s = myDate.getSeconds();
+
+        $('#driving .driving_date').html(year + '-' + p(month) + "-" + p(date));
+        $('#driving .driving_hour').html(p(h) + ':' + p(m) + ":" + p(s));
+
+        $('#driving').click(function () {
+            // $(document).on('click', '#showReturnPicker', function () {
+            var _this = this;
+            weui.datePicker({
+                start: new Date(),
+                end: new Date().getFullYear() + 1,
+                defaultValue: [new Date().getFullYear(), new Date().getMonth() + 1, new Date().getDate()],
+                onConfirm: function (result) {
+                    var year = result[0].value;
+                    var month = result[1].value;
+                    var date = result[2].value;
+
+                    $('#driving').attr('data-id', year + '-' + month + '-' + date);
+                    $('#driving .driving_date').html(year + '-' + month + '-' + date);
+                    // 二级调用：时间
+                    $('.ma_expect_date_picker .weui-picker').on('animationend webkitAnimationEnd', function () {
+                        show_expect_time_picker(_this, result);
+                    });
+                },
+                id: 'ma_expect_date',
+                className: 'ma_expect_date_picker'
+            });
+
+            var hours = [],
+                minites = [],
+                symbol = [{label: ':', value: 0}];
+
+            function show_expect_time_picker(_this, date) {
+                // var date = date[0].label + date[1].label + date[2].label;
+                if (!hours.length) {
+                    for (var i = 0; i < 24; i++) {
+                        var hours_item = {};
+                        hours_item.label = ('' + i).length === 1 ? '0' + i : '' + i;
+                        hours_item.value = i;
+                        hours.push(hours_item);
+                    }
+                }
+                if (!minites.length) {
+                    for (var j = 0; j < 60; j++) {
+                        var minites_item = {};
+                        minites_item.label = ('' + j).length === 1 ? '0' + j : '' + j;
+                        minites_item.value = j;
+                        minites.push(minites_item);
+                    }
+                }
+                weui.picker(hours, symbol, minites, {
+                    defaultValue: [new Date().getHours() + 1, 0, 0],
+                    onConfirm: function (result) {
+                        var time = result[0].label + ':' + result[2].label;
+                        var expect_date = date + ' ' + time;
+                        $('#driving .driving_hour').html(time);
+                        $(_this).find('.weui-cell__ft').text(expect_date);
+                    },
+                    id: 'ma_expect_time'
+                });
+            }
+        });
+
+
+    });
+
+
+</script>
+
+</body>
+</html>
