@@ -97,23 +97,14 @@
 
         $('#publish').click(function () {
 
-            // var formData = new FormData($('#updateForm')[0]);
-            var formData = new FormData();
-            formData.append('images', $('#updateForm')[0]);
+            var formData = new FormData($('#updateForm')[0]);
+            // var formData = new FormData();
+            // formData.append('images', $('#updateForm')[0]);
 
-            console.log(formData)
-            var url =base + 'Api/Home/appearance';
-            $.ajax({
-                type:'POST',
-                url:url,
-                data:formData,
-                contentType:undefined,
-                processData:false,
-                mimeType:"multipart/form-data",
-                success:function(data){
-
-                }
+            var sc = new contact(function (data) {
             });
+            sc.uploadImg(formData);
+
         })
 
 

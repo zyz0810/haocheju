@@ -15,6 +15,8 @@ contact.prototype = {
         ajax.post({
             url: base + 'Api/Home/appearance',
             data: data,
+            contentType: false,
+            processData: false,
             success: this.fn
         });
     },
