@@ -1,6 +1,29 @@
 <div class="page carpool">
+
+    <div id="carMode">
+        <div class="weui-mask_transparent actionsheet__mask" style="opacity: 0;display: none;"></div>
+        <div class="weui-actionsheet actionsheet">
+            <ul class="f17 tc">
+                <li class="bottomLine">本田</li>
+                <li class="bottomLine">本田</li>
+                <li class="bottomLine">本田</li>
+                <li class="bottomLine">本田</li>
+                <li class="bottomLine">本田</li>
+                <li class="bottomLine">本田</li>
+                <li class="bottomLine">本田</li>
+                <li class="bottomLine">本田</li><li class="bottomLine">本田</li>
+                <li class="bottomLine">本田</li>
+                <li class="bottomLine">本田</li>
+                <li class="bottomLine">本田</li>
+            </ul>
+            <!--<ul class="f17 tc">-->
+                <!--<li class="bottomLine">本田</li>-->
+            <!--</ul>-->
+        </div>
+    </div>
     <div class="page__bd" style="height: 100%;">
         <div class="weui-tab">
+            <!--<div class="mask"></div>-->
             <div class="weui-tab__panel">
                 <div class="weui-cells__title f14">确定联系人信息</div>
                 <div class="weui-cells weui-cells_form">
@@ -63,10 +86,10 @@
                         </div>
                         <div class="weui-cell__ft"></div>
                     </a>
-                    <div class="weui-cell">
+                    <div class="weui-cell" id="showCar">
                         <div class="weui-cell__hd"><label class="weui-label">车型</label></div>
                         <div class="weui-cell__bd">
-                            <input class="weui-input" type="text" placeholder="请填写车型">
+                            <input class="weui-input carModeTxt" type="text" placeholder="请填写车型">
                         </div>
                     </div>
                 </div>

@@ -7,3 +7,4 @@
 @import "../../js/service/first.js";
 @import "../../js/service/zixun.js";
 @import "../../js/service/personnel.js";
+@import "../../js/service/contact.js";

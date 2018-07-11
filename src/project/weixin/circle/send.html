@@ -21,6 +21,7 @@
     $(function () {
         pageManager.show("send");
 
+        // var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)"></li>',
         var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)"></li>',
             $gallery = $("#gallery"),
             $galleryImg = $("#galleryImg"),
@@ -52,6 +53,11 @@
                     src = e.target.result;
                 }
 
+
+                var index=$(this).siblings().length;
+                $(this).parent().append('<input name="images['+index+'].file" class="weui-uploader__input uploaderInput" style="display: none;" type="file" accept="image/*"/>');
+
+
                 $uploaderFiles.append($(tmpl.replace('#url#', src)));
             }
         });
@@ -68,17 +74,46 @@
         //删除图片
         $(".weui-gallery__del").click(function () {
             dialog.btn('确定删除此图片吗','确定',function () {
-                $uploaderFiles.find("li").eq(index).remove();
+                setTimeout(function () {
+                    $uploaderFiles.find("li").eq(index).remove();
+                },1000)
             })
         });
+
+
+
+
+
+
+
 
 
         $('#canal').click(function () {
             window.location.href = '/weixin/circle/index.html';
         });
+
+
+
+
         $('#publish').click(function () {
-            toast.show('发表成功');
-            window.location.href = '/weixin/circle/index.html';
+
+            // var formData = new FormData($('#updateForm')[0]);
+            var formData = new FormData();
+            formData.append('images', $('#updateForm')[0]);
+
+            console.log(formData)
+            var url =base + 'Api/Home/appearance';
+            $.ajax({
+                type:'POST',
+                url:url,
+                data:formData,
+                contentType:undefined,
+                processData:false,
+                mimeType:"multipart/form-data",
+                success:function(data){
+
+                }
+            });
         })
 
 
