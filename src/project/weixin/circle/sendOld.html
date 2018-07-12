@@ -20,42 +20,49 @@
 <script type="text/javascript">
     $(function () {
         pageManager.show("send");
+
+        // // var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)"></li>',
         var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)"></li>',
             $gallery = $("#gallery"),
             $galleryImg = $("#galleryImg"),
             $uploaderInput = $("#uploaderInput"),
             $uploaderFiles = $("#uploaderFiles");
         var maxSize = 1024 * 1024;
-        $uploaderInput.on('click',function () {
-            if($('.weui-uploader__files').find('li').length>=9){
-                toast.show('最多添加9张')
-            }else{
-                var index=$(this).siblings().length;
-                $(this).parent().append('<input name="images['+index+']" class="weui-uploader__input uploaderInput" style="display: none;" type="file" accept="image/*"/>');
-                $(this).parent().find("input").last().trigger("click");
-            }
-        });
-        $(document).on("change",".uploaderInput",function (e) {
-            var src, url = window.URL || window.webkitURL || window.mozURL, files = e.target.files;
-            if(files.length>1){
-                dialog.show('单次最多选择一张图片');
-                $uploaderInput.parent().find('input').last().remove();
-            }else{
-                for (var i = 0, len = files.length; i < len; ++i) {
-                    var file = files[i];
-                    if (file.size > maxSize) {
-                        toast.show('图片不能超过1M');
-                        continue;
-                    }
-                    if (url) {
-                        src = url.createObjectURL(file);
-                    } else {
-                        src = e.target.result;
-                    }
-                    $(this).parent().prev('ul').append($(tmpl.replace('#url#', src)));
-                }
-            }
-        });
+        // $uploaderInput.on("change", function (e) {
+        //     if ($('.weui-uploader__files').find('li').length >= 9) {
+        //         toast.show('最多添加9张');
+        //         return
+        //     }
+        //     var src, url = window.URL || window.webkitURL || window.mozURL,
+        //         files = e.target.files;
+        //     if(files.length>9){
+        //         toast.show('不能超过9张');
+        //         return
+        //     }
+        //     for (var i = 0, len = files.length; i < len; ++i) {
+        //         var file = files[i];
+        //
+        //         if (file.size > maxSize) {
+        //             toast.show('图片不能超过1M');
+        //             continue;
+        //         }
+        //
+        //         if (url) {
+        //             src = url.createObjectURL(file);
+        //         } else {
+        //             src = e.target.result;
+        //         }
+        //
+        //
+        //         var index=$(this).siblings().length;
+        //         $(this).parent().append('<input name="images['+index+']" class="weui-uploader__input uploaderInput" style="display: none;" type="file" accept="image/*"/>');
+        //         $(this).parent().find("input").last().trigger("click");
+        //         // $(this).parent().append('<input name="images" class="weui-uploader__input uploaderInput" style="display: none;" type="file" accept="image/*"/>');
+        //
+        //         $uploaderFiles.append($(tmpl.replace('#url#', src)));
+        //     }
+        // });
+
         var index; //第几张图片
         $uploaderFiles.on("click", "li", function () {
             index = $(this).index();
@@ -75,6 +82,52 @@
         });
 
 
+
+
+
+        $uploaderInput.on('click',function () {
+            if($('.weui-uploader__files').find('li').length>=9){
+                toast.show('最多添加9张')
+            }else{
+                var index=$(this).siblings().length;
+                $(this).parent().append('<input name="images['+index+']" class="weui-uploader__input uploaderInput" style="display: none;" type="file" accept="image/*"/>');
+                $(this).parent().find("input").last().trigger("click");
+            }
+        });
+        $(document).on("change",".uploaderInput",function (e) {
+            var src, url = window.URL || window.webkitURL || window.mozURL, files = e.target.files;
+            if(files.length>1){
+                dialog.show('单次最多选择一张图片');
+                $uploaderInput.parent().find('input').last().remove();
+            }else{
+                for (var i = 0, len = files.length; i < len; ++i) {
+                    var file = files[i];
+                    if (file.size > maxSize) {
+                                    toast.show('图片不能超过1M');
+                                    continue;
+                                }
+                    if (url) {
+                        src = url.createObjectURL(file);
+                    } else {
+                        src = e.target.result;
+                    }
+                    $(this).parent().prev('ul').append($(tmpl.replace('#url#', src)));
+                }
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
         $('#canal').click(function () {
             window.location.href = '/weixin/circle/index.html';
         });
@@ -82,17 +135,11 @@
 
         $('#publish').click(function () {
             var sc = new contact(function (data) {
-                toast.show('发布成功');
-                setTimeout(function () {
-                    window.location.href = '/weixin/circle/index.html';
-                },1000)
             });
             var formData = new FormData($('#updateForm')[0]);
-            var txt = $('#sendTxt').val();
-            formData.append('content',txt);
-            formData.append('userId','1');
             sc.uploadImg(formData);
         })
+
 
     });
 </script>

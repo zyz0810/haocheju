@@ -14,6 +14,9 @@
 <!--首页-->
 <link rel="import" href="../../../../pages/carpool/find/people.html">
 
+<link rel="import" href="../../../../model/templete/carpool/carMode.html">
+<link rel="import" href="../../../../model/templete/carpool/carBrand.html">
+
 @import "../../../../model/widget/include/toast.html";
 @import "../../../../model/widget/include/dialog.html";
 <script src="/weixin/js/wap.min.js"></script>
@@ -22,20 +25,21 @@
         pageManager.show("people");
 
         function p(s) {
-            return s < 10 ? '0' + s: s;
+            return s < 10 ? '0' + s : s;
         }
+
         var myDate = new Date();
-        var year=myDate.getFullYear();
-        var month=myDate.getMonth()+1;
-        var date=myDate.getDate();
-        var h=myDate.getHours();       //获取当前小时数(0-23)
-        var m=myDate.getMinutes();     //获取当前分钟数(0-59)
-        var s=myDate.getSeconds();
-        var now=year+'-'+p(month)+"-"+p(date);
-        var time=p(h)+':'+p(m)+":"+p(s);
+        var year = myDate.getFullYear();
+        var month = myDate.getMonth() + 1;
+        var date = myDate.getDate();
+        var h = myDate.getHours();       //获取当前小时数(0-23)
+        var m = myDate.getMinutes();     //获取当前分钟数(0-59)
+        var s = myDate.getSeconds();
+        var now = year + '-' + p(month) + "-" + p(date);
+        var time = p(h) + ':' + p(m) + ":" + p(s);
         $('.showDatePicker').html(now);
         $('.showTimePicker').html(time);
-        $(document).on('click','#showDatePicker',function () {
+        $(document).on('click', '#showDatePicker', function () {
             weui.datePicker({
                 start: new Date().getFullYear(),
                 end: new Date().getFullYear(),
@@ -47,7 +51,7 @@
                 }
             });
         });
-        $(document).on('click','#showTimePicker',function () {
+        $(document).on('click', '#showTimePicker', function () {
             weui.datePicker({
                 start: new Date().getFullYear(),
                 end: new Date().getFullYear(),
@@ -69,7 +73,7 @@
             }, {
                 label: '3',
                 value: 3
-            },{
+            }, {
                 label: '4',
                 value: 4
             }], {
@@ -82,19 +86,46 @@
             });
         });
 
+
+        var carsMode = new cars(function (data) {
+            var mode = render.fill($("#tpl_carMode"), data);
+            $(".cars").html(mode);
+        });
+        carsMode.mode();
+        var id = $('.cars li').first().attr('data-id');
+
+
         $('#showCar').click(function () {
             $("#carMode").actionsheet();
-            $('.mask').css({'display':'block'});
+            $('.mask').css({'display': 'block'});
         });
-        $('#carMode ul li').click(function () {
-            $('#showCar .carModeTxt').val($(this).html());
-            $("#carMode").actionsheetClose();
-            $('.mask').css({'display':'none'});
+
+        $('#brandBtn').click(function () {
+
+            if ($('.carModeTxt').val() == '') {
+                toast.show('请先填写车系')
+            } else {
+                $("#brand").actionsheet();
+            }
         });
-        $('.mask').click(function () {
-            $('#showCar .carModeTxt').val($(this).html());
+
+        $(document).on('click', '#carMode ul li', function () {
+            var id = $(this).attr('data-id');
+            $('.carModeTxt').val($(this).html());
+            $('.carModeTxt').attr('data-id', id);
+            new cars(function (data) {
+                var mode = render.fill($("#tpl_carBrand"), data.productList);
+                $(".carBrand").html(mode);
+            }).brand({carId: id});
             $("#carMode").actionsheetClose();
-            $('.mask').css({'display':'none'});
+        });
+
+        // $('.brand ul li').click(function () {
+        $(document).on('click', '#brand ul li', function () {
+            var id = $(this).attr('data-id');
+            $('.carBrandtxt').val($(this).html());
+            $('.carBrandtxt').attr('data-id', id);
+            $("#brand").actionsheetClose();
         });
 
     });

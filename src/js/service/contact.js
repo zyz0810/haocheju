@@ -10,10 +10,12 @@ contact.prototype = {
     /**
      * 发表动态
      * images[{file 文件}]  图片集合
+     * content  发布内容
+     * userId  会员ID
      */
     uploadImg: function (data) {
         ajax.post({
-            url: base + 'Api/Home/appearance',
+            url: base + 'Api/Circle/pullcircle',
             data: data,
             contentType: false,
             processData: false,
@@ -55,7 +57,7 @@ contact.prototype = {
      */
     save: function (data) {
         ajax.post({
-            url: base + 'weixin/member/contact/save.jhtml',
+            url:'http://dev.tiaohuo.com/weixin/member/contact/save.jhtml',
             data: data,
             contentType: false,
             processData: false,

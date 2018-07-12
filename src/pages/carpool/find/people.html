@@ -3,82 +3,73 @@
     <div id="carMode">
         <div class="weui-mask_transparent actionsheet__mask" style="opacity: 0;display: none;"></div>
         <div class="weui-actionsheet actionsheet">
-            <ul class="f17 tc">
-                <li class="bottomLine">本田</li>
-                <li class="bottomLine">本田</li>
-                <li class="bottomLine">本田</li>
-                <li class="bottomLine">本田</li>
-                <li class="bottomLine">本田</li>
-                <li class="bottomLine">本田</li>
-                <li class="bottomLine">本田</li>
-                <li class="bottomLine">本田</li><li class="bottomLine">本田</li>
-                <li class="bottomLine">本田</li>
-                <li class="bottomLine">本田</li>
-                <li class="bottomLine">本田</li>
-            </ul>
-            <!--<ul class="f17 tc">-->
-                <!--<li class="bottomLine">本田</li>-->
-            <!--</ul>-->
+            <ul class="f17 tc cars f12"></ul>
+        </div>
+    </div>
+    <div id="brand">
+        <div class="weui-mask_transparent actionsheet__mask" style="opacity: 0;display: none;"></div>
+        <div class="weui-actionsheet actionsheet">
+            <ul class="f17 tc carBrand"></ul>
         </div>
     </div>
     <div class="page__bd" style="height: 100%;">
         <div class="weui-tab">
             <!--<div class="mask"></div>-->
-            <div class="weui-tab__panel">
+            <div class="weui-tab__panel f14">
                 <div class="weui-cells__title f14">确定联系人信息</div>
                 <div class="weui-cells weui-cells_form">
-                    <a class="weui-cell weui-cell_access" href="javascript:;">
-                        <div class="weui-cell__hd f16">姓名</div>
+                    <a class="weui-cell weui-cell_access f14" href="javascript:;">
+                        <div class="weui-cell__hd">姓名</div>
                         <div class="weui-cell__bd"><input class="weui-input tr" type="text" value="张三"></div>
                         <div class="weui-cell__ft"></div>
                     </a>
-                    <a class="weui-cell weui-cell_access" href="javascript:;">
-                        <div class="weui-cell__hd f16">性别</div>
+                    <a class="weui-cell weui-cell_access f14" href="javascript:;">
+                        <div class="weui-cell__hd">性别</div>
                         <div class="weui-cell__bd"><input class="weui-input tr" type="text" value="男"></div>
                         <div class="weui-cell__ft">男</div>
                     </a>
-                    <a class="weui-cell weui-cell_access" href="javascript:;">
-                        <div class="weui-cell__hd f16">手机号码</div>
+                    <a class="weui-cell weui-cell_access f14" href="javascript:;">
+                        <div class="weui-cell__hd">手机号码</div>
                         <div class="weui-cell__bd"><input class="weui-input tr" type="text" value="15155133955"></div>
                         <div class="weui-cell__ft"></div>
                     </a>
                 </div>
                 <div class="weui-cells__title f14">填写拼车信息</div>
                 <div class="weui-cells weui-cells_form">
-                    <div class="weui-cell">
+                    <div class="weui-cell f14">
                         <div class="weui-cell__hd"><label class="weui-label">出发地</label></div>
                         <div class="weui-cell__bd">
                             <input class="weui-input" type="text" placeholder="请填写出发地">
                         </div>
                     </div>
-                    <div class="weui-cell">
+                    <div class="weui-cell f14">
                         <div class="weui-cell__hd"><label class="weui-label">目的地</label></div>
                         <div class="weui-cell__bd">
                             <input class="weui-input" type="text" placeholder="请填写目的地">
                         </div>
                     </div>
-                    <div class="weui-cell">
+                    <div class="weui-cell f14">
                         <div class="weui-cell__hd"><label class="weui-label">途径地</label></div>
                         <div class="weui-cell__bd">
                             <input class="weui-input" type="text" placeholder="请填写途径地">
                         </div>
                     </div>
-                    <a class="weui-cell weui-cell_access" id="showDatePicker" href="javascript:;">
-                        <div class="weui-cell__hd f16">
+                    <a class="weui-cell weui-cell_access f14" id="showDatePicker" href="javascript:;">
+                        <div class="weui-cell__hd">
                             <label class="weui-label">出发日期</label>
                         </div>
                         <div class="weui-cell__bd showDatePicker"></div>
                         <div class="weui-cell__ft"></div>
                     </a>
-                    <a class="weui-cell weui-cell_access" id="showTimePicker" href="javascript:;">
-                        <div class="weui-cell__hd f16">
+                    <a class="weui-cell weui-cell_access f14" id="showTimePicker" href="javascript:;">
+                        <div class="weui-cell__hd">
                             <label class="weui-label">出发时间</label>
                         </div>
                         <div class="weui-cell__bd showTimePicker"></div>
                         <div class="weui-cell__ft"></div>
                     </a>
-                    <a class="weui-cell weui-cell_access" id="showPeoplePicker" href="javascript:;">
-                        <div class="weui-cell__hd f16">
+                    <a class="weui-cell weui-cell_access f14" id="showPeoplePicker" href="javascript:;">
+                        <div class="weui-cell__hd">
                             <label class="weui-label">空位</label>
                         </div>
                         <div class="weui-cell__bd">
@@ -86,10 +77,11 @@
                         </div>
                         <div class="weui-cell__ft"></div>
                     </a>
-                    <div class="weui-cell" id="showCar">
+                    <div class="weui-cell f14">
                         <div class="weui-cell__hd"><label class="weui-label">车型</label></div>
                         <div class="weui-cell__bd">
-                            <input class="weui-input carModeTxt" type="text" placeholder="请填写车型">
+                            <input class="weui-input carModeTxt fl"  id="showCar" type="text" placeholder="请填写车系">
+                            <input class="weui-input carBrandtxt fl" id="brandBtn" type="text" placeholder="请填写品牌">
                         </div>
                     </div>
                 </div>
