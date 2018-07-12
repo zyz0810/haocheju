@@ -8,6 +8,18 @@ var contact = function (fn) {
 
 contact.prototype = {
     /**
+     * 说说列表
+     * pageSize 页大小
+     * pageNumber 页号
+     */
+    list: function (data) {
+        ajax.get({
+            url: base + 'Api/Circle/index',
+            data: data,
+            success: this.fn
+        });
+    },
+    /**
      * 发表动态
      * images[{file 文件}]  图片集合
      * content  发布内容
@@ -34,19 +46,7 @@ contact.prototype = {
 
 
 
-    /**
-     * 导购说说列表
-     * memberId 会员Id
-     * pageSize 页大小
-     * pageNumber 页号
-     */
-    list: function (data) {
-        ajax.get({
-            url: base + 'weixin/member/contact/list.jhtml',
-            data: data,
-            success: this.fn
-        });
-    },
+
     /**
      * 发表说说
      * content  内容
