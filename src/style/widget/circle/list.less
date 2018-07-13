@@ -3,26 +3,88 @@
 }
 //车友圈列表
 .circle_list{
+  .weui-cell_access{
+    .sr_weui-cell();
+    .weui-cell__bd{
+      .sr_weui-cell__bd();
+    }
+    &:active {
+      background-color: @white;
+    }
+  }
   .weui-cell{
-    padding-bottom: 0;
-    .weui-cell__hd{
+    .headImg{
       font-size: 0;
-      width: 10%;
+      width: 10vw;
+      height: 10vw;
       margin-right: 2%;
       img{
-        border-radius: 50%;
+        border-radius: 2px;
       }
     }
   }
-  .circle_txt,.circle_img,.zan_people,.operation,.comment{
-    padding: 2%;
-    width: 84%;
-    margin-left: 12%;
+  .operation{
+    position: relative;
+    //width: 82%;
+    //margin-left: 12%;
+    padding: 0;
+    line-height: 1;
+    .operationCont{
+      position: absolute;
+      right: 30px;
+      top: -5px;
+      color: @white;
+      width: 160px;
+      padding: 8px 0;
+      border-radius: 5px;
+      i{
+        margin-right: 3px;
+      }
+      .weui-flex__item{
+        position: relative;
+        &:nth-child(1){
+          &:after{
+            .mixin(right,solid,@gray02);
+          }
+        }
+        span{
+          position: relative;
+          top: -2px;
+        }
+      }
+    }
+  }
+
+  .operationTxt{
+    position: relative;
+    //width: 84%;
+    padding: 0;
+    margin: 8px 0 0 0;
+    border-radius: 3px;
+    .arrow_top{
+      position: absolute;
+      top: -8px;
+      left: 10px;
+      width:0;
+      height:0;
+      border-width:0 10px 10px;
+      border-style:solid;
+      border-color:transparent transparent @gray08;/*透明 透明  灰*/
+    }
+    .zan_people,.comment{
+      padding: 1% 2%;
+      line-height: 1.6;
+      p{
+        margin: 0 0 2px;
+      }
+    }
   }
   .circle_txt{
-    padding-top: 0;
+    padding-top: 2%;
   }
   .circle_img{
+    padding-top: 2%;
+    font-size: 0;
     img{
       width: 32%;
       margin: 0 2% 2% 0;

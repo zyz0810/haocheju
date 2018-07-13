@@ -14,6 +14,8 @@
 <!--首页-->
 <link rel="import" href="../../../pages/circle/index.html">
 
+<link rel="import" href="../../../model/templete/circle/list.html">
+
 @import "../../../model/widget/include/toast.html";
 @import "../../../model/widget/include/dialog.html";
 <script src="/weixin/js/wap.min.js"></script>
@@ -64,22 +66,34 @@
         // });
 
 
-        var imgsObj = $('.sendimg');
-        var imgs = new Array();
-        for(var i = 0; i < imgsObj.size(); i++){
-            imgs.push(imgsObj.eq(i).attr('src'));
-        };
-        $(document).on('click','.sendimg',function () {
-            WeixinJSBridge.invoke('imagePreview', {
-                'current': $(this).attr('src'),
-                'urls': imgs
-            });
+
+
+
+        $(document).on('click','.operation_btn',function () {
+           $('.operationCont').toggleClass('none');
         });
 
 
-
         new contact(function (data) {
-            console.log(data)
+            console.log(data);
+            $("#index_slider").silderDot(data, 1800, "");
+            var circle = render.fill($("#tpl_list"), data.return_new);
+            $(".circle_list").html(circle);
+
+
+            var imgsObj = $('.sendimg');
+            var imgs = new Array();
+            for(var i = 0; i < imgsObj.size(); i++){
+                imgs.push(imgsObj.eq(i).attr('src'));
+            };
+
+            $(document).on('click','.sendimg',function () {
+                WeixinJSBridge.invoke('imagePreview', {
+                    'current': $(this).attr('src'),
+                    'urls': imgs
+                });
+            });
+
         }).list()
 
 
