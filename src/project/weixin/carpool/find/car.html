@@ -37,26 +37,49 @@
         $('.showTimePicker').html(time);
         $(document).on('click','#showDatePicker',function () {
             weui.datePicker({
-                start: new Date().getFullYear(),
-                end: new Date().getFullYear(),
+                start: new Date(),
+                end: new Date().getFullYear()+1,
+                defaultValue: [year,month,date],
                 onChange: function (result) {
                     console.log(result);
                 },
                 onConfirm: function (result) {
-                    $('.showDatePicker').html(result);
+                    var year = result[0].value;
+                    var month = result[1].value;
+                    var date = result[2].value;
+                    $('.showDatePicker').html(year + '-' + month + '-' + date);
                 }
             });
         });
         $(document).on('click','#showTimePicker',function () {
-            weui.datePicker({
-                start: new Date().getFullYear(),
-                end: new Date().getFullYear(),
-                onChange: function (result) {
-                    console.log(result);
-                },
-                onConfirm: function (result) {
-                    $('.showTimePicker').html(result);
+            var hours = [],
+                minites = [],
+                symbol = [{label: ':', value: 0}];
+
+            // var date = date[0].label + date[1].label + date[2].label;
+            if (!hours.length) {
+                for (var i = 0; i < 24; i++) {
+                    var hours_item = {};
+                    hours_item.label = ('' + i).length === 1 ? '0' + i : '' + i;
+                    hours_item.value = i;
+                    hours.push(hours_item);
                 }
+            }
+            if (!minites.length) {
+                minites = [
+                    {label: '00', value: '00'},
+                    {label: '30', value: '30'}
+                ];
+
+            }
+            weui.picker(hours, symbol, minites, {
+                defaultValue: [new Date().getHours() + 1, 0, 0],
+                onConfirm: function (result) {
+                    var time = result[0].label + ':' + result[2].label;
+                    var expect_date = date + ' ' + time;
+                    $('.showTimePicker').html(time);
+                },
+                id: 'ma_expect_time'
             });
         });
         $('#showPeoplePicker').on('click', function () {

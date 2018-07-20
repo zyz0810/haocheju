@@ -351,12 +351,22 @@
                     }
                 }
                 if (!minites.length) {
-                    for (var j = 0; j < 60; j++) {
-                        var minites_item = {};
-                        minites_item.label = ('' + j).length === 1 ? '0' + j : '' + j;
-                        minites_item.value = j;
-                        minites.push(minites_item);
-                    }
+                    // for (var j = 0; j < 60; j++) {
+                    //     var minites_item = {};
+                    //     minites_item.label = ('' + j).length === 1 ? '0' + j : '' + j;
+                    //     minites_item.value = j;
+                    //     minites.push(minites_item);
+                    // }
+                    // var minites_item = {};
+                    // minites_item.label = ['0','30'];
+                    // minites_item.value = ['0','30'];
+                    // minites.push(minites_item);
+
+                    minites = [
+                        {label: '00', value: '00'},
+                        {label: '30', value: '30'}
+                        ];
+
                 }
                 weui.picker(hours, symbol, minites, {
                     defaultValue: [new Date().getHours() + 1, 0, 0],
@@ -414,12 +424,16 @@
                     }
                 }
                 if (!minites.length) {
-                    for (var j = 0; j < 60; j++) {
-                        var minites_item = {};
-                        minites_item.label = ('' + j).length === 1 ? '0' + j : '' + j;
-                        minites_item.value = j;
-                        minites.push(minites_item);
-                    }
+                    // for (var j = 0; j < 60; j++) {
+                    //     var minites_item = {};
+                    //     minites_item.label = ('' + j).length === 1 ? '0' + j : '' + j;
+                    //     minites_item.value = j;
+                    //     minites.push(minites_item);
+                    // }
+                    minites = [
+                        {label: '00', value: '00'},
+                        {label: '30', value: '30'}
+                    ];
                 }
                 weui.picker(hours, symbol, minites, {
                     defaultValue: [new Date().getHours() + 1, 0, 0],
