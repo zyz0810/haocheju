@@ -7,11 +7,18 @@ var member = function (fn) {
     this.fn = fn;
 };
 member.prototype = {
-    checkLogin: function (async) {
-        ajax.get({
-            async: async,
-            url: base + 'weixin/index/check_login.jhtml',
-            success: this.fn
+    // checkLogin: function (async) {
+    //     ajax.get({
+    //         async: async,
+    //         url: base + 'weixin/index/check_login.jhtml',
+    //         success: this.fn
+    //     });
+    // },
+    checkLogin: function (data) {
+        ajax.post({
+            url:'http://dev.susonghaoniu.com/Api/User/login',
+            success: this.fn,
+            data:data
         });
     },
     /**

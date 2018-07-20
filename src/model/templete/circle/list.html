@@ -19,16 +19,16 @@
         <div class="weui-cell bordernone operation">
             <div class="weui-cell__hd time f10 gray04">{{addtime}}</div>
             <div class="weui-cell__bd tr">
-                <i class="iconfont icon-pinglun f20 blue01 operation_btn"></i>
+                <i class="iconfont icon-pinglun f20 blue01 operation_btn" id="{{id}}"></i>
                 <div class="operationCont gray07_bg f10 weui-flex none">
-<span class="weui-flex__item tc">
-<i class="iconfont icon-heart f16"></i>
-<span>点赞</span>
-</span>
                     <span class="weui-flex__item tc">
-<i class="iconfont icon-pinglun-copy f16"></i>
-<span>评论</span>
-</span>
+                        <i class="iconfont icon-heart f16"></i>
+                        <span>点赞</span>
+                    </span>
+                    <span class="weui-flex__item tc">
+                        <i class="iconfont icon-pinglun-copy f16"></i>
+                        <span>评论</span>
+                    </span>
                 </div>
             </div>
         </div>
@@ -42,12 +42,15 @@
                 <i class="iconfont icon-heart f12 blue02"></i>
                 <span class="blue02 f12">文文，小李</span>
             </div>
+
             <div class="comment topLine">
-                <p class="f11 gray02"><span class="blue02">小猫咪：</span>好漂亮啊</p>
-                <p class="f11 gray02"><span class="blue02">小猫咪：</span>好漂亮啊,车型好好看，性价比很高，好漂亮啊,车型好好看，性价比很高
-                </p>
-                <p class="f11 gray02"><span class="blue02">小猫咪：</span>好漂亮啊</p>
+                {{#each comment}}
+                <p class="f11 gray02"><span class="blue02">{{author}}：</span>{{comment}}</p>
+                {{/each}}
+                <p class="f11 gray02"><span class="blue02">{{author}}</span>回复<span class="blue02">{{author}}：</span>{{comment}}</p>
             </div>
+
+
         </div>
     </div>
 </div>

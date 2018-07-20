@@ -390,6 +390,11 @@ var isWeiXin = function() {
 
 $(function () {
     // new member().checkLogin();
+
+    new member(function (data) {
+        console.log(data)
+    }).checkLogin({phonenum:'15056575017'});
+
 });
 
 /* ==========================================================================
