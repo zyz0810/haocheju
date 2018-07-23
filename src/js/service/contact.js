@@ -13,7 +13,7 @@ contact.prototype = {
      * pageNumber 页号
      */
     list: function (data) {
-        ajax.get({
+        ajax.post({
             url: base + 'Api/Circle/index',
             data: data,
             success: this.fn
@@ -34,11 +34,32 @@ contact.prototype = {
             success: this.fn
         });
     },
-
-
-
-
-
+    /**
+     * 点赞
+     * pid     说说ID
+     * userId  用户ID
+     */
+    liked: function (data) {
+        ajax.post({
+            url: base + 'Api/Circle/spot',
+            data: data,
+            success: this.fn
+        });
+    },
+    /**
+     * 点赞
+     * pauthor 被回复者
+     * author  回复者
+     * cid     说说Id
+     * conmment评论内容
+     */
+    reply: function (data) {
+        ajax.post({
+            url: base + 'Api/Circle/issue',
+            data: data,
+            success: this.fn
+        });
+    },
 
 
 
@@ -69,13 +90,13 @@ contact.prototype = {
      * id 说说Id
      * content 回复内容
      */
-    reply:function (data) {
-        ajax.post({
-            url: base + 'weixin/member/contact/reply.jhtml',
-            data: data,
-            success: this.fn
-        });
-    },
+    // reply:function (data) {
+    //     ajax.post({
+    //         url: base + 'weixin/member/contact/reply.jhtml',
+    //         data: data,
+    //         success: this.fn
+    //     });
+    // },
     /**
      * 详情
      * id   说说Id

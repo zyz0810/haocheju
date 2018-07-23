@@ -3,7 +3,7 @@
 }
 //车友圈列表
 .circle_list{
-  .weui-cell_access{
+  .circle_item{
     .sr_weui-cell();
     .weui-cell__bd{
       .sr_weui-cell__bd();
@@ -35,13 +35,13 @@
       top: -5px;
       color: @white;
       width: 160px;
-      padding: 8px 0;
       border-radius: 5px;
       i{
         margin-right: 3px;
       }
       .weui-flex__item{
         position: relative;
+        padding: 8px 0;
         &:nth-child(1){
           &:after{
             .mixin(right,solid,@gray02);
@@ -53,6 +53,22 @@
         }
       }
     }
+  }
+
+  .comment_area{
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+    z-index: 100000;
+    width: 96%;
+    background: #fff;
+    padding: 2%;
+    input{
+      width: 94%;
+      padding: 5px;
+      margin-right: 5px;
+      border: 1px solid #ededed;
+   }
   }
 
   .operationTxt{
@@ -75,6 +91,7 @@
       padding: 1% 2%;
       line-height: 1.6;
       p{
+        word-break:break-all;
         margin: 0 0 2px;
       }
     }
