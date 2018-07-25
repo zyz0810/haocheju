@@ -42,6 +42,7 @@
       .weui-flex__item{
         position: relative;
         padding: 8px 0;
+        cursor: pointer;
         &:nth-child(1){
           &:after{
             .mixin(right,solid,@gray02);
@@ -70,6 +71,9 @@
       border: 1px solid #ededed;
    }
   }
+  .operation_btn{
+    cursor: pointer;
+  }
 
   .operationTxt{
     position: relative;
@@ -93,6 +97,11 @@
       p{
         word-break:break-all;
         margin: 0 0 2px;
+      }
+    }
+    .zan_people{
+      div{
+        display: inline-block;
       }
     }
   }
@@ -125,6 +134,9 @@
   }
   .comment{
     position: relative;
+    p{
+      cursor: pointer;
+    }
   }
 }
 

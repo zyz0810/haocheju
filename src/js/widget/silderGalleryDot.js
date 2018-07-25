@@ -18,7 +18,12 @@
             var str = '';
             for (var i = 0; i < this.data.return_banner.length; i++) {
                 var _url = "";
-                _url = this.data.return_banner[i].linkurl;
+                if(this.data.return_banner[i].linkurl == ''){
+                    _url = 'javascript:;';
+                }else {
+                    _url = this.data.return_banner[i].linkurl;
+                }
+
                 if ((i % 1) == 0) {
                     str = '<a href="' + _url + '">';
                 }

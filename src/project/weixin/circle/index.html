@@ -85,7 +85,7 @@
                 }
                 index++;
             }, 50)
-        })
+        });
 
 
         var aa = new contact(function (data) {
@@ -217,7 +217,7 @@
                         if(data.return_new[i].images != null){
                             str += '<div class="circle_img clearfix">';
                             for(var j = 0;j < data.return_new[i].images.length; j++){
-                                str += '<img class="sendimg" src="' + data.return_new[i].images[j].images + '"/>';
+                                str += '<img class="sendimg" src="' + data.return_new[i].images[j] + '"/>';
                             }
                             str += '</div>';
                         }
@@ -239,16 +239,16 @@
                             if(data.return_new[i].spotlist != ''){
                                 str += '<div class="zan_people">';
                                 str += '<i class="iconfont icon-heart f13 blue02"></i>';
-                                str += '<span class="blue02 f13">';
+                                str += '<div class="blue02 f13">';
                                 for(var l = 0; l < data.return_new[i].spotlist.length;l++){
-                                    if(l=='0'){
-                                        str += '<span>' + data.return_new[i].spotlist[l].nickname + '<span>';
+                                    if(l==data.return_new[i].spotlist.length - 1){
+                                        str += '<div><span>' + data.return_new[i].spotlist[l].nickname + '<span></div>';
                                     }else{
-                                        str += '，<span>' + data.return_new[i].spotlist[l].nickname + '<span>';
+                                        str += '<div><span>' + data.return_new[i].spotlist[l].nickname + '<span>，</div>';
                                     }
 
                                 }
-                                str += '</span>';
+                                str += '</div>';
                                 str += '</div>';
                             }
 
@@ -291,32 +291,42 @@
                     });
 
                     $(document).on('click','.dianzan',function () {
+                        var $this = $(this);
                         var id = $(this).parent().attr('id');
                         console.log(id);
                         new member(function (res) {
-                            new contact(function () {
+                            new contact(function (data) {
                                 // console.log($('#' + id).find('.dianzan_txt').html());
-                                $('#' + id).find('.dianzan_txt').toggleClass('none');
-                                $('#' + id).find('.quxiao_txt').toggleClass('none');
-                                if($('#' + id).find('.dianzan_txt').hasClass('none')){
+                                // $('#' + id).find('.dianzan_txt').toggleClass('none');
+                                // $('#' + id).find('.quxiao_txt').toggleClass('none');
 
-                                    if($(this).parent().parent().parent().parent().find('.zan_people')){
-                                        // alert(1)
-                                        $(this).parent().parent().parent().parent().find('.zan_people .blue02').append('<span>我的名字</span>')
-                                    }else{
-                                        // alert(0)
-                                        $(this).parent().parent().parent().parent().find('.zan_people .blue02').append('<div class="zan_people"><i class="iconfont icon-heart f12 blue02"></i><span class="blue02 f13"><span>我的名字</span></span></div>')
-                                    }
+                                console.log('点赞：'+data.isspot);
+                                console.log(data);
 
-                                    console.log($(this).parent().parent().parent().parent().find('.zan_people .blue02').html());
-                                }else{
+                                if(data.isspot == '0'){
+                                    console.log('取消点赞');
+                                    $('#' + id).find('.dianzan_txt').removeClass('none');
+                                    $('#' + id).find('.quxiao_txt').addClass('none');
                                     // var name = $(this).parent().parent().parent().parent().find('.zan_people > .blue02 span');
-                                    $(this).parent().parent().parent().parent().find('.zan_people > .blue02 span').each(function () {
-                                        var name = $(this).html();
-                                        if(res.username == name){
-                                            alert(name)
+                                    $this.parent().parent().parent().parent().find('.zan_people > div.blue02 > div').each(function () {
+                                        var name = $(this).find('span').html();
+                                        if(res.nickname == name){
+                                            if($(this).parent().children().length == '1'){
+                                                $(this).parent().parent().parent().remove();
+                                            }else {
+                                                $(this).remove();
+                                            }
                                         }
                                     })
+                                }else{
+                                    console.log('点赞');
+                                    $('#' + id).find('.dianzan_txt').addClass('none');
+                                    $('#' + id).find('.quxiao_txt').removeClass('none');
+                                    if($this.parent().parent().parent().next().hasClass('operationTxt')){
+                                        $this.parent().parent().parent().parent().find('.zan_people>div.blue02').prepend('<div><span class="11">' + res.nickname + '</span>，</div>')
+                                    }else{
+                                        $this.parent().parent().parent().parent().append('<div class="operationTxt gray08_bg"><span class="arrow_top"></span><div class="zan_people"><i class="iconfont icon-heart f12 blue02"></i><div class="blue02 f13"><div><span>' + res.nickname + '</span></div></div></div></div>')
+                                    }
                                 }
                             }).liked({pid:id,userId:1})
                         }).checkLogin({phonenum:'15056575017'});
