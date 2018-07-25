@@ -393,6 +393,9 @@ $(function () {
 
     new member(function (data) {
         console.log(data);
+        cookie.setCookie("userId", data.userId, 1)
+
+
     }).checkLogin({phonenum:'15056575017'});
 
 });

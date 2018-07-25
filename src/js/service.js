@@ -9,3 +9,4 @@
 @import "../../js/service/personnel.js";
 @import "../../js/service/contact.js";
 @import "../../js/service/cars.js";
+@import "../../js/service/tenant.js";

@@ -20,6 +20,44 @@
 <script type="text/javascript">
     $(function () {
         pageManager.show("index");
+
+        $('.newTab').click(function () {
+            $('.newCar').removeClass('none');
+            $('.usedCar').addClass('none');
+        });
+        $('.usedTab').click(function () {
+            $('.newCar').addClass('none');
+            $('.usedCar').removeClass('none');
+        });
+
+
+        var pge = $(".pageable").pageable({
+            loadUpFn: function (me) {
+                var tu = new tenant(function (data) {
+                    var h = render.fill($("#tpl_list"), data.return_newcar);
+                    $(".pageable .list_cart").html(h);
+                    $('img').picLazyLoad();
+                    pge.resetload();
+                });
+                me.pageNumber = 1;
+                tu.usedCar({page:me.pageNumber});
+            },
+            loadDownFn: function (me) {
+                var td = new tenant(function (data) {
+                    me.pageNumber = me.pageNumber + 1;
+                    var h = render.fill($("#tpl_list"), data.return_newcar);
+                    $(".pageable .list_cart").append(h);
+                    $('img').picLazyLoad();
+                    if (data.return_newcar.length < 10) {
+                        pge.lock();
+                        pge.noData();
+                    }
+                    pge.resetload();
+                });
+                td.usedCar({page:me.pageNumber});
+            }
+        });
+
     });
 </script>
 
