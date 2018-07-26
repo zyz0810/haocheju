@@ -14,6 +14,8 @@
 <!--首页-->
 <link rel="import" href="../../../../pages/car/new/index.html">
 
+<!--模板-->
+<link rel="import" href="../../../../model/templete/car/new.html">
 @import "../../../../model/widget/include/toast.html";
 @import "../../../../model/widget/include/dialog.html";
 <script src="/weixin/js/wap.min.js"></script>
@@ -22,6 +24,7 @@
 
     $(function () {
         pageManager.show("index");
+        var id = pageManager.GetQueryString('id');
         //顶部轮播图片
         // var ads = new ad(
         //     function (data) {
@@ -47,6 +50,14 @@
             animateTime: 800, // ms
             plugins: ['dot']
         });
+
+        new cars(function (data) {
+            // $("#index_slider").silderDot(data, 1800, "");
+            var h = render.fill($("#tpl_new"), data);
+            $(".pageable .car_instro").html(h);
+            $('.Carcont').html(data.carcontent)
+        }).newView({id:pageManager.GetQueryString("id")});
+
     });
 
 

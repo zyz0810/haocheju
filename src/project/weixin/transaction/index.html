@@ -14,8 +14,8 @@
 <!--首页-->
 <link rel="import" href="../../../pages/transaction/index.html">
 
-<link rel="import" href="../../../model/templete/transaction/list.html"> <!--优惠券列表模板-->
-
+<link rel="import" href="../../../model/templete/transaction/brand.html"> <!--品牌列表-->
+<link rel="import" href="../../../model/templete/transaction/list.html"> <!--汽贸交易列表-->
 @import "../../../model/widget/include/toast.html";
 @import "../../../model/widget/include/dialog.html";
 <script src="/weixin/js/wap.min.js"></script>
@@ -49,6 +49,9 @@
 
         var aa = new tenant(function (data) {
             $("#index_slider").silderDot(data, 1800, "");
+            var h = render.fill($("#tpl_brand"), data.brandlist);
+            console.log(data.brandlist);
+            $('.brand').html(h)
         });
         aa.list();
 

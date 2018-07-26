@@ -35,6 +35,16 @@ tenant.prototype = {
             url: base + "Api/Provider/newindex",
             success: this.fn
         });
+    },
+    /**
+     * 二手车区列表
+     * page 页码
+     */
+    usedCar: function () {
+        ajax.post({
+            url: base + "Api/Oldcar/index",
+            success: this.fn
+        });
     }
 };
 

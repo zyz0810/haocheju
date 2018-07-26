@@ -22,6 +22,7 @@
     $(function () {
         pageManager.show("index");
         var userId = cookie.getCookie('userId');
+        var myname = cookie.getCookie('userName');
 
         $('#publish').click(function () {
             window.location.href = '/weixin/circle/send.html';
@@ -88,10 +89,10 @@
             }, 50)
         });
 
-        // var aa = new contact(function (data) {
-        //     $("#index_slider").silderDot(data, 1800, "");
-        // });
-        // aa.list();
+        var aa = new contact(function (data) {
+            $("#index_slider").silderDot(data, 1800, "");
+        });
+        aa.list();
 
         var pge = $(".pageable").pageable({
             loadUpFn: function (me) {
@@ -120,7 +121,7 @@
                         str += '<div class="weui-cell__bd tr" data-id="' + data.return_new[i].id + '">';
                         str += '<i class="iconfont icon-pinglun f20 blue01 operation_btn"></i>';
                         str += '<div class="operationCont gray07_bg f10 weui-flex none" id="' + data.return_new[i].id + '">';
-                        str += '<span class="weui-flex__item tc dianzan" data-name="' + data.return_new[i].username + '"><i class="iconfont icon-heart f16"></i>';
+                        str += '<span class="weui-flex__item tc dianzan"><i class="iconfont icon-heart f16"></i>';
                         if(data.return_new[i].isspot == '0'){
                             str += '<span class="dianzan_txt">点赞</span>';
                             str += '<span class="quxiao_txt none">取消</span>';
@@ -129,7 +130,7 @@
                             str += '<span class="quxiao_txt">取消</span>';
                         }
                         str += '</span>';
-                        str += '<span class="weui-flex__item tc pinglun" data-name="' + data.return_new[i].username + '"><i class="iconfont icon-pinglun-copy f16"></i><span>评论</span></span>';
+                        str += '<span class="weui-flex__item tc pinglun"><i class="iconfont icon-pinglun-copy f16"></i><span>评论</span></span>';
                         str += '</div>';
                         str += '</div>';
                         str += '</div>';
@@ -154,7 +155,7 @@
                             }
 
                             if(data.return_new[i].comment != ''){
-                                str += '<div class="comment topLine comment' + data.return_new[i].id + '" data-name="' + data.return_new[i].username + '">';
+                                str += '<div class="comment topLine comment' + data.return_new[i].id + '">';
                                 for(var k = 0; k<data.return_new[i].comment.length; k++){
                                     if(data.return_new[i].comment[k].pname == ''){
                                         str += '<p class="f13 gray02" data-id="' + data.return_new[i].id + '"><span class="blue02">' + data.return_new[i].comment[k].author + '</span>：'+ data.return_new[i].comment[k].comment + '</p>';
@@ -205,7 +206,7 @@
                         str += '<div class="weui-cell__bd tr" data-id="' + data.return_new[i].id + '">';
                         str += '<i class="iconfont icon-pinglun f20 blue01 operation_btn"></i>';
                         str += '<div class="operationCont gray07_bg f10 weui-flex none" id="' + data.return_new[i].id + '">';
-                        str += '<span class="weui-flex__item tc dianzan" data-name="' + data.return_new[i].username + '"><i class="iconfont icon-heart f16"></i>';
+                        str += '<span class="weui-flex__item tc dianzan"><i class="iconfont icon-heart f16"></i>';
                         if(data.return_new[i].isspot == '0'){
                             str += '<span class="dianzan_txt">点赞</span>';
                             str += '<span class="quxiao_txt none">取消</span>';
@@ -214,7 +215,7 @@
                             str += '<span class="quxiao_txt">取消</span>';
                         }
                         str += '</span>';
-                        str += '<span class="weui-flex__item tc pinglun" data-name="' + data.return_new[i].username + '"><i class="iconfont icon-pinglun-copy f16"></i><span>评论</span></span>';
+                        str += '<span class="weui-flex__item tc pinglun"><i class="iconfont icon-pinglun-copy f16"></i><span>评论</span></span>';
                         str += '</div>';
                         str += '</div>';
                         str += '</div>';
@@ -239,13 +240,20 @@
                             }
 
                             if(data.return_new[i].comment != ''){
-                                str += '<div class="comment topLine comment' + data.return_new[i].id + '" data-name="' + data.return_new[i].username + '">';
+                                if(data.return_new[i].comment.length > 6){
+                                    str += '<div class="comment more_height topLine comment' + data.return_new[i].id + '">';
+                                }else{
+                                    str += '<div class="comment topLine comment' + data.return_new[i].id + '">';
+                                }
                                 for(var k = 0; k<data.return_new[i].comment.length; k++){
                                     if(data.return_new[i].comment[k].pname == ''){
                                         str += '<p class="f13 gray02" data-id="' + data.return_new[i].id + '"><span class="blue02">' + data.return_new[i].comment[k].author + '</span>：'+ data.return_new[i].comment[k].comment + '</p>';
                                     }else{
                                         str += '<p class="f13 gray02" data-id="' + data.return_new[i].id + '"><span class="blue02">' + data.return_new[i].comment[k].pname + '</span> 回复 <span class="blue02">' + data.return_new[i].comment[k].author + '</span>：'+ data.return_new[i].comment[k].comment + '</p>';
                                     }
+                                }
+                                if(data.return_new[i].comment.length > 6){
+                                    str += '<div class="more_comment f12 tc gray02 gray08_bg blue02">更多</div>';
                                 }
                                 str += '</div>';
                             }
@@ -307,7 +315,6 @@
             var id = $(this).attr('data-id');
             $('#' + id).addClass('none');
             var $this=$(this);
-            var myname = $(this).parent().attr('data-name');
             var rewho=$this.find('.blue02').first().html();
             var id=$(this).attr('data-id');
             $(".comment_area" + id).removeClass('none');
@@ -355,7 +362,6 @@
         //点赞
         $(document).on('click','.dianzan',function () {
             var $this = $(this);
-            var myname = $(this).attr('data-name');
             var id = $(this).parent().attr('id');
             console.log(id);
             new contact(function (data) {
@@ -459,100 +465,17 @@
             }).liked({pid:id,userId:1})
         });
 
+        //更多评论
+        $(document).on('click','.more_comment',function () {
 
-
-
-
-
-
-
-
-        // new contact(function (data) {
-        //     console.log(data);
-        //     // $("#index_slider").silderDot(data, 1800, "");
-        //     // var circle = render.fill($("#tpl_list"), data.return_new);
-        //     // $(".circle_list").html(circle);
-        //     for(var i = 0; i<data.return_new.length; i++){
-        //         var str = '';
-        //         str += '<div class="weui-cell_access weui-cell" data-id="' + data.return_new[i].id + '">';
-        //         if(data.return_new[i].headerimg == ''){
-        //             str += '<div class="weui-cell__hd headImg"><img src="/weixin/images/placeholder/logo.png"/></div>';
-        //         }else {
-        //             str += '<div class="weui-cell__hd headImg"><img src="' + data.return_new[i].headerimg + '"/></div>';
-        //         }
-        //         str += '<div class="weui-cell__bd">';
-        //         str += '<span class="f12 gray02">爱上耗子的猫</span>';
-        //         str += '<div class="circle_txt f11">' + data.return_new[i].content + '</div>';
-        //         if(data.return_new[i].images != null){
-        //             str += '<div class="circle_img clearfix">';
-        //             for(var j = 0;j < data.return_new[i].images.length; j++){
-        //                 str += '<img class="sendimg" src="' + data.return_new[i].images[j].images + '"/>';
-        //             }
-        //             str += '</div>';
-        //         }
-        //         str += '<div class="weui-cell bordernone operation">';
-        //         str += '<div class="weui-cell__hd time f10 gray04">' + data.return_new[i].addtime + '</div>';
-        //         str += '<div class="weui-cell__bd tr" data-id="' + data.return_new[i].id + '">';
-        //         str += '<i class="iconfont icon-pinglun f20 blue01 operation_btn"></i>';
-        //         str += '<div class="operationCont gray07_bg f10 weui-flex none" id="' + data.return_new[i].id + '">';
-        //         str += '<span class="weui-flex__item tc dianzan"><i class="iconfont icon-heart f16"></i><span class="dianzan_txt">点赞</span></span>';
-        //         str += '<span class="weui-flex__item tc pinglun"><i class="iconfont icon-pinglun-copy f16"></i><span>评论</span></span>';
-        //         str += '</div>';
-        //         str += '</div>';
-        //         str += '</div>';
-        //         str += '<div class="operationTxt gray08_bg">';
-        //         str += '<span class="arrow_top"></span>';
-        //         str += '<div class="zan_people">';
-        //         str += '<i class="iconfont icon-heart f12 blue02"></i>';
-        //         str += '<span class="blue02 f12">文文，小李</span>';
-        //         str += '</div>';
-        //         if(data.return_new[i].comment != ''){
-        //             str += '<div class="comment topLine">';
-        //             for(var k = 0; k<data.return_new[i].comment.length; k++){
-        //                 str += '<p class="f11 gray02"><span class="blue02">' + data.return_new[i].comment[k].author + '：</span>'+ data.return_new[i].comment[k].comment + '</p>';
-        //             }
-        //             str += '</div>';
-        //         }
-        //         str += '</div>';
-        //         str += '</div>';
-        //         str += '</div>';
-        //         $(".circle_list").append(str);
-        //     }
-        //
-        //
-        //
-        //     $(document).on('click','.operation_btn',function () {
-        //         var id = $(this).parent().attr('data-id');
-        //         console.log(id);
-        //         $('#' + id).toggleClass('none');
-        //     });
-        //
-        //     $(document).on('click','.dianzan',function () {
-        //         var id = $(this).parent().attr('id');
-        //         console.log(id);
-        //         new contact(function () {
-        //             $('.dianzan_txt').html('取消');
-        //         }).liked({pid:id,userId:1})
-        //     });
-        //
-        //
-        //
-        //
-        //
-        //     var imgsObj = $('.sendimg');
-        //     var imgs = new Array();
-        //     for(var i = 0; i < imgsObj.size(); i++){
-        //         imgs.push(imgsObj.eq(i).attr('src'));
-        //     };
-        //
-        //     $(document).on('click','.sendimg',function () {
-        //         WeixinJSBridge.invoke('imagePreview', {
-        //             'current': $(this).attr('src'),
-        //             'urls': imgs
-        //         });
-        //     });
-        //
-        // }).list()
+            if($(this).parent().hasClass('more_height')){
+                $(this).parent().removeClass('more_height');
+                $(this).html('收起')
+            }else{
+                $(this).parent().addClass('more_height');
+                $(this).html('查看更多')
+            }
+        })
 
 
     });

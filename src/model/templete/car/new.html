@@ -1,0 +1,33 @@
+    <div class="weui-cell">
+        <div class="weui-cell__bd f16">{{cartype}}</div>
+    </div>
+    <div class="weui-cell new_instro">
+        <div class="weui-cell__bd f14">
+            <p class="yellow01">售价：{{carprice}}</p>
+            <p><a href="/weixin/tenant/index.html">商家：{{goodname}}</a></p>
+        </div>
+        <div class="weui-cell__ft">
+            <img src="{{brandlogo}}" alt=""/>
+        </div>
+    </div>
+    <ul class="ul02 clearfix">
+        <!--<li class="f12 fl gray03">配置：2017款 1.5T尊贵型</li>-->
+        {{#compare engine '!=' ""}}
+        <li class="f12 fl gray03">发动机：{{engine}}</li>
+        {{/compare}}
+        {{#compare totalfuel '!=' ""}}
+        <li class="f12 fl gray03">百公里油耗：{{totalfuel}}</li>
+        {{/compare}}
+        {{#compare drivingmode '!=' ""}}
+        <li class="f12 fl gray03">驱动方式：{{drivingmode}}</li>
+        {{/compare}}
+        {{#compare bodywork '!=' ""}}
+        <li class="f12 fl gray03">车身结构：{{bodywork}}</li>
+        {{/compare}}
+        {{#compare gearbox '!=' ""}}
+        <li class="f12 fl gray03">变速箱：{{gearbox}}</li>
+        {{/compare}}
+        {{#compare warranty '!=' ""}}
+        <li class="f12 fl gray03">整车质保：{{warranty}}</li>
+        {{/compare}}
+    </ul>
