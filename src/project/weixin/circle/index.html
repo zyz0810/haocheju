@@ -23,7 +23,6 @@
         pageManager.show("index");
         var userId = cookie.getCookie('userId');
 
-
         $('#publish').click(function () {
             window.location.href = '/weixin/circle/send.html';
         });
@@ -89,11 +88,10 @@
             }, 50)
         });
 
-
-        var aa = new contact(function (data) {
-            $("#index_slider").silderDot(data, 1800, "");
-        });
-        aa.list();
+        // var aa = new contact(function (data) {
+        //     $("#index_slider").silderDot(data, 1800, "");
+        // });
+        // aa.list();
 
         var pge = $(".pageable").pageable({
             loadUpFn: function (me) {
@@ -101,15 +99,19 @@
                     console.log(data);
                     for(var i = 0; i<data.return_new.length; i++){
                         var str = '';
-                        str += '<div class="weui-cell_access weui-cell" data-id="' + data.return_new[i].id + '">';
-                        str += '<div class="weui-cell__hd headImg"><img src="/weixin/images/placeholder/logo.png"/></div>';
-                        str += '<div class="weui-cell__bd">';
-                        str += '<span class="f14 gray02">爱上耗子的猫</span>';
+                        str += '<div class="circle_item weui-cell" data-id="' + data.return_new[i].id + '">';
+                        if(data.return_new.headerimg == ''){
+                            str += '<div class="weui-cell__hd headImg"><img src="/weixin/images/placeholder/logo.png"/></div>';
+                        }else {
+                            str += '<div class="weui-cell__hd headImg"><img src="' + data.return_new[i].headerimg + '"/></div>';
+                        }
+                        str += '<div class="weui-cell__bd cont' + data.return_new[i].id + '">';
+                        str += '<span class="f13 gray02">' + data.return_new[i].username + '</span>';
                         str += '<div class="circle_txt f13">' + data.return_new[i].content + '</div>';
                         if(data.return_new[i].images != null){
                             str += '<div class="circle_img clearfix">';
                             for(var j = 0;j < data.return_new[i].images.length; j++){
-                                str += '<img class="sendimg" src="' + data.return_new[i].images[j].images + '"/>';
+                                str += '<img class="sendimg" src="' + data.return_new[i].images[j] + '"/>';
                             }
                             str += '</div>';
                         }
@@ -118,85 +120,60 @@
                         str += '<div class="weui-cell__bd tr" data-id="' + data.return_new[i].id + '">';
                         str += '<i class="iconfont icon-pinglun f20 blue01 operation_btn"></i>';
                         str += '<div class="operationCont gray07_bg f10 weui-flex none" id="' + data.return_new[i].id + '">';
-                        str += '<span class="weui-flex__item tc dianzan"><i class="iconfont icon-heart f16"></i><span class="dianzan_txt">点赞</span></span>';
-                        str += '<span class="weui-flex__item tc pinglun"><i class="iconfont icon-pinglun-copy f16"></i><span>评论</span></span>';
+                        str += '<span class="weui-flex__item tc dianzan" data-name="' + data.return_new[i].username + '"><i class="iconfont icon-heart f16"></i>';
+                        if(data.return_new[i].isspot == '0'){
+                            str += '<span class="dianzan_txt">点赞</span>';
+                            str += '<span class="quxiao_txt none">取消</span>';
+                        }else{
+                            str += '<span class="dianzan_txt none">点赞</span>';
+                            str += '<span class="quxiao_txt">取消</span>';
+                        }
+                        str += '</span>';
+                        str += '<span class="weui-flex__item tc pinglun" data-name="' + data.return_new[i].username + '"><i class="iconfont icon-pinglun-copy f16"></i><span>评论</span></span>';
                         str += '</div>';
                         str += '</div>';
                         str += '</div>';
 
-                        if(data.return_new[i].headerimg != '' || data.return_new[i].comment != ''){
-                            str += '<div class="operationTxt gray08_bg">';
+                        if(data.return_new[i].spotlist != '' || data.return_new[i].comment != ''){
+                            str += '<div class="operationTxt gray08_bg operationTxt' +  data.return_new[i].id + '">';
                             str += '<span class="arrow_top"></span>';
 
-
-                            if(data.return_new[i].headerimg != ''){
+                            if(data.return_new[i].spotlist != ''){
                                 str += '<div class="zan_people">';
-                                str += '<i class="iconfont icon-heart f12 blue02"></i>';
-                                str += '<span class="blue02 f13">';
-                                for(var l = 0; l < data.return_new[i].headerimg.length;l++){
-                                    if(l=='0'){
-                                        str += data.return_new[i].headerimg[l].nickname;
+                                str += '<i class="iconfont icon-heart f13 blue02"></i>';
+                                str += '<div class="blue02 f13">';
+                                for(var l = 0; l < data.return_new[i].spotlist.length;l++){
+                                    if(l==data.return_new[i].spotlist.length - 1){
+                                        str += '<div data-id="' + data.return_new[i].spotlist[l].id + '"><span>' + data.return_new[i].spotlist[l].nickname + '<span></div>';
                                     }else{
-                                        str += '，' + data.return_new[i].headerimg[l].nickname;
+                                        str += '<div data-id="' + data.return_new[i].spotlist[l].id + '"><span>' + data.return_new[i].spotlist[l].nickname + '<span>，</div>';
                                     }
-
                                 }
-                                str += '</span>';
+                                str += '</div>';
                                 str += '</div>';
                             }
-
 
                             if(data.return_new[i].comment != ''){
-                                str += '<div class="comment topLine">';
+                                str += '<div class="comment topLine comment' + data.return_new[i].id + '" data-name="' + data.return_new[i].username + '">';
                                 for(var k = 0; k<data.return_new[i].comment.length; k++){
                                     if(data.return_new[i].comment[k].pname == ''){
-                                        str += '<p class="f13 gray02"><span class="blue02">' + data.return_new[i].comment[k].author + '</span>：'+ data.return_new[i].comment[k].comment + '</p>';
+                                        str += '<p class="f13 gray02" data-id="' + data.return_new[i].id + '"><span class="blue02">' + data.return_new[i].comment[k].author + '</span>：'+ data.return_new[i].comment[k].comment + '</p>';
                                     }else{
-                                        str += '<p class="f13 gray02"><span class="blue02">' + data.return_new[i].comment[k].pname + '</span> 回复 <span class="blue02">' + data.return_new[i].comment[k].author + '</span>：'+ data.return_new[i].comment[k].comment + '</p>';
+                                        str += '<p class="f13 gray02" data-id="' + data.return_new[i].id + '"><span class="blue02">' + data.return_new[i].comment[k].pname + '</span> 回复 <span class="blue02">' + data.return_new[i].comment[k].author + '</span>：'+ data.return_new[i].comment[k].comment + '</p>';
                                     }
                                 }
                                 str += '</div>';
                             }
                             str += '</div>';
-                            str += '</div>';
                         }
-
+                        str += '</div>';
+                        str += '<div class="weui-cell comment_area none comment_area' + data.return_new[i].id + '"><div class="weui-cell__bd"><input type="text" placeholder="评论" class="comment_txt" data-id="' + data.return_new[i].id + '" /></div><div class="weui-cell__ft"><i class="iconfont icon-biaoqing f24 gray04"></i></div></div>';
                         str += '</div>';
                         $(".circle_list").append(str);
                     }
                     $('img').picLazyLoad();
                     pge.resetload();
 
-
-                    $(document).on('click','.operation_btn',function () {
-                        var id = $(this).parent().attr('data-id');
-                        console.log(id);
-                        $('#' + id).toggleClass('none');
-                    });
-
-                    $(document).on('click','.dianzan',function () {
-                        var id = $(this).parent().attr('id');
-                        console.log(id);
-                        new contact(function () {
-                            // console.log($('#' + id).find('.dianzan_txt').html());
-                            $('#' + id).find('.dianzan_txt').toggleClass('none');
-                            $('#' + id).find('.quxiao_txt').toggleClass('none');
-                        }).liked({pid:id,userId:1})
-                    });
-
-
-                    var imgsObj = $('.sendimg');
-                    var imgs = new Array();
-                    for(var i = 0; i < imgsObj.size(); i++){
-                        imgs.push(imgsObj.eq(i).attr('src'));
-                    }
-
-                    $(document).on('click','.sendimg',function () {
-                        WeixinJSBridge.invoke('imagePreview', {
-                            'current': $(this).attr('src'),
-                            'urls': imgs
-                        });
-                    });
                 }).list({page: 1})
             },
             loadDownFn: function (me) {
@@ -213,7 +190,7 @@
                         }else {
                             str += '<div class="weui-cell__hd headImg"><img src="' + data.return_new[i].headerimg + '"/></div>';
                         }
-                        str += '<div class="weui-cell__bd">';
+                        str += '<div class="weui-cell__bd cont' + data.return_new[i].id + '">';
                         str += '<span class="f13 gray02">' + data.return_new[i].username + '</span>';
                         str += '<div class="circle_txt f13">' + data.return_new[i].content + '</div>';
                         if(data.return_new[i].images != null){
@@ -228,7 +205,7 @@
                         str += '<div class="weui-cell__bd tr" data-id="' + data.return_new[i].id + '">';
                         str += '<i class="iconfont icon-pinglun f20 blue01 operation_btn"></i>';
                         str += '<div class="operationCont gray07_bg f10 weui-flex none" id="' + data.return_new[i].id + '">';
-                        str += '<span class="weui-flex__item tc dianzan"><i class="iconfont icon-heart f16"></i>';
+                        str += '<span class="weui-flex__item tc dianzan" data-name="' + data.return_new[i].username + '"><i class="iconfont icon-heart f16"></i>';
                         if(data.return_new[i].isspot == '0'){
                             str += '<span class="dianzan_txt">点赞</span>';
                             str += '<span class="quxiao_txt none">取消</span>';
@@ -237,13 +214,13 @@
                             str += '<span class="quxiao_txt">取消</span>';
                         }
                         str += '</span>';
-                        str += '<span class="weui-flex__item tc pinglun"><i class="iconfont icon-pinglun-copy f16"></i><span>评论</span></span>';
+                        str += '<span class="weui-flex__item tc pinglun" data-name="' + data.return_new[i].username + '"><i class="iconfont icon-pinglun-copy f16"></i><span>评论</span></span>';
                         str += '</div>';
                         str += '</div>';
                         str += '</div>';
 
                         if(data.return_new[i].spotlist != '' || data.return_new[i].comment != ''){
-                            str += '<div class="operationTxt gray08_bg">';
+                            str += '<div class="operationTxt gray08_bg operationTxt' +  data.return_new[i].id + '">';
                             str += '<span class="arrow_top"></span>';
 
                             if(data.return_new[i].spotlist != ''){
@@ -252,19 +229,17 @@
                                 str += '<div class="blue02 f13">';
                                 for(var l = 0; l < data.return_new[i].spotlist.length;l++){
                                     if(l==data.return_new[i].spotlist.length - 1){
-                                        str += '<div><span>' + data.return_new[i].spotlist[l].nickname + '<span></div>';
+                                        str += '<div data-id="' + data.return_new[i].spotlist[l].id + '"><span>' + data.return_new[i].spotlist[l].nickname + '<span></div>';
                                     }else{
-                                        str += '<div><span>' + data.return_new[i].spotlist[l].nickname + '<span>，</div>';
+                                        str += '<div data-id="' + data.return_new[i].spotlist[l].id + '"><span>' + data.return_new[i].spotlist[l].nickname + '<span>，</div>';
                                     }
-
                                 }
                                 str += '</div>';
                                 str += '</div>';
                             }
 
-
                             if(data.return_new[i].comment != ''){
-                                str += '<div class="comment topLine">';
+                                str += '<div class="comment topLine comment' + data.return_new[i].id + '" data-name="' + data.return_new[i].username + '">';
                                 for(var k = 0; k<data.return_new[i].comment.length; k++){
                                     if(data.return_new[i].comment[k].pname == ''){
                                         str += '<p class="f13 gray02" data-id="' + data.return_new[i].id + '"><span class="blue02">' + data.return_new[i].comment[k].author + '</span>：'+ data.return_new[i].comment[k].comment + '</p>';
@@ -275,14 +250,9 @@
                                 str += '</div>';
                             }
                             str += '</div>';
-
                         }
                         str += '</div>';
-
-                        
-                        // str += '<div class="comment_area none comment' + data.return_new[i].id + '"><input type="text" placeholder="评论" class="comment_txt" /><i class="iconfont icon-biaoqing f24 gray04"></i></div>';
-                        str += '<div class="weui-cell comment_area none comment' + data.return_new[i].id + '"><div class="weui-cell__bd"><input type="text" placeholder="评论" class="comment_txt" data-id="' + data.return_new[i].id + '" /></div><div class="weui-cell__ft"><i class="iconfont icon-biaoqing f24 gray04"></i></div></div>';
-
+                        str += '<div class="weui-cell comment_area none comment_area' + data.return_new[i].id + '"><div class="weui-cell__bd"><input type="text" placeholder="评论" class="comment_txt" data-id="' + data.return_new[i].id + '" /></div><div class="weui-cell__ft"><i class="iconfont icon-biaoqing f24 gray04"></i></div></div>';
                         str += '</div>';
                         $(".circle_list").append(str);
                     }
@@ -294,141 +264,202 @@
                     }
                     pge.resetload();
 
-                    $(document).on('click','.operation_btn',function () {
-                        var id = $(this).parent().attr('data-id');
-                        console.log(id);
-                        $('#' + id).toggleClass('none');
-                    });
-
-                    $(document).on('click','.dianzan',function () {
-                        var $this = $(this);
-                        var id = $(this).parent().attr('id');
-                        console.log(id);
-                        new member(function (res) {
-                            new contact(function (data) {
-                                // console.log($('#' + id).find('.dianzan_txt').html());
-                                // $('#' + id).find('.dianzan_txt').toggleClass('none');
-                                // $('#' + id).find('.quxiao_txt').toggleClass('none');
-
-                                console.log('点赞：'+data.isspot);
-                                console.log(data);
-
-                                if(data.isspot == '0'){
-                                    console.log('取消点赞');
-                                    $('#' + id).find('.dianzan_txt').removeClass('none');
-                                    $('#' + id).find('.quxiao_txt').addClass('none');
-                                    // var name = $(this).parent().parent().parent().parent().find('.zan_people > .blue02 span');
-                                    $this.parent().parent().parent().parent().find('.zan_people > div.blue02 > div').each(function () {
-                                        var name = $(this).find('span').html();
-                                        if(res.nickname == name){
-                                            if($(this).parent().children().length == '1'){
-                                                $(this).parent().parent().parent().remove();
-                                            }else {
-                                                $(this).remove();
-                                            }
-                                        }
-                                    })
-                                }else{
-                                    console.log('点赞');
-                                    $('#' + id).find('.dianzan_txt').addClass('none');
-                                    $('#' + id).find('.quxiao_txt').removeClass('none');
-                                    if($this.parent().parent().parent().next().hasClass('operationTxt')){
-                                        $this.parent().parent().parent().parent().find('.zan_people>div.blue02').prepend('<div><span class="11">' + res.nickname + '</span>，</div>')
-                                    }else{
-                                        $this.parent().parent().parent().parent().append('<div class="operationTxt gray08_bg"><span class="arrow_top"></span><div class="zan_people"><i class="iconfont icon-heart f12 blue02"></i><div class="blue02 f13"><div><span>' + res.nickname + '</span></div></div></div></div>')
-                                    }
-                                }
-                            }).liked({pid:id,userId:1})
-                        }).checkLogin({phonenum:'15056575017'});
-                    });
-
-                    // $(document).on('click','.pinglun',function () {
-                    $('.pinglun').die().live('click',function () {
-                        var $this=$(this);
-                        var id = $(this).parent().attr('id');
-                        // alert(".comment_txt" + id)
-                        $(".comment" + id).removeClass('none');
-                        $('.foot_menu').addClass('none');
-                        $(".comment" + id).find('input').focus();
-
-                        $(".comment" + id).find('input').die().live('change',function () {
-                            var $sth=$(this);
-                            var content= $(".comment" + id).find('input').val();
-                            new member(function (res) {
-                                new contact(function (data) {
-                                    $(".comment" + id).addClass('none');
-                                    $('.foot_menu').removeClass('none');
-                                    // $this.parent().next('div').find('.task').removeClass('height').addClass('on');
-                                    $this.parent().find('.comment').append('<p class="f13 gray02"><span class="blue02">' + res.nickname + '：</span>'+ content + '</p>');
-                                    $(this).val('');
-                                    // $sth.parent().parent().find('.previewCount').html(parseInt($sth.parent().parent().find('.previewCount').html())+1);
-                                }).reply({pauthor:'',author:res.nickname,cid:id,comment:content});
-
-                                $(".comment" + id).find('input').val('');
-                            }).checkLogin({phonenum:'15056575017'});
-                        })
-                    });
-
-
-                    //回复下方已有的评论
-                    // $(document).on('click','.comment p',function () {
-                    $('.comment p').click(function() {
-                        var $this=$(this);
-                        var rewho=$this.find('.blue02').first().html();
-                        var id=$(this).attr('data-id');
-                        $(".comment" + id).removeClass('none');
-                        $('.foot_menu').addClass('none');
-                        $(".comment" + id).find('input').focus();
-                        // $(this).parent().parent().parent().next().find('.replyContainer').focus();
-                        $(".comment" + id).find('input').focus();
-                        $(".comment" + id).find('input').attr('placeholder','回复'+rewho);
-                        $(".comment" + id).find('input').die().live('change',function () {
-                            var content=$(".comment" + id).find('input').val();
-                            var $sth=$(this);
-                            new member(function (res) {
-                                new contact(function (data) {
-                                    $(".comment" + id).addClass('none');
-                                    $('.foot_menu').removeClass('none');
-                                    // $this.parent().removeClass('height').addClass('on');
-                                    $this.after('<p class="f13 gray02"><span class="blue02">' + res.nickname + '</span> 回复 <span class="blue02">' + rewho + '：</span>'+ content + '</p>');
-
-                                    // $sth.parent().parent().find('.previewCount').html(parseInt($sth.parent().parent().find('.previewCount').html())+1);
-                                }).reply({pauthor:rewho,author:res.nickname,cid:id,comment:content});
-                                $(".comment" + id).find('input').val('');
-                            }).checkLogin({phonenum:'15056575017'});
-                        })
-                    });
-
-
-
-                    var imgsObj = $('.sendimg');
-                    var imgs = new Array();
-                    for(var i = 0; i < imgsObj.size(); i++){
-                        imgs.push(imgsObj.eq(i).attr('src'));
-                    }
-
-                    $(document).on('click','.sendimg',function () {
-                        WeixinJSBridge.invoke('imagePreview', {
-                            'current': $(this).attr('src'),
-                            'urls': imgs
-                        });
-                    });
-
-                    var timer = null;
-                    $('input').on('focus', function() {
-                        clearInterval(timer);
-                        var index = 0;
-                        timer = setInterval(function() {
-                            if(index>5) {
-                                $('body').scrollTop(1000000);
-                                clearInterval(timer);
-                            }
-                            index++;
-                        }, 50)
-                    })
-                }).list({page: me.pageNumber,userId:1})
+                }).list({page: me.pageNumber,userId:userId});
             }
         });
+
+
+
+        $(document).on('click','.operation_btn',function () {
+            var id = $(this).parent().attr('data-id');
+            console.log(id);
+            $('#' + id).toggleClass('none');
+        });
+
+        // $(document).on('click','.pinglun',function () {
+        $('.pinglun').die().live('click',function () {
+            var id = $(this).parent().attr('data-id');
+            $('#' + id).addClass('none');
+            var $this=$(this);
+            var myname = $(this).attr('data-name');
+            var id = $(this).parent().attr('id');
+            $(".comment_area" + id).removeClass('none');
+            $('.foot_menu').addClass('none');
+            $(".comment_area" + id).find('input').focus();
+
+            $(".comment_area" + id).find('input').die().live('change',function () {
+                var $sth=$(this);
+                var content= $(".comment_area" + id).find('input').val();
+                new contact(function (data) {
+                    $(".comment_area" + id).addClass('none');
+                    $('.foot_menu').removeClass('none');
+                    $this.parent().parent().parent().parent().find('.comment').append('<p class="f13 gray02"><span class="blue02">' + myname + '：</span>'+ content + '</p>');
+                    $(this).val('');
+                }).reply({pauthor:'',author:myname,cid:id,comment:content});
+                $(".comment_area" + id).find('input').val('');
+            })
+        });
+
+
+        //回复下方已有的评论
+        // $('.comment p').click(function() {
+        $(document).on('click','.comment p',function () {
+            var id = $(this).attr('data-id');
+            $('#' + id).addClass('none');
+            var $this=$(this);
+            var myname = $(this).parent().attr('data-name');
+            var rewho=$this.find('.blue02').first().html();
+            var id=$(this).attr('data-id');
+            $(".comment_area" + id).removeClass('none');
+            $('.foot_menu').addClass('none');
+            $(".comment_area" + id).find('input').focus();
+            $(".comment_area" + id).find('input').attr('placeholder','回复'+rewho);
+            $(".comment_area" + id).find('input').die().live('change',function () {
+                var content=$(".comment_area" + id).find('input').val();
+                var $sth=$(this);
+                new contact(function (data) {
+                    $(".comment_area" + id).addClass('none');
+                    $('.foot_menu').removeClass('none');
+                    $this.after('<p class="f13 gray02"><span class="blue02">' + myname + '</span> 回复 <span class="blue02">' + rewho + '：</span>'+ content + '</p>');
+                }).reply({pauthor:rewho,author:myname,cid:id,comment:content});
+                $(".comment_area" + id).find('input').val('');
+            })
+        });
+
+
+        //预览大图
+        var imgsObj = $('.sendimg');
+        var imgs = new Array();
+        for(var i = 0; i < imgsObj.size(); i++){
+            imgs.push(imgsObj.eq(i).attr('src'));
+        }
+        $(document).on('click','.sendimg',function () {
+            WeixinJSBridge.invoke('imagePreview', {
+                'current': $(this).attr('src'),
+                'urls': imgs
+            });
+        });
+
+        var timer = null;
+        $('input').on('focus', function() {
+            clearInterval(timer);
+            var index = 0;
+            timer = setInterval(function() {
+                if(index>5) {
+                    $('body').scrollTop(1000000);
+                    clearInterval(timer);
+                }
+                index++;
+            }, 50)
+        });
+        //点赞
+        $(document).on('click','.dianzan',function () {
+            var $this = $(this);
+            var myname = $(this).attr('data-name');
+            var id = $(this).parent().attr('id');
+            console.log(id);
+            new contact(function (data) {
+                $('#' + id).addClass('none');
+                console.log('点赞：'+data.isspot);
+                console.log(data);
+
+                if(data.isspot == '0'){
+                    console.log('取消点赞');
+                    $('#' + id).find('.dianzan_txt').removeClass('none');
+                    $('#' + id).find('.quxiao_txt').addClass('none');
+                    if(data.spotlist.length>0){
+                        if($('.cont' + id + '>div').hasClass('operationTxt')){
+                            var zanList = '';
+                            zanList += '<div class="zan_people">';
+                            zanList += '<i class="iconfont icon-heart f13 blue02"></i>';
+                            zanList += '<div class="blue02 f13">';
+                            for(var m = 0; m < data.spotlist.length;m++){
+                                if(m == data.spotlist.length - 1){
+                                    zanList += '<div data-id="' + data.spotlist[m].id + '"><span>' + data.spotlist[m].nickname + '<span></div>';
+                                }else{
+                                    zanList += '<div data-id="' + data.spotlist[m].id + '"><span>' + data.spotlist[m].nickname + '<span>，</div>';
+                                }
+
+                            }
+                            zanList += '</div>';
+                            zanList += '</div>';
+                            $('.cont' + id).find('.operationTxt').prepend(zanList);
+
+                        }else{
+                            var zanList = '';
+                            zanList += '<div class="operationTxt gray08_bg"><span class="arrow_top"></span>';
+                            zanList += '<div class="zan_people">';
+                            zanList += '<i class="iconfont icon-heart f13 blue02"></i>';
+                            zanList += '<div class="blue02 f13">';
+                            for(var m = 0; m < data.spotlist.length;m++){
+                                if(m==data.spotlist.length - 1){
+                                    zanList += '<div data-id="' + data.spotlist[m].id + '"><span>' + data.spotlist[m].nickname + '<span></div>';
+                                }else{
+                                    zanList += '<div data-id="' + data.spotlist[m].id + '"><span>' + data.spotlist[m].nickname + '<span>，</div>';
+                                }
+
+                            }
+                            zanList += '</div>';
+                            zanList += '</div>';
+                            zanList += '</div>';
+                            $('.cont'+id).append(zanList);
+                        }
+                    }else{
+                        if($('.cont' + id).find('.operationTxt').children().hasClass('comment')){
+                            $('.comment'+id).parent().find('.zan_people').remove();
+                        }else{
+                            $('.cont' + id).find('.operationTxt').remove();
+                        }
+                    }
+                }else{
+                    $('#' + id).find('.dianzan_txt').addClass('none');
+                    $('#' + id).find('.quxiao_txt').removeClass('none');
+                    if(data.spotlist.length>0){
+                        if($('.cont' + id + '>div').hasClass('operationTxt')){
+                            var zanList = '';
+                            zanList += '<div class="zan_people">';
+                            zanList += '<i class="iconfont icon-heart f13 blue02"></i>';
+                            zanList += '<div class="blue02 f13">';
+                            for(var m = 0; m < data.spotlist.length;m++){
+                                if(m == data.spotlist.length - 1){
+                                    zanList += '<div data-id="' + data.spotlist[m].id + '"><span>' + data.spotlist[m].nickname + '<span></div>';
+                                }else{
+                                    zanList += '<div data-id="' + data.spotlist[m].id + '"><span>' + data.spotlist[m].nickname + '<span>，</div>';
+                                }
+                            }
+                            zanList += '</div>';
+                            zanList += '</div>';
+                            $('.cont' + id).find('.operationTxt').prepend(zanList);
+                        }else{
+                            var zanList = '';
+                            zanList += '<div class="operationTxt gray08_bg"><span class="arrow_top"></span>';
+                            zanList += '<div class="zan_people">';
+                            zanList += '<i class="iconfont icon-heart f13 blue02"></i>';
+                            zanList += '<div class="blue02 f13">';
+                            for(var m = 0; m < data.spotlist.length;m++){
+                                if(m==data.spotlist.length - 1){
+                                    zanList += '<div data-id="' + data.spotlist[m].id + '"><span>' + data.spotlist[m].nickname + '<span></div>';
+                                }else{
+                                    zanList += '<div data-id="' + data.spotlist[m].id + '"><span>' + data.spotlist[m].nickname + '<span>，</div>';
+                                }
+                            }
+                            zanList += '</div>';
+                            zanList += '</div>';
+                            zanList += '</div>';
+                            $('.cont'+id).append(zanList);
+                        }
+                    }else{
+                        if($('.cont' + id).find('.operationTxt').children().hasClass('comment')){
+                            $('.comment'+id).parent().find('.zan_people').remove();
+                        }else{
+                            $('.cont' + id).find('.operationTxt').remove();
+                        }
+                    }
+                }
+            }).liked({pid:id,userId:1})
+        });
+
+
 
 
 
