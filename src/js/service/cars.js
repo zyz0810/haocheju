@@ -36,6 +36,41 @@ cars.prototype = {
             data: data,
             success: this.fn
         });
+    },
+    /**
+     * 二手车详情
+     * @param id 二手车Id
+     * @param userId  用户Id
+     */
+    usedView: function (data) {
+        ajax.post({
+            url: base + "Api/Oldcar/detail",
+            data: data,
+            success: this.fn
+        });
+    },
+    /**
+     * 拼车列表
+     * @param page  页码
+     * @param type  1、车找人 2人找车
+     */
+    carPool: function (data) {
+        ajax.post({
+            url: base + "Api/Carpool/poollist",
+            data: data,
+            success: this.fn
+        });
+    },
+    /**
+     * 拼车列表
+     * @param type  1、车找人 2 人找车
+     */
+    pullpool: function (data) {
+        ajax.post({
+            url: base + "Api/Carpool/pullpool",
+            data: data,
+            success: this.fn
+        });
     }
 };
 

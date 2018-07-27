@@ -14,48 +14,86 @@
 <!--首页-->
 <link rel="import" href="../../../pages/tenant/index.html">
 
+<!--模板-->
+<link rel="import" href="../../../model/templete/tenant/newList.html">
+<link rel="import" href="../../../model/templete/tenant/usedList.html">
 @import "../../../model/widget/include/toast.html";
 @import "../../../model/widget/include/dialog.html";
 <script src="/weixin/js/wap.min.js"></script>
 <script type="text/javascript">
     $(function () {
         pageManager.show("index");
+        var car = 'new';
+        var pge = null;
+        pge = $(".pageable").pageable({
+            loadUpFn: function (me) {
+                if(car == 'new'){
+                    var tu = new tenant(function (data) {
+                        var h = render.fill($("#tpl_newList"), data.return_newcar);
+                        $(".pageable .newCar").html(h);
+                        $('img').picLazyLoad();
+                        if (data.return_newcar.length < 10) {
+                            me.lock();
+                            me.noData();
+                        }
+                        pge.resetload();
+                    });
+                    tu.newCar({providerid:pageManager.GetQueryString("id"),page:1});
+                }else{
+                    var tu = new tenant(function (data) {
+                        var h = render.fill($("#tpl_usedList"), data.return_oldcar);
+                        $(".pageable .usedCar").html(h);
+                        $('img').picLazyLoad();
+                        pge.resetload();
+                    });
+                    tu.usedCar({providerid:pageManager.GetQueryString("id"),page:1});
+                }
+            },
+            loadDownFn: function (me) {
+                if(car == 'new'){
+                    var td = new tenant(function (data) {
+                        me.pageNumber = me.pageNumber + 1;
+                        var h = render.fill($("#tpl_newList"), data.return_newcar);
+                        $(".pageable .newCar").append(h);
+                        $('img').picLazyLoad();
+                        if (data.return_newcar.length < 10) {
+                            me.lock();
+                            me.noData();
+                        }
+                        me.resetload();
+                    });
+                    td.newCar({providerid:pageManager.GetQueryString("id"),page:me.pageNumber});
+                }else{
+                    var td = new tenant(function (data) {
+                        me.pageNumber = me.pageNumber + 1;
+                        var h = render.fill($("#tpl_usedList"), data.return_oldcar);
+                        $(".pageable .usedCar").append(h);
+                        $('img').picLazyLoad();
+                        if (data.return_oldcar.length < 10) {
+                            pge.lock();
+                            pge.noData();
+                        }
+                        pge.resetload();
+                    });
+                    td.usedCar({providerid:pageManager.GetQueryString("id"),page:me.pageNumber});
+                }
+            }
+        });
+
 
         $('.newTab').click(function () {
             $('.newCar').removeClass('none');
             $('.usedCar').addClass('none');
+            car = 'new';
+            pge.refresh();
+            console.log('点击点击')
+            console.log($('.newCar').html());
         });
         $('.usedTab').click(function () {
             $('.newCar').addClass('none');
             $('.usedCar').removeClass('none');
-        });
-
-
-        var pge = $(".pageable").pageable({
-            loadUpFn: function (me) {
-                var tu = new tenant(function (data) {
-                    var h = render.fill($("#tpl_list"), data.return_newcar);
-                    $(".pageable .list_cart").html(h);
-                    $('img').picLazyLoad();
-                    pge.resetload();
-                });
-                me.pageNumber = 1;
-                tu.usedCar({page:me.pageNumber});
-            },
-            loadDownFn: function (me) {
-                var td = new tenant(function (data) {
-                    me.pageNumber = me.pageNumber + 1;
-                    var h = render.fill($("#tpl_list"), data.return_newcar);
-                    $(".pageable .list_cart").append(h);
-                    $('img').picLazyLoad();
-                    if (data.return_newcar.length < 10) {
-                        pge.lock();
-                        pge.noData();
-                    }
-                    pge.resetload();
-                });
-                td.usedCar({page:me.pageNumber});
-            }
+            car = 'used';
+            pge.refresh();
         });
 
     });

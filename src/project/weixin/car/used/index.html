@@ -14,6 +14,8 @@
 <!--首页-->
 <link rel="import" href="../../../../pages/car/used/index.html">
 
+<!--模板-->
+<link rel="import" href="../../../../model/templete/car/used.html">
 @import "../../../../model/widget/include/toast.html";
 @import "../../../../model/widget/include/dialog.html";
 <script src="/weixin/js/wap.min.js"></script>
@@ -22,6 +24,26 @@
 
     $(function () {
         pageManager.show("index");
+        var userId = cookie.getCookie('userId');
+        new cars(function (data) {
+            var h = render.fill($("#tpl_used"), data);
+            $(".pageable .used_cont").html(h);
+            if($('.archives>ul').children().length == 0){
+                $('.archives').remove();
+            }
+            if(data.carintroduce == null){
+                $('.carintroduce').remove();
+            }else{
+                $('.carintroduce .cont').html(data.carintroduce);
+            }
+            if(data.servicefeedesc == null){
+                $('.servicefeedesc').remove();
+            }else{
+                $('.servicefeedesc .cont').html(data.servicefeedesc);
+            }
+
+        }).usedView({id:pageManager.GetQueryString("id"),userId:userId})
+
     });
 
 

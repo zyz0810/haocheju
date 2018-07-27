@@ -22,6 +22,44 @@ member.prototype = {
         });
     },
     /**
+     * 绑定手机获取验证码
+     * phonenum 手机号
+     */
+    sendCode: function (data) {
+        ajax.post({
+            url: base + "Api/User/getcode",
+            data: data,
+            success: this.fn
+        });
+    },
+    /**
+     * 绑定手机
+     * phonenum 手机号
+     * captcha 验证码
+     */
+    bindMobile: function (data) {
+        ajax.post({
+            url: base + 'weixin/member/bind_mobile.jhtml',
+            data: data,
+            success: this.fn
+        });
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
      * 会员中心首页
      */
     index: function (data) {
@@ -170,30 +208,6 @@ member.prototype = {
     realNameAuthen: function (data) {
         ajax.post({
             url: base + "weixin/member/idcard/save.jhtml",
-            data: data,
-            success: this.fn
-        });
-    },
-    /**
-     * 绑定手机获取验证码
-     * mobile 手机号
-     */
-    sendCode: function (data) {
-        ajax.post({
-            url: base + "weixin/member/sendCode.jhtml",
-            data: data,
-            success: this.fn
-        });
-    },
-    /**
-     * 绑定手机
-     * mobile 手机号
-     * captcha 验证码
-     * inviteCode 邀请码
-     */
-    bindMobile: function (data) {
-        ajax.post({
-            url: base + 'weixin/member/bind_mobile.jhtml',
             data: data,
             success: this.fn
         });

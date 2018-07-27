@@ -47,10 +47,10 @@
                     $(".pageable .hot_cont").append(h);
                     $('img').picLazyLoad();
                     if (data.length < 10) {
-                        pge.lock();
-                        pge.noData();
+                        me.lock();
+                        me.noData();
                     }
-                    pge.resetload();
+                    me.resetload();
                 });
                 td.list({page:me.pageNumber});
             }

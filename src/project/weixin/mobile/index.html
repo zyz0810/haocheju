@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>绑定手机</title>
+    @import "../include/header.inc";
+
+</head>
+<body ontouchstart>
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+<div class="container" id="container"></div>
+
+<!--首页-->
+<link rel="import" href="../../../pages/mobile/index.html">
+
+@import "../../../model/widget/include/toast.html";
+@import "../../../model/widget/include/dialog.html";
+<script src="/weixin/js/wap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        pageManager.show("index");
+
+        //实时判断手机号
+        var mobilevalid = /^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$/;
+        var bind_name = 'input';
+        if (navigator.userAgent.indexOf("MSIE") != -1) {
+            bind_name = 'propertychange';
+        }
+        if (navigator.userAgent.match(/android/i) == "android") {
+            bind_name = "keydown";
+        }
+        $("#phone").bind(bind_name, function (event) {
+            var number = $('#phone').val();
+            if (number.length == 11) {
+                if (!mobilevalid.test(number)) {
+                    dialog.show("请输入正确的手机号码！");
+                    return false;
+                }
+            } else if (number.length > 11) {
+                $('#phone').val('');
+                dialog.show("请输入11位手机号码！");
+                return false;
+            }
+        });
+
+        //绑定手机获取验证码
+        $("#getcap").click(function () {
+            var phone = $("#phone").val();
+            if (phone == "" || $('#phone').val().length != 11) {
+                toast.show("请输入正确手机号码");
+            } else {
+                new member(function (data) {
+                    settime(this);
+                    toast.show('发送成功')
+                }).sendCode({phonenum:phone});
+            }
+        });
+
+        var countdown = 60;
+        function settime(val) {
+            if ($('#phone').val() != "" || $('#phone').val().length != 11) {
+                if (countdown == 0) {
+                    val.removeAttribute("disabled");
+                    val.value = "重新发送";
+                    val.style.color = "#666";
+                    countdown = 60;
+                    return;
+                } else {
+                    val.setAttribute("disabled", true);
+                    val.value = countdown;
+                    val.style.color = "#cdcdcd";
+                    countdown--;
+                }
+                setTimeout(function () {
+                    settime(val)
+                }, 1000)
+            }
+        }
+
+        $('.publish_btn').click(function () {
+            if($('#phone').val() == '' || $('#phone').val().length < 11){
+                toast.show('请填写正确手机号');
+            } else if($('.code_num').val().length != 4){
+                toast.show('请填写正确验证码');
+            }else{
+                var phone = $("#phone").val();
+                var code = $('.code_num').val();
+                new member(function (data) {
+                    toast.show('绑定成功');
+                    window.location.href = '/weixin/home/index.html';
+                }).bindMobile({phonenum:phone,code:code})
+            }
+        })
+
+    });
+</script>
+
+</body>
+</html>

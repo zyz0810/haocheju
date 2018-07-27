@@ -55,7 +55,7 @@
             console.log(data.brandlist);
             $('.brand').html(h)
         });
-        aa.usedCar();
+        aa.usedList();
 
         var pge = $(".pageable").pageable({
             loadUpFn: function (me) {
@@ -66,7 +66,7 @@
                     pge.resetload();
                 });
                 me.pageNumber = 1;
-                tu.usedCar({page:me.pageNumber});
+                tu.usedList({page:me.pageNumber});
             },
             loadDownFn: function (me) {
                 var td = new tenant(function (data) {
@@ -80,7 +80,7 @@
                     }
                     pge.resetload();
                 });
-                td.usedCar({page:me.pageNumber});
+                td.usedList({page:me.pageNumber});
             }
         });
 
