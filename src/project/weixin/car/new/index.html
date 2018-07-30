@@ -24,7 +24,7 @@
 
     $(function () {
         pageManager.show("index");
-        var id = pageManager.GetQueryString('id');
+        var userId = cookie.getCookie('userId');
         //顶部轮播图片
         // var ads = new ad(
         //     function (data) {
@@ -55,9 +55,34 @@
             // $("#index_slider").silderDot(data, 1800, "");
             var h = render.fill($("#tpl_new"), data);
             $(".pageable .car_instro").html(h);
-            $('.Carcont').html(data.carcontent)
+            $('.Carcont').html(data.carcontent);
+            if(data.isCollection == '1'){
+                $('.collect').attr('data-id','1');
+                $('.collect>p').html('已收藏');
+            }else{
+                $('.collect').attr('data-id','0');
+                $('.collect>p').html('收藏');
+            }
+
         }).newView({id:pageManager.GetQueryString("id")});
 
+        $('.collect').click(function () {
+            if($(this).attr('data-id')==0){
+                new cars(function (data) {
+                    $('.collect').attr('data-id','1');
+                    $('.collect').attr('data-cid',data.cid);
+                    $('.collect>p').html('已收藏');
+                    toast.show('收藏成功');
+                }).favorite({userId:userId,productId:pageManager.GetQueryString("id"),type:'2'})
+            }else{
+                var cid = $(this).attr('data-cid');
+                new cars(function (data) {
+                    $('.collect').attr('data-id','0');
+                    $('.collect>p').html('收藏');
+                    toast.show('取消收藏');
+                }).delFavorite({cid:cid})
+            }
+        })
     });
 
 

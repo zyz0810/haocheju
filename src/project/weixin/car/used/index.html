@@ -41,8 +41,35 @@
             }else{
                 $('.servicefeedesc .cont').html(data.servicefeedesc);
             }
+            if(data.isCollection == '1'){
+                $('.collect').attr('data-id','1');
+                $('.collect>p').html('已收藏');
+            }else{
+                $('.collect').attr('data-id','0');
+                $('.collect>p').html('收藏');
+            }
+            $('.collect').attr('data-cid',data.cid);
 
         }).usedView({id:pageManager.GetQueryString("id"),userId:userId})
+
+
+        $('.collect').click(function () {
+            if($(this).attr('data-id')==0){
+                new cars(function (data) {
+                    $('.collect').attr('data-id','1');
+                    $('.collect').attr('data-cid',data.cid);
+                    $('.collect>p').html('已收藏');
+                    toast.show('收藏成功');
+                }).favorite({userId:userId,productId:pageManager.GetQueryString("id"),type:'2'})
+            }else{
+                var cid = $(this).attr('data-cid');
+                new cars(function (data) {
+                    $('.collect').attr('data-id','0');
+                    $('.collect>p').html('收藏');
+                    toast.show('取消收藏');
+                }).delFavorite({cid:cid})
+            }
+        })
 
     });
 
