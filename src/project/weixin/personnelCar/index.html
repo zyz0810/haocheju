@@ -31,6 +31,7 @@
         var pge = $(".pageable").pageable({
             loadUpFn: function (me) {
                 var tu = new personnel(function (data) {
+                    me.pageNumber = me.pageNumber + 1;
                     var h = render.fill($("#tpl_list"), data.return_job);
                     $(".pageable .list").html(h);
                     $('img').picLazyLoad();

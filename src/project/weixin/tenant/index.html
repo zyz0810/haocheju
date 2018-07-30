@@ -15,6 +15,7 @@
 <link rel="import" href="../../../pages/tenant/index.html">
 
 <!--模板-->
+<link rel="import" href="../../../model/templete/tenant/intro.html">
 <link rel="import" href="../../../model/templete/tenant/newList.html">
 <link rel="import" href="../../../model/templete/tenant/usedList.html">
 @import "../../../model/widget/include/toast.html";
@@ -23,30 +24,37 @@
 <script type="text/javascript">
     $(function () {
         pageManager.show("index");
+
+        new tenant(function (data) {
+            $("#index_slider").silderTenant(data.goods.images, 1800, "");
+            var h = render.fill($("#tpl_intro"), data.goods);
+            $(".tenant_instro").html(h);
+        }).newCar({providerid:pageManager.GetQueryString("id"),page: 1});
+
         var car = 'new';
         var pge = null;
         pge = $(".pageable").pageable({
             loadUpFn: function (me) {
                 if(car == 'new'){
                     var tu = new tenant(function (data) {
+                        me.pageNumber = me.pageNumber + 1;
                         var h = render.fill($("#tpl_newList"), data.return_newcar);
                         $(".pageable .newCar").html(h);
                         $('img').picLazyLoad();
-                        if (data.return_newcar.length < 10) {
-                            me.lock();
-                            me.noData();
-                        }
                         pge.resetload();
                     });
-                    tu.newCar({providerid:pageManager.GetQueryString("id"),page:1});
+                    me.pageNumber = 1;
+                    tu.newCar({providerid:pageManager.GetQueryString("id"),page: me.pageNumber});
                 }else{
                     var tu = new tenant(function (data) {
+                        me.pageNumber = me.pageNumber + 1;
                         var h = render.fill($("#tpl_usedList"), data.return_oldcar);
                         $(".pageable .usedCar").html(h);
                         $('img').picLazyLoad();
                         pge.resetload();
                     });
-                    tu.usedCar({providerid:pageManager.GetQueryString("id"),page:1});
+                    me.pageNumber = 1;
+                    tu.usedCar({providerid:pageManager.GetQueryString("id"),page: me.pageNumber});
                 }
             },
             loadDownFn: function (me) {
@@ -57,8 +65,8 @@
                         $(".pageable .newCar").append(h);
                         $('img').picLazyLoad();
                         if (data.return_newcar.length < 10) {
-                            me.lock();
-                            me.noData();
+                            pge.lock();
+                            pge.noData();
                         }
                         me.resetload();
                     });
@@ -80,14 +88,11 @@
             }
         });
 
-
         $('.newTab').click(function () {
             $('.newCar').removeClass('none');
             $('.usedCar').addClass('none');
             car = 'new';
             pge.refresh();
-            console.log('点击点击')
-            console.log($('.newCar').html());
         });
         $('.usedTab').click(function () {
             $('.newCar').addClass('none');

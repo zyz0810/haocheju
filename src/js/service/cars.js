@@ -62,8 +62,8 @@ cars.prototype = {
         });
     },
     /**
-     * 拼车列表
-     * @param type  1、车找人 2 人找车
+     * 拼车表单
+     * @param type  、车找人 2 人找车
      */
     pullpool: function (data) {
         ajax.post({

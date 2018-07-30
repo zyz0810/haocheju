@@ -32,6 +32,7 @@
         var pge = $(".pageable").pageable({
             loadUpFn: function (me) {
                 var tu = new zixun(function (data) {
+                    me.pageNumber = me.pageNumber + 1;
                     var h = render.fill($("#tpl_newList"), data.return_new);
                     $(".pageable .hot_cont").html(h);
                     $('img').picLazyLoad();
@@ -46,11 +47,11 @@
                     var h = render.fill($("#tpl_newList"), data.return_new);
                     $(".pageable .hot_cont").append(h);
                     $('img').picLazyLoad();
-                    if (data.length < 10) {
-                        me.lock();
-                        me.noData();
+                    if (data.return_new.length < 10) {
+                        pge.lock();
+                        pge.noData();
                     }
-                    me.resetload();
+                    pge.resetload();
                 });
                 td.list({page:me.pageNumber});
             }

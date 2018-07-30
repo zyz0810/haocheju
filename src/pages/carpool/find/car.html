@@ -6,7 +6,7 @@
                 <div class="weui-cells weui-cells_form">
                     <a class="weui-cell weui-cell_access" href="javascript:;">
                         <div class="weui-cell__hd f16">姓名</div>
-                        <div class="weui-cell__bd"><input class="weui-input tr" type="text" value="张三"></div>
+                        <div class="weui-cell__bd"><input class="weui-input tr" type="text" id="name" value="张三"></div>
                         <div class="weui-cell__ft"></div>
                     </a>
                     <!--<a class="weui-cell weui-cell_access" href="javascript:;">-->
@@ -16,7 +16,7 @@
                     <!--</a>-->
                     <a class="weui-cell weui-cell_access" href="javascript:;">
                         <div class="weui-cell__hd f16">手机号码</div>
-                        <div class="weui-cell__bd"><input class="weui-input tr" type="text" value="15155133955"></div>
+                        <div class="weui-cell__bd"><input class="weui-input tr" type="text" id="phone" value="15155133955"></div>
                         <div class="weui-cell__ft"></div>
                     </a>
                 </div>
@@ -25,13 +25,13 @@
                     <div class="weui-cell">
                         <div class="weui-cell__hd"><label class="weui-label">出发地</label></div>
                         <div class="weui-cell__bd">
-                            <input class="weui-input" type="text" placeholder="请填写出发地">
+                            <input class="weui-input tr" type="text" id="start" placeholder="请填写出发地">
                         </div>
                     </div>
                     <div class="weui-cell">
                         <div class="weui-cell__hd"><label class="weui-label">目的地</label></div>
                         <div class="weui-cell__bd">
-                            <input class="weui-input" type="text" placeholder="请填写目的地">
+                            <input class="weui-input tr" type="text" id="end" placeholder="请填写目的地">
                         </div>
                     </div>
 
@@ -39,14 +39,14 @@
                         <div class="weui-cell__hd f16">
                             <label class="weui-label">出发日期</label>
                         </div>
-                        <div class="weui-cell__bd showDatePicker">日期</div>
+                        <div class="weui-cell__bd showDatePicker tr">日期</div>
                         <div class="weui-cell__ft"></div>
                     </a>
                     <a class="weui-cell weui-cell_access" id="showTimePicker" href="javascript:;">
                         <div class="weui-cell__hd f16">
                             <label class="weui-label">出发时间</label>
                         </div>
-                        <div class="weui-cell__bd showTimePicker">时间</div>
+                        <div class="weui-cell__bd showTimePicker tr">时间</div>
                         <div class="weui-cell__ft"></div>
                     </a>
                     <a class="weui-cell weui-cell_access" id="showPeoplePicker" href="javascript:;">
@@ -54,14 +54,14 @@
                             <label class="weui-label">乘车人数</label>
                         </div>
                         <div class="weui-cell__bd">
-                            <input class="weui-input showPeoplePicker" type="text" placeholder="请选择乘车人数">
+                            <input class="weui-input showPeoplePicker tr" type="text" placeholder="请选择乘车人数">
                         </div>
                         <div class="weui-cell__ft"></div>
                     </a>
                 </div>
                 <div class="weui-cells__title f14">备注留言</div>
                 <div class="beizhu">
-                    <textarea placeholder="以上信息还不够，此处可填写备注哦~"></textarea>
+                    <textarea placeholder="以上信息还不够，此处可填写备注哦~" id="remarks"></textarea>
                 </div>
                 <label for="weuiAgree" class="weui-agree">
                     <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox">

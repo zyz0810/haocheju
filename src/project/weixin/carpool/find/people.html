@@ -151,6 +151,42 @@
             $("#brand").actionsheetClose();
         });
 
+
+        $('.publish_btn').click(function(){
+            var name = $('#name').val();
+            var phone = $('#phonenum').val();
+            var start = $('#start').val();
+            var end = $('#end').val();
+            var startdate = $('.showDatePicker').html();
+            var starttime = $('.showTimePicker').html();
+            var seat = $('.showPeoplePicker').val();
+            var series = $('#showCar').val();
+            var brand = $('#brandBtn').val();
+            var remarks = $('#remarks').val();
+            if($('#weuiAgree').is(':checked')){
+                new cars(function(data){
+                    toast.show('发布成功');
+                    setTimeout(function(){
+                        history.back(-1);
+                    },2000)
+                }).pullpool({
+                    type:1,
+                    name:name,
+                    phonenum:phone,
+                    start:start,
+                    end:end,
+                    startdate:startdate,
+                    starttime:starttime,
+                    seat:seat,
+                    brand:brand,
+                    series:series,
+                    remarks:remarks
+                })
+            }else{
+                toast.show('请先阅读并同意《免责声明》')
+            }
+        });
+
     });
 </script>
 
