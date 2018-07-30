@@ -14,56 +14,79 @@
 <!--首页-->
 <link rel="import" href="../../../pages/carpool/index.html">
 
+<!--模板-->
+<link rel="import" href="../../../model/templete/carpool/list.html">
 @import "../../../model/widget/include/toast.html";
 @import "../../../model/widget/include/dialog.html";
 <script src="/weixin/js/wap.min.js"></script>
 <script type="text/javascript">
     $(function () {
         pageManager.show("index");
-        //顶部轮播图片
-        // var ads = new ad(
-        //     function (data) {
-        //         if (data.length > 0) {
-        //             $("#index_slider").silderDotTxt(data, 1800, "", "true");
-        //         }
-        //     }
-        // );
-        // ads.do(187);
 
-        var list = [
-            {
-                content: '<img src="/weixin/images/static/home/banner01.jpg" /><p class="f10">1.好车居拼车平台免责声明</p>'
-            },
-            {
-                content: '<img src="/weixin/images/static/home/banner02.jpg" /><p class="f10">2.好车居拼车平台免责声明</p>'
-            }
-        ];
-        var S = new iSlider({
-            dom: document.getElementById('index_slider'),
-            data: list,
-            isLooping: 1,
-            isOverspread: 1,
-            animateTime: 800, // ms
-            plugins: ['dot'],
-        });
-        setTimeout(function () {
-            var heig = $('#iSlider-wrapper').find('img').height();
-            var total = heig+30;
-            console.log('heig='+heig)
-            $('#iSlider-wrapper').css({'height':total+'px'})
-        },100)
+
+//        setTimeout(function () {
+//            var heig = $('#iSlider-wrapper').find('img').height();
+//            var total = heig+30;
+//            console.log('heig='+heig)
+//            $('#iSlider-wrapper').css({'height':total+'px'})
+//        },100);
+
+
+        new cars(function(data){
+            $("#index_slider").silderDot(data, 1800, "");
+        }).carPool({page:1,type:1});
 
 
         $(document).on('click','.nav .weui-flex__item',function () {
             $(this).addClass('active').siblings().removeClass('active');
-        })
+            var index = $(this).index();
+            var type = '';
+            if(index == 0){
+                type = '';
+            }else if(index == 1){
+                type = '2';
+            }else if(index == 2){
+                type = '1';
+            }
+            jsonsData.page='1';
+            jsonsData.type=type;
+            pge.refresh();
+        });
 
 
+        var jsonsData = {
+            page: 1,
+            type:''
+        };
 
-        new cars(function (data) {
-
-        }).carPool()
-
+        var pge = null;
+        pge = $(".pageable").pageable({
+            loadUpFn: function () {
+                var tu = new cars(function (data) {
+                    jsonsData.page += 1;
+                    var h = render.fill($("#tpl_list"), data.return_new);
+                    $(".pageable .list").html(h);
+                    $('img').picLazyLoad();
+                    pge.resetload();
+                });
+                jsonsData.page = 1;
+                tu.carPool(jsonsData);
+            },
+            loadDownFn: function (me) {
+                var td = new cars(function (data) {
+                    jsonsData.page += 1;
+                    var h = render.fill($("#tpl_list"), data.return_new);
+                    $(".pageable .list").append(h);
+                    $('img').picLazyLoad();
+                    if (data.return_new.length < 10) {
+                        pge.lock();
+                        pge.noData();
+                    }
+                    pge.resetload();
+                });
+                td.carPool(jsonsData);
+            }
+        });
     });
 </script>
 

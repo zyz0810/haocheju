@@ -1,0 +1,24 @@
+{{#each this}}
+{{#compare type '==' '1'}}
+<li class="list_li" data-id="{{id}}">
+    <p><span class="tag f13">{{typename}}</span><span class="seat clr-gray03 f10">{{seat}}个空位</span></p>
+    <p class="f14 clr-gray02"><span>{{start}}</span>→<span>{{end}}</span></p>
+    <p class="time f11">{{startdate}} {{starttime}}出发</p>
+    <p class="f11">车型：<span>{{brand}}{{series}}</span></p>
+    <p class="f11 gray02"><span class="name">{{name}}</span>：<span class="phone">{{mobile}}</span><a
+            href="tel:{{mobile}}" class="call f12 fr">拨号</a></p>
+</li>
+{{/compare}}
+
+{{#compare type '==' '2'}}
+<li class="list_li" data-id="{{id}}">
+    <p><span class="tag f13 bg_blue05">{{typename}}</span><span class="seat clr-gray03 f10">{{seat}}个人</span></p>
+    <p class="f14 clr-gray02"><span>{{start}}</span>→<span>{{end}}</span></p>
+    <p class="time f11">{{startdate}} {{starttime}}出发</p>
+    <p class="f11 gray02"><span class="name">{{name}}</span>：<span class="phone">{{mobile}}</span><a
+            href="tel:{{mobile}}" class="call f12 fr">拨号</a></p>
+</li>
+{{/compare}}
+
+
+{{/each}}
