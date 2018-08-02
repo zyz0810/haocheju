@@ -105,6 +105,29 @@
             });
         });
 
+        //实时判断手机号
+        var mobilevalid = /^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$/;
+        var bind_name = 'input';
+        if (navigator.userAgent.indexOf("MSIE") != -1) {
+            bind_name = 'propertychange';
+        }
+        if (navigator.userAgent.match(/android/i) == "android") {
+            bind_name = "keydown";
+        }
+        $("#phone").bind(bind_name, function (event) {
+            var number = $('#phone').val();
+            if (number.length == 11) {
+                if (!mobilevalid.test(number)) {
+                    dialog.show("请输入正确的手机号码！");
+                    return false;
+                }
+            } else if (number.length > 11) {
+                $('#phone').val('');
+                dialog.show("请输入11位手机号码！");
+                return false;
+            }
+        });
+
         $('.publish_btn').click(function(){
             var name = $('#name').val();
             var phone = $('#phonenum').val();
