@@ -25,34 +25,27 @@
     $(function () {
         pageManager.show("index");
         var userId = cookie.getCookie('userId');
-        //顶部轮播图片
-        // var ads = new ad(
-        //     function (data) {
-        //         if (data.length > 0) {
-        //             $("#index_slider").silderDot(data, 1800, "", "true");
-        //         }
+
+        // var list = [
+        //     {
+        //         content: '/weixin/images/static/home/banner01.jpg'
+        //     },
+        //     {
+        //         content: '/weixin/images/static/home/banner02.jpg'
         //     }
-        // );
-        // ads.do(187);
-        var list = [
-            {
-                content: '/weixin/images/static/home/banner01.jpg'
-            },
-            {
-                content: '/weixin/images/static/home/banner02.jpg'
-            }
-        ];
-        var S = new iSlider({
-            dom: document.getElementById('index_slider'),
-            data: list,
-            isLooping: 1,
-            isOverspread: 1,
-            animateTime: 800, // ms
-            plugins: ['dot']
-        });
+        // ];
+        // var S = new iSlider({
+        //     dom: document.getElementById('index_slider'),
+        //     data: list,
+        //     isLooping: 1,
+        //     isOverspread: 1,
+        //     animateTime: 800, // ms
+        //     plugins: ['dot']
+        // });
 
         new cars(function (data) {
             // $("#index_slider").silderDot(data, 1800, "");
+            $("#index_slider").silderTenant(data.banner, 1800, "");
             var h = render.fill($("#tpl_new"), data);
             $(".pageable .car_instro").html(h);
             $('.Carcont').html(data.carcontent);

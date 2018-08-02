@@ -10,9 +10,10 @@ tenant.prototype = {
      * 汽贸交易列表
      * page 页码
      */
-    list: function () {
+    list: function (data) {
         ajax.post({
             url: base + "Api/Newcar/index",
+            data:data,
             success: this.fn
         });
     },

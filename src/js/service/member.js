@@ -36,10 +36,11 @@ member.prototype = {
      * 绑定手机
      * phonenum 手机号
      * captcha 验证码
+     * userId 用户Id
      */
     bindMobile: function (data) {
         ajax.post({
-            url: base + 'weixin/member/bind_mobile.jhtml',
+            url: base + 'Api/User/bindPhone',
             data: data,
             success: this.fn
         });
