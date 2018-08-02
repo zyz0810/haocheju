@@ -91,12 +91,14 @@
         $('.newTab').click(function () {
             $('.newCar').removeClass('none');
             $('.usedCar').addClass('none');
+            $(this).addClass('active').siblings().removeClass('active');
             car = 'new';
             pge.refresh();
         });
         $('.usedTab').click(function () {
             $('.newCar').addClass('none');
             $('.usedCar').removeClass('none');
+            $(this).addClass('active').siblings().removeClass('active');
             car = 'used';
             pge.refresh();
         });

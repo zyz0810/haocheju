@@ -45,9 +45,10 @@ tenant.prototype = {
      * providerid 商家Id
      * page 页码
      */
-    usedList: function () {
+    usedList: function (data) {
         ajax.post({
             url: base + "Api/Oldcar/index",
+            data:data,
             success: this.fn
         });
     }
