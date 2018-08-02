@@ -20,6 +20,41 @@
 <script type="text/javascript">
     $(function () {
         pageManager.show("index");
+        if(pageManager.GetQueryString("type") == 'new'){
+            new cars(function (data) {
+
+                $('.car_img').html(data.carcontent);
+
+
+            }).newView({id:pageManager.GetQueryString("id")});
+        }else{
+            new cars(function (data) {
+                var h = render.fill($("#tpl_used"), data);
+                $(".pageable .used_cont").html(h);
+                if($('.archives>ul').children().length == 0){
+                    $('.archives').remove();
+                }
+                if(data.carintroduce == null){
+                    $('.carintroduce').remove();
+                }else{
+                    $('.carintroduce .cont').html(data.carintroduce);
+                }
+                if(data.servicefeedesc == null){
+                    $('.servicefeedesc').remove();
+                }else{
+                    $('.servicefeedesc .cont').html(data.servicefeedesc);
+                }
+                if(data.isCollection == '1'){
+                    $('.collect').attr('data-id','1');
+                    $('.collect>p').html('已收藏');
+                }else{
+                    $('.collect').attr('data-id','0');
+                    $('.collect>p').html('收藏');
+                }
+                $('.collect').attr('data-cid',data.cid);
+
+            }).usedView({id:pageManager.GetQueryString("id"),userId:userId})
+        }
     });
 </script>
 
