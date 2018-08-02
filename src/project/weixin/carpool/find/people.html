@@ -176,7 +176,7 @@
 
         $('.publish_btn').click(function(){
             var name = $('#name').val();
-            var phone = $('#phonenum').val();
+            var phone = $('#phone').val();
             var start = $('#start').val();
             var end = $('#end').val();
             var startdate = $('.showDatePicker').html();
@@ -187,10 +187,10 @@
             var remarks = $('#remarks').val();
             if($('#weuiAgree').is(':checked')){
                 new cars(function(data){
-                    toast.show('发布成功');
-                    // setTimeout(function(){
-                    //     history.back(-1);
-                    // },2000)
+                    toast.show('审核中');
+                    setTimeout(function(){
+                        history.back(-1);
+                    },2000)
                 }).pullpool({
                     type:1,
                     name:name,
