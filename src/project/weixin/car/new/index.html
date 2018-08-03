@@ -75,12 +75,11 @@
                     toast.show('取消收藏');
                 }).delFavorite({cid:cid})
             }
+        });
+        $('#sheet_buy_now').click(function () {
+            window.location.href = '/weixin/appointment/index.html?type=new&id='+pageManager.GetQueryString("id");
         })
-    });
-
-    $('#sheet_buy_now').attr('href','/weixin/appointment/index.html?type=new&id='+pageManager.GetQueryString("id"))
-
-
+    })
 </script>
 
 </body>

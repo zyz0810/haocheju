@@ -20,41 +20,70 @@
 <script type="text/javascript">
     $(function () {
         pageManager.show("index");
+        var userId = cookie.getCookie('userId');
         if(pageManager.GetQueryString("type") == 'new'){
             new cars(function (data) {
-
                 $('.car_img').html(data.carcontent);
-
-
             }).newView({id:pageManager.GetQueryString("id")});
+            $('.publish_btn').click(function () {
+                var name = $('#name').val();
+                var phone = $('#phone').val();
+                new cars(function (data) {
+                    toast.show('预约成功');
+                }).subscribe({username:name,phonenum:phone,type:'1',productId:pageManager.GetQueryString("id")})
+            })
         }else{
             new cars(function (data) {
-                var h = render.fill($("#tpl_used"), data);
-                $(".pageable .used_cont").html(h);
-                if($('.archives>ul').children().length == 0){
-                    $('.archives').remove();
-                }
-                if(data.carintroduce == null){
-                    $('.carintroduce').remove();
-                }else{
-                    $('.carintroduce .cont').html(data.carintroduce);
-                }
-                if(data.servicefeedesc == null){
-                    $('.servicefeedesc').remove();
-                }else{
-                    $('.servicefeedesc .cont').html(data.servicefeedesc);
-                }
-                if(data.isCollection == '1'){
-                    $('.collect').attr('data-id','1');
-                    $('.collect>p').html('已收藏');
-                }else{
-                    $('.collect').attr('data-id','0');
-                    $('.collect>p').html('收藏');
-                }
                 $('.collect').attr('data-cid',data.cid);
+            }).usedView({id:pageManager.GetQueryString("id"),userId:userId});
 
-            }).usedView({id:pageManager.GetQueryString("id"),userId:userId})
+            var name = $('#name').val();
+            var phone = $('#phone').val();
+            new cars(function (data) {
+                toast.show('预约成功');
+            }).subscribe({username:name,phonenum:phone,type:'2',productId:pageManager.GetQueryString("id")})
         }
+
+        //实时判断手机号
+        var mobilevalid = /^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$/;
+        var bind_name = 'input';
+        if (navigator.userAgent.indexOf("MSIE") != -1) {
+            bind_name = 'propertychange';
+        }
+        if (navigator.userAgent.match(/android/i) == "android") {
+            bind_name = "keydown";
+        }
+        $("#phone").bind(bind_name, function (event) {
+            var number = $('#phone').val();
+            if (number.length == 11) {
+                if (!mobilevalid.test(number)) {
+                    dialog.show("请输入正确的手机号码！");
+                    return false;
+                }else{
+                    if($('#phone').val().length == 11 && $('#name').val().length > 0){
+                        $('.publish_btn').css({'background':'#0f84de'});
+                    }else{
+                        $('.publish_btn').css({'background':'#ccc'});
+                    }
+                }
+            } else if (number.length > 11) {
+                $('#phone').val('');
+                dialog.show("请输入11位手机号码！");
+                return false;
+            }else {
+                $('.publish_btn').css({'background':'#ccc'});
+            }
+        });
+        $("#name").bind(bind_name, function (event) {
+            if($('#phone').val().length == 11 && $('#name').val().length > 0){
+                $('.publish_btn').css({'background':'#0f84de'});
+            }else{
+                $('.publish_btn').css({'background':'#ccc'});
+            }
+        });
+
+
+
     });
 </script>
 

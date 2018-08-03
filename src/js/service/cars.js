@@ -74,6 +74,20 @@ cars.prototype = {
         });
     },
     /**
+     * 预约车辆
+     * @param 	username 姓名
+     * phonenum 手机号
+     * type 1、新车 2、二手车
+     * productId 车子Id
+     */
+    subscribe: function (data) {
+        ajax.post({
+            url: base + "Api/Subscribe/pull",
+            data: data,
+            success: this.fn
+        });
+    },
+    /**
      * 拼车列表
      * @param page  页码
      * @param type  1、车找人 2人找车
