@@ -38,19 +38,37 @@
                     dialog.show("请输入正确的手机号码！");
                     return false;
                 }
+                if($('.code_num').val().length == 6 && $('#weuiAgree').is(':checked')){
+                    $('.publish_btn').css({'background':'#0f84de'});
+                }else{
+                    $('.publish_btn').css({'background':'#ccc'});
+                }
             } else if (number.length > 11) {
                 $('#phone').val('');
+                $('.publish_btn').css({'background':'#ccc'});
                 dialog.show("请输入11位手机号码！");
                 return false;
+            } else{
+                $('.publish_btn').css({'background':'#ccc'});
             }
         });
         $("#captcha").bind(bind_name, function (event) {
-            if($('#phone').val().length == 11 && $('.code_num').val().length == 6){
+            if($('#phone').val().length == 11 && $('.code_num').val().length == 6 && $('#weuiAgree').is(':checked')){
                 $('.publish_btn').css({'background':'#0f84de'});
             }else{
                 $('.publish_btn').css({'background':'#ccc'});
             }
         });
+
+
+        $("#weuiAgree").on("change",function(){
+            if($('#phone').val().length == 11 && $('.code_num').val().length == 6 && $('#weuiAgree').is(':checked')){
+                $('.publish_btn').css({'background':'#0f84de'});
+            }else{
+                $('.publish_btn').css({'background':'#ccc'});
+            }
+        });
+
 
         //绑定手机获取验证码
         $("#getcap").click(function () {
@@ -92,6 +110,8 @@
                 toast.show('请填写正确手机号');
             } else if($('.code_num').val().length != 6){
                 toast.show('请填写正确验证码');
+            }else if($('#weuiAgree').is(':checked')){
+                toast.show('请先阅读并同意《注册协议》')
             }else{
                 var phone = $("#phone").val();
                 var code = $('.code_num').val();

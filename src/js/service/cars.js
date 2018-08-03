@@ -74,6 +74,28 @@ cars.prototype = {
         });
     },
     /**
+     * 新车预约详情
+     * @param 	productId 车Id
+     */
+    subscribeNew: function (data) {
+        ajax.post({
+            url: base + "Api/Newcar/newcontent",
+            data: data,
+            success: this.fn
+        });
+    },
+    /**
+     * 二手车预约详情
+     * @param 	productId 车Id
+     */
+    subscribeOld: function (data) {
+        ajax.post({
+            url: base + "Api/Oldcar/oldcontent",
+            data: data,
+            success: this.fn
+        });
+    },
+    /**
      * 预约车辆
      * @param 	username 姓名
      * phonenum 手机号

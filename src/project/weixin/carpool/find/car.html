@@ -21,6 +21,25 @@
     $(function () {
         pageManager.show("car");
 
+
+
+        {
+            "message":
+            {
+                "type":"success","content":"\u5df2\u7ecf\u6ce8\u518c\u8fc7"
+            },
+            "data":{
+                "nickname":"\u8273\u5b50",
+                "userId":"6",
+                "headerimg":"http:\/\/thirdwx.qlogo.cn\/mmopen\/vi_32\/Q0j4TwGTfTIcshGibWvh2sGdbwarB3PhyumuELQwVee6mNib1oHYrcjia4rMaF1her6KqvIR2YBOztHQ9miae51TqA\/132",
+                "verify":"0",
+                "type":"1",
+                "url":"http:\/\/www.0556360.com\/weixin\/home\/index.html",
+                "phone":""
+            },
+            "pageModel":[]
+        }
+
         function p(s) {
             return s < 10 ? '0' + s: s;
         }
@@ -125,6 +144,13 @@
                 $('#phone').val('');
                 dialog.show("请输入11位手机号码！");
                 return false;
+            }
+        });
+        $("#weuiAgree").on("change",function(){
+            if($('#phone').val().length == 11 && $('.code_num').val().length == 6 && $('#weuiAgree').is(':checked')){
+                $('.publish_btn').css({'background':'#0f84de'});
+            }else{
+                $('.publish_btn').css({'background':'#ccc'});
             }
         });
 

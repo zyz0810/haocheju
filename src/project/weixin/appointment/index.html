@@ -21,10 +21,49 @@
     $(function () {
         pageManager.show("index");
         var userId = cookie.getCookie('userId');
+        var id = pageManager.GetQueryString("id");
         if(pageManager.GetQueryString("type") == 'new'){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             new cars(function (data) {
-                $('.car_img').html(data.carcontent);
-            }).newView({id:pageManager.GetQueryString("id")});
+
+                var str = '';
+                str += '<a href="/weixin/car/new/index.html' + id + '" class="weui-cell">';
+                str += '<div class="weui-cell__hd">';
+
+                if(data.brandlogo == ''){
+                    str += '<img src="/weixin/images/placeholder/logo.png" class="car_img"/>';
+                }else{
+                    str += '<img src="' + data.brandlogo + '" class="car_img"/>';
+                }
+                str += '<span class="car_tag f12">新车</span>';
+                str += '</div>';
+                str += '<div class="weui-cell__bd">';
+                str += '<p class="f14">' + data.carname + ' ' + data.cartype + '</p>';
+                if(data.carconfig != ''){
+                    str += '<p class="f12 gray02">配置：' + data.carconfig + '</p>';
+                }
+                str += '<p class="f12 yellow01">销售价：' + data.carprice + '元</p>';
+                str += '</div>';
+                str += '</a>';
+
+                $('.product_tenant').html(str);
+
+
+            }).subscribeNew({productId:pageManager.GetQueryString("id")});
+
             $('.publish_btn').click(function () {
                 var name = $('#name').val();
                 var phone = $('#phone').val();
@@ -33,15 +72,39 @@
                 }).subscribe({username:name,phonenum:phone,type:'1',productId:pageManager.GetQueryString("id")})
             })
         }else{
-            new cars(function (data) {
-                $('.collect').attr('data-cid',data.cid);
-            }).usedView({id:pageManager.GetQueryString("id"),userId:userId});
 
-            var name = $('#name').val();
-            var phone = $('#phone').val();
             new cars(function (data) {
-                toast.show('预约成功');
-            }).subscribe({username:name,phonenum:phone,type:'2',productId:pageManager.GetQueryString("id")})
+                console.log(data)
+                var str = '';
+                str += '<a href="/weixin/car/new/index.html' + id + '" class="weui-cell">';
+                str += '<div class="weui-cell__hd">';
+
+                if(data.brandlogo == ''){
+                    str += '<img src="/weixin/images/placeholder/logo.png" class="car_img"/>';
+                }else{
+                    str += '<img src="' + data.brandlogo + '" class="car_img"/>';
+                }
+                str += '<span class="car_tag f12 used_car">二手车</span>';
+                str += '</div>';
+                str += '<div class="weui-cell__bd">';
+                str += '<p class="f14">' + data.carname + ' ' + data.cartype + '</p>';
+                if(data.configure != ''){
+                    str += '<p class="f12 gray02">配置：' + data.configure + '</p>';
+                }
+                str += '<p class="f12 yellow01">销售价：' + data.saleprice + '元</p>';
+                str += '</div>';
+                str += '</a>';
+
+                $('.product_tenant').html(str);
+            }).subscribeOld({productId:pageManager.GetQueryString("id")});
+
+            $('.publish_btn').click(function () {
+                var name = $('#name').val();
+                var phone = $('#phone').val();
+                new cars(function (data) {
+                    toast.show('预约成功');
+                }).subscribe({username:name,phonenum:phone,type:'2',productId:pageManager.GetQueryString("id")})
+            })
         }
 
         //实时判断手机号
@@ -68,6 +131,7 @@
                 }
             } else if (number.length > 11) {
                 $('#phone').val('');
+                $('.publish_btn').css({'background':'#ccc'});
                 dialog.show("请输入11位手机号码！");
                 return false;
             }else {

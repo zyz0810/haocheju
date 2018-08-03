@@ -14,13 +14,22 @@ member.prototype = {
     //         success: this.fn
     //     });
     // },
+    // checkLogin: function (data) {
+    //     ajax.post({
+    //         url:'http://dev.susonghaoniu.com/Api/User/login',
+    //         success: this.fn,
+    //         data:data
+    //     });
+    // },
+
     checkLogin: function (data) {
-        ajax.post({
-            url:'http://dev.susonghaoniu.com/Api/User/login',
+        ajax.get({
+            url:'http://www.51studytime.cn/Wap/Index/getCode',
             success: this.fn,
             data:data
         });
     },
+
     /**
      * 绑定手机获取验证码
      * phonenum 手机号
