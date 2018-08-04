@@ -8,20 +8,22 @@ var cars = function (fn) {
 cars.prototype = {
     /**
      * 获取车系
+     * @param carId 车系Id
      */
-    mode: function () {
+    mode: function (data) {
         ajax.post({
             url: base + "Api/Brandlist/cartype",
+            data:data,
             success: this.fn
         });
     },
     /**
      * 获取品牌
-     * @param carId 车系Id
      */
-    brand: function () {
+    brand: function (data) {
         ajax.post({
             url: base + "Api/Brandlist/first",
+            data:data,
             success: this.fn
         });
 

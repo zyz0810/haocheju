@@ -397,9 +397,21 @@ $(function () {
     //     cookie.setCookie("userName", data.nickname, 1);
     // }).checkLogin({phonenum:'15056575017'});
 
-    new member(function (data) {
-        console.log(data);
-    }).checkLogin();
+    // new member(function (data) {
+    //     console.log(data);
+    // }).checkLogin();
+
+    // http://www.0556360.com/weixin/home/index.html?nickname=%C3%A8%C2%89%C2%B3%C3%A5%C2%AD%C2%90&userId=6&verify=0&type=1
+    var username = unescape(pageManager.GetQueryString("nickname"));
+    var userId = pageManager.GetQueryString("userId");
+    var verify = pageManager.GetQueryString("verify");
+    var type = pageManager.GetQueryString("type");
+    var phone = pageManager.GetQueryString("phone");
+    cookie.setCookie("userId", userId, 1);
+    cookie.setCookie("userName", username, 1);
+    cookie.setCookie("phone", phone, 1);
+    cookie.setCookie("type", type, 1);
+    cookie.setCookie("verify", verify, 1);
 
 });
 

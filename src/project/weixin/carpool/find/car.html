@@ -23,23 +23,6 @@
 
 
 
-        {
-            "message":
-            {
-                "type":"success","content":"\u5df2\u7ecf\u6ce8\u518c\u8fc7"
-            },
-            "data":{
-                "nickname":"\u8273\u5b50",
-                "userId":"6",
-                "headerimg":"http:\/\/thirdwx.qlogo.cn\/mmopen\/vi_32\/Q0j4TwGTfTIcshGibWvh2sGdbwarB3PhyumuELQwVee6mNib1oHYrcjia4rMaF1her6KqvIR2YBOztHQ9miae51TqA\/132",
-                "verify":"0",
-                "type":"1",
-                "url":"http:\/\/www.0556360.com\/weixin\/home\/index.html",
-                "phone":""
-            },
-            "pageModel":[]
-        }
-
         function p(s) {
             return s < 10 ? '0' + s: s;
         }
@@ -154,39 +137,47 @@
             }
         });
 
-        $('.publish_btn').click(function(){
-            var name = $('#name').val();
-            var phone = $('#phone').val();
-            var start = $('#start').val();
-            var end = $('#end').val();
-            var startdate = $('.showDatePicker').html();
-            var starttime = $('.showTimePicker').html();
-            var seat = $('.showPeoplePicker').val();
-            var remarks = $('#remarks').val();
+        $("#weuiAgree").on("change",function(){
             if($('#weuiAgree').is(':checked')){
-                new cars(function(data){
-                    toast.show('发布成功');
-                    setTimeout(function(){
-                        history.back(-1);
-                    },2000)
-                }).pullpool({
-                    type:2,
-                    name:name,
-                    phonenum:phone,
-                    start:start,
-                    end:end,
-                    startdate:startdate,
-                    starttime:starttime,
-                    seat:seat,
-                    brand:'',
-                    series:'',
-                    remarks:remarks
-                })
+                $('.publish_btn').css({'background':'#0f84de'});
             }else{
-             toast.show('请先阅读并同意《免责声明》')
+                $('.publish_btn').css({'background':'#ccc'});
             }
         });
-
+        if($('#weuiAgree').is(':checked')){
+            $('.publish_btn').click(function () {
+                var name = $('#name').val();
+                var phone = $('#phone').val();
+                var start = $('#start').val();
+                var end = $('#end').val();
+                var startdate = $('.showDatePicker').html();
+                var starttime = $('.showTimePicker').html();
+                var seat = $('.showPeoplePicker').val();
+                var remarks = $('#remarks').val();
+                new cars(function (data) {
+                    toast.show('发布成功');
+                    setTimeout(function () {
+                        history.back(-1);
+                    }, 2000)
+                }).pullpool({
+                    type: 2,
+                    name: name,
+                    phonenum: phone,
+                    start: start,
+                    end: end,
+                    startdate: startdate,
+                    starttime: starttime,
+                    seat: seat,
+                    brand: '',
+                    series: '',
+                    remarks: remarks
+                })
+            });
+        }else {
+            $('.publish_btn').click(function(){
+                toast.show('请先阅读并同意《免责声明》')
+            })
+        }
 
     });
 </script>

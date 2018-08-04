@@ -43,6 +43,28 @@
         //     plugins: ['dot'],
         // });
 
+        var username = unescape(pageManager.GetQueryString("nickname"));
+        var userId = pageManager.GetQueryString("userId");
+        var verify = pageManager.GetQueryString("verify");
+        var type = pageManager.GetQueryString("type");
+        var phone = pageManager.GetQueryString("phone");
+        cookie.setCookie("userId", userId, 1);
+        cookie.setCookie("userName", username, 1);
+        cookie.setCookie("phone", phone, 1);
+        cookie.setCookie("type", type, 1);
+        cookie.setCookie("verify", verify, 1);
+
+        if(cookie.getCookie('verify') != '1'){
+            // window.location.href = '/weixin/mobile/index.html';
+            // location.href = "http://www.0556360.com/weixin/mobile/index.html";
+
+            dialog.show('请先绑定手机',function () {
+                window.location.href = '/weixin/mobile/index.html';
+            })
+
+        }
+
+
 
         var aa = new first(
             function (data) {

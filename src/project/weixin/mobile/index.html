@@ -21,6 +21,7 @@
     $(function () {
         pageManager.show("index");
         var userId = cookie.getCookie('userId');
+        alert('获取'+cookie.getCookie('userId'))
 
         //实时判断手机号
         var mobilevalid = /^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$/;
@@ -105,24 +106,36 @@
         }
 
 
-        $('.publish_btn').click(function () {
-            if($('#phone').val() == '' || $('#phone').val().length < 11){
-                toast.show('请填写正确手机号');
-            } else if($('.code_num').val().length != 6){
-                toast.show('请填写正确验证码');
-            }else if($('#weuiAgree').is(':checked')){
+        if($('#weuiAgree').is(':checked')){
+
+            $('.publish_btn').click(function () {
+                if($('#phone').val() == '' || $('#phone').val().length < 11){
+                    toast.show('请填写正确手机号');
+                } else if($('.code_num').val().length != 6){
+                    toast.show('请填写正确验证码');
+                }else{
+                    var phone = $("#phone").val();
+                    var code = $('.code_num').val();
+                    new member(function (data) {
+                        toast.show('绑定成功');
+                        cookie.delCookie("verify");
+                        cookie.setCookie("verify", '1', 1);
+                        cookie.setCookie("phone", phone, 1);
+
+                        console.log(cookie.getCookie('userId'));
+                        console.log(cookie.getCookie('username'));
+                        console.log(cookie.getCookie('phone'));
+                        setTimeout(function () {
+                            window.location.href = '/weixin/home/index.html';
+                        },2000)
+                    }).bindMobile({phonenum:phone,code:code,userId:userId})
+                }
+            })
+        }else{
+            $('.publish_btn').click(function () {
                 toast.show('请先阅读并同意《注册协议》')
-            }else{
-                var phone = $("#phone").val();
-                var code = $('.code_num').val();
-                new member(function (data) {
-                    toast.show('绑定成功');
-                    setTimeout(function () {
-                        // window.location.href = '/weixin/home/index.html';
-                    },2000)
-                }).bindMobile({phonenum:phone,code:code,userId:userId})
-            }
-        })
+            })
+        }
 
     });
 </script>

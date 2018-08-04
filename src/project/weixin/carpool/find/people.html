@@ -109,37 +109,33 @@
             });
         });
 
+        new cars(function (data) {
+            var mode = render.fill($("#tpl_carBrand"), data.productList);
+            $(".carBrand").html(mode);
+        }).brand();
 
-        var carsMode = new cars(function (data) {
-            var mode = render.fill($("#tpl_carMode"), data);
-            $(".cars").html(mode);
-        });
-        carsMode.mode();
         var id = $('.cars li').first().attr('data-id');
 
 
         $('#showCar').click(function () {
-            $("#carMode").actionsheet();
-            $('.mask').css({'display': 'block'});
+            if ($('#brandBtn').val() == '') {
+                toast.show('请先填写品牌')
+            } else {
+                $("#carMode").actionsheet();
+                $('.mask').css({'display': 'block'});
+            }
         });
 
         $('#brandBtn').click(function () {
-
-            if ($('.carModeTxt').val() == '') {
-                toast.show('请先填写车系')
-            } else {
-                $("#brand").actionsheet();
-            }
+            $("#brand").actionsheet();
         });
 
         $(document).on('click', '#carMode ul li', function () {
             var id = $(this).attr('data-id');
             $('.carModeTxt').val($(this).html());
             $('.carModeTxt').attr('data-id', id);
-            new cars(function (data) {
-                var mode = render.fill($("#tpl_carBrand"), data.productList);
-                $(".carBrand").html(mode);
-            }).brand({carId: id});
+
+
             $("#carMode").actionsheetClose();
         });
 
@@ -148,6 +144,11 @@
             var id = $(this).attr('data-id');
             $('.carBrandtxt').val($(this).html());
             $('.carBrandtxt').attr('data-id', id);
+            var carsMode = new cars(function (data) {
+                var mode = render.fill($("#tpl_carMode"), data);
+                $(".cars").html(mode);
+            });
+            carsMode.mode({carId: id});
             $("#brand").actionsheetClose();
         });
 
@@ -174,19 +175,25 @@
             }
         });
 
-
-        $('.publish_btn').click(function(){
-            var name = $('#name').val();
-            var phone = $('#phone').val();
-            var start = $('#start').val();
-            var end = $('#end').val();
-            var startdate = $('.showDatePicker').html();
-            var starttime = $('.showTimePicker').html();
-            var seat = $('.showPeoplePicker').val();
-            var series = $('#showCar').val();
-            var brand = $('#brandBtn').val();
-            var remarks = $('#remarks').val();
+        $("#weuiAgree").on("change",function(){
             if($('#weuiAgree').is(':checked')){
+                $('.publish_btn').css({'background':'#0f84de'});
+            }else{
+                $('.publish_btn').css({'background':'#ccc'});
+            }
+        });
+        if($('#weuiAgree').is(':checked')){
+            $('.publish_btn').click(function(){
+                var name = $('#name').val();
+                var phone = $('#phone').val();
+                var start = $('#start').val();
+                var end = $('#end').val();
+                var startdate = $('.showDatePicker').html();
+                var starttime = $('.showTimePicker').html();
+                var seat = $('.showPeoplePicker').val();
+                var series = $('#showCar').val();
+                var brand = $('#brandBtn').val();
+                var remarks = $('#remarks').val();
                 new cars(function(data){
                     toast.show('发布成功');
                     setTimeout(function(){
@@ -205,11 +212,12 @@
                     series:series,
                     remarks:remarks
                 })
-            }else{
+            });
+        }else{
+            $('.publish_btn').click(function(){
                 toast.show('请先阅读并同意《免责声明》')
-            }
-        });
-
+            })
+        }
     });
 </script>
 
