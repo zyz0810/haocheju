@@ -28,4 +28,5 @@
 @import "../../js/widget/imgReset.js";
 @import "../../js/widget/productSilder.js";
 @import "../../js/widget/silderGalleryTenant.js";
+@import "../../js/widget/serachBar.js";
 @import "../../js/widget/vconsole.min.js";

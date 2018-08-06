@@ -12,10 +12,10 @@
 <div class="container" id="container"></div>
 
 <!--首页-->
-<link rel="import" href="../../../pages/carpool/index.html">
+<link rel="import" href="../../../pages/carpool/index2.html">
 
 <!--模板-->
-<link rel="import" href="../../../model/templete/carpool/list.html">
+<link rel="import" href="../../../model/templete/carpool/list2.html">
 @import "../../../model/widget/include/toast.html";
 @import "../../../model/widget/include/dialog.html";
 <script src="/weixin/js/wap.min.js"></script>
@@ -39,16 +39,24 @@
 
         $(document).on('click','.nav .weui-flex__item',function () {
             $(this).addClass('active').siblings().removeClass('active');
-            var index = $(this).attr('data-id');
+            var index = $(this).index();
             var type = '';
+            if(index == 0){
+                type = '';
+            }else if(index == 1){
+                type = '2';
+            }else if(index == 2){
+                type = '1';
+            }
             jsonsData.page='1';
-            jsonsData.type=index;
+            jsonsData.type=type;
             pge.refresh();
         });
 
+
         var jsonsData = {
             page: 1,
-            type:'1'
+            type:''
         };
 
         var pge = null;

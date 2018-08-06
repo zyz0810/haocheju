@@ -1,0 +1,17 @@
+{{#each this}}
+<div class="weui-cells">
+    <a href="/weixin/tenant/index.html?id={{providerid}}" data-id="{{providerid}}" class="weui-cell weui-cell_access">
+        <div class="weui-cell__hd tenant_logo"><img src="{{goodlogo}}" /></div>
+        <div class="weui-cell__bd f12">{{goodname}}</div>
+        <div class="weui-cell__ft"></div>
+    </a>
+    <a href="/weixin/car/new/index.html?id={{id}}" data-id="{{id}}" class="weui-cell product">
+        <div class="weui-cell__hd"><img src="{{carbanner}}" /></div>
+        <div class="weui-cell__bd f14">
+            <p class="overtwo">{{name}} {{type}}</p>
+            <p>{{carconfig}}</p>
+            <p class="yellow01">销售价：{{carprice}}元</p>
+        </div>
+    </a>
+</div>
+{{/each}}
