@@ -32,62 +32,17 @@
         var verify = pageManager.GetQueryString("verify");
         var type = pageManager.GetQueryString("type");
         var phone = pageManager.GetQueryString("phone");
-        // debugger
-        cookie.setCookie("userId", userId, 1);
-        // debugger
-        cookie.setCookie("userName", username, 1);
-        cookie.setCookie("phone", phone, 1);
-        cookie.setCookie("type", type, 1);
-        cookie.setCookie("verify", verify, 1);
+        cookie.setCookie("userId", userId, 1,'/');
+        cookie.setCookie("userName", username, 1,'/');
+        cookie.setCookie("phone", phone, 1,'/');
+        cookie.setCookie("type", type, 1,'/');
+        cookie.setCookie("verify", verify, 1,'/');
 
-
-        //历史搜索
-        var search_products_str = cookie.getCookie('search_products');
-        var search_products = [];
-        if (search_products_str != null && search_products_str != '') {
-            search_products = search_products_str.split(',');
-        }
-
-        $('#searchGo').click(function() {
-            var keyword = $("#searchInput").val();
-            //添加进历史搜索
-            var exist = false;
-            for (var i = 0; i < search_products.length; i++) {
-                if (search_products[i].trim()==keyword.trim()) {
-                    exist = true;
-                    break;
-                }
-            }
-            if (!exist) {
-                var arr = [keyword.trim()];
-                if (search_products.length > 0) {
-                    search_products = arr.concat(search_products);
-                } else {
-                    search_products = arr;
-                }
-                if (search_products.length > 0) cookie.setCookie("search_products", search_products.join(","), 1);
-
-            }
-
-            // window.location.href='../mobile/index.html';
-            return false;
-        });
-
-
-
-        // alert(cookie.getCookie('userId'));
-
-        if(cookie.getCookie('verify') != '1'){
-            // window.location.href = '/weixin/mobile/index.html';
-            // location.href = "http://www.0556360.com/weixin/mobile/index.html";
-            //
+        if(verify != 1){
             dialog.show('请先绑定手机',function () {
-                // window.location.href = '/weixin/mobile/index.html';
+                window.location.href = '/weixin/mobile/index.html';
             })
-
         }
-
-
 
         var aa = new first(
             function (data) {
