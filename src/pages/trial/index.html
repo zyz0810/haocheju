@@ -1,8 +1,6 @@
 <div class="page hire trial">
     <div class="page__bd" style="height: 100%;">
         <div class="weui-tab">
-
-
             <div id="areaCont">
                 <div class="weui-actionsheet actionsheet">
                     <ul class="f17 tc clearfix">
@@ -77,46 +75,43 @@
                     </ul>
                 </div>
             </div>
-
-
             <div class="weui-tab__panel pageable" style="padding-bottom: 0;">
-
-
                 <ul class="tab weui-flex f16 tc">
                 <li class="hire_car weui-flex__item active" data-id="0"><span>违章</span></li>
                 <li class="driving weui-flex__item" data-id="1"><span>年审</span></li>
                 </ul>
+                <!--违章查询-->
                 <div class="peccancy">
                     <div class="weui-cells weui-cells_form f15">
                         <div class="weui-cell">
                             <div class="weui-cell__hd"><label class="weui-label">车牌号</label></div>
                             <div class="weui-cell__bd license tr">
                                 <span class="area baseColor fl">
-                                    <a href="javascript:;" class="area_txt">皖</a>
+                                    <a href="javascript:;" class="area_txt" id="peccancy_area">皖</a>
                                     <img src="/weixin/images/static/trial/arrow.png" alt=""/>
                                 </span>
-                                <input class="weui-input license_num" type="text" placeholder="请输入车牌号">
+                                <input class="weui-input license_num" type="text" id="peccancy_license" placeholder="请输入车牌号">
                             </div>
                         </div>
                         <div class="weui-cell">
                             <div class="weui-cell__hd"><label class="weui-label">车架号</label></div>
                             <div class="weui-cell__bd">
-                                <input class="weui-input" type="text" placeholder="请输入完整的车架号">
+                                <input class="weui-input" type="text" id="peccancy_frame" placeholder="请输入完整的车架号">
                             </div>
                         </div>
                         <div class="weui-cell">
                             <div class="weui-cell__hd"><label class="weui-label">发动机号</label></div>
                             <div class="weui-cell__bd">
-                                <input class="weui-input" type="text" placeholder="请输入发动机号6位">
+                                <input class="weui-input" type="text" id="peccancy_engine" placeholder="请输入发动机号6位">
                             </div>
                         </div>
                     </div>
-                    <a href="car/model.html" class="weui-btn weui-btn_primary publish_btn">查询</a>
+                    <a href="javascript:;" class="weui-btn weui-btn_primary publish_btn" id="peccancy_btn">查询</a>
                 </div>
 
-
+                <!--年审-->
                 <div class="trial_cont none">
-                    <div class="weui-cells weui-cells_form">
+                    <div class="weui-cells weui-cells_form f15">
 
                         <div class="weui-cell">
                             <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>

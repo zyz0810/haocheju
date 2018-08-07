@@ -21,7 +21,13 @@
     $(function () {
         pageManager.show("car");
 
+        var name = unescape(cookie.getCookie('userName'));
+        $('#name').val(name);
+        var phone = cookie.getCookie('phone');
 
+        if(phone != 'null'){
+            $('#phone').val(phone);
+        }
 
         function p(s) {
             return s < 10 ? '0' + s: s;

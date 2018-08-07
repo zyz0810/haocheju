@@ -33,7 +33,7 @@
         var type = pageManager.GetQueryString("type");
         var phone = pageManager.GetQueryString("phone");
         cookie.setCookie("userId", userId, 1,'/');
-        cookie.setCookie("userName", username, 1,'/');
+        cookie.setCookie("userName", escape(username), 1,'/');
         cookie.setCookie("phone", phone, 1,'/');
         cookie.setCookie("type", type, 1,'/');
         cookie.setCookie("verify", verify, 1,'/');

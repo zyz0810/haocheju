@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>年审</title>
+    <title>违章年审</title>
     @import "../include/header.inc";
 
 </head>
@@ -49,7 +49,22 @@
         $('#areaCont2 ul li').click(function () {
             $('.trial_cont .area_txt').html($(this).html());
             $("#areaCont2").actionsheetClose();
-        })
+        });
+
+        //违章查询
+        $('#peccancy_btn').click(function () {
+            var peccancy_area = $('#peccancy_area').html();
+            var peccancy_license = $('#peccancy_license').val();
+            var peccancy_frame = $('#peccancy_frame').val();
+            var peccancy_engine = $('#peccancy_engine').val();
+
+            new trial(function (data) {
+
+                console.log(data)
+
+            }).illegal({carno:peccancy_area + peccancy_license,engineno:peccancy_frame,vin:peccancy_engine})
+
+        });
 
     });
 </script>
