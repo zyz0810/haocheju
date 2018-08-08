@@ -22,9 +22,11 @@
         pageManager.show("car");
 
         var name = unescape(cookie.getCookie('userName'));
-        $('#name').val(name);
         var phone = cookie.getCookie('phone');
 
+        if(name != 'null'){
+            $('#name').val(name);
+        }
         if(phone != 'null'){
             $('#phone').val(phone);
         }

@@ -39,6 +39,22 @@ input, textarea {
 .weui-icon-search:before{
   color: @baseColor;
 }
+.weui-cells__title{
+  padding-left: 2vw;
+}
+
+input::-webkit-input-placeholder,textarea::-webkit-input-placeholder{
+  color: @gray11;
+}
+input::-moz-placeholder,textarea::-moz-placeholder{   /* Mozilla Firefox 19+ */
+  color: @gray11;
+}
+input:-moz-placeholder,textarea:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+  color: @gray11;
+}
+input:-ms-input-placeholder,textarea:-ms-input-placeholder{  /* Internet Explorer 10-11 */
+  color: @gray11;
+}
 
 //行高清除（重置）
 .lineH_clear {

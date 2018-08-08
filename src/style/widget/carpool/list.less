@@ -15,25 +15,22 @@
     }
   }
   .publish_find{
-    padding: 2%;
-    margin: 2% auto;
+    padding: 4% 2%;
     background: @white;
     .weui-flex__item{
       a{
         display: inline-block;
-        color: @white;
+        //color: @white;
         width: 80%;
         padding: 5px 0;
-        background: @baseColor;
+        //background: @baseColor;
       }
     }
   }
   .nav{
+    padding-bottom: 1vw;
     background: @white;
     position: relative;
-    &:after{
-      .mixin(bottom,solid,@gray02);
-    }
     .weui-flex__item{
       padding: 0 2%;
       a{
@@ -42,8 +39,9 @@
         position: relative;
       }
       .line{
+        display: none;
         position: absolute;
-        left: 0;
+        left: 11px;
         bottom: 0;
         height: 2px;
         width: 20px;
@@ -52,7 +50,9 @@
       &.active{
         a{
           color: @baseColor;
-          border-bottom: 2px solid @baseColor;
+          .line{
+            display: block;
+          }
         }
       }
     }
@@ -94,4 +94,82 @@
   #iSlider-wrapper a, #iSlider-wrapper a img{
     //height: 90%;
   }
+}
+.carpool_call{
+  display: block;
+  width: 20vw;
+  height: 9vw;
+  line-height: 9vw;
+  background: -webkit-linear-gradient(#1a89df, #0971c0); /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(#1a89df, #0971c0); /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(#1a89df, #0971c0); /* Firefox 3.6 - 15 */
+  background: linear-gradient(#1a89df, #0971c0); /* 标准的语法 */
+}
+.list2{
+  padding-top: 2vw;
+  li{
+    width: 92vw;
+    padding-bottom: 2vw;
+    margin: 2vw auto 2vw;
+    border-radius: 3px;
+    box-shadow: 0 0 8px #d9ebf7;
+    .weui-cell{
+      .head_img{
+        width: 9vw;
+        height: 9vw;
+        margin-right: 2vw;
+        border-radius: 50%;
+        img{
+          border-radius: 50%;
+        }
+      }
+      &.site{
+        width: 96%;
+        padding: 2% 0 0;
+        margin: 0 2vw;
+        .weui-cell__hd{
+          width: 6vw;
+          height: 6vw;
+          margin-right: 2vw;
+          border-radius: 50%;
+          &.start_icon{
+            background: @baseColor;
+          }
+          &.end_icon{
+            background: @red;
+          }
+        }
+        p{
+          line-height: 1.6em;
+        }
+        .time{
+          position: relative;
+          .carpool_call{
+            position: absolute;
+            top: -2.2em;
+            right: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+.start_icon{
+  display: inline-block;
+  width: 6vw;
+  height: 6vw;
+  line-height: 6vw;
+  margin-right: 2vw;
+  border-radius: 50%;
+  background: @baseColor;
+}
+.end_icon{
+  display: inline-block;
+  width: 6vw;
+  height: 6vw;
+  line-height: 6vw;
+  margin-right: 2vw;
+  border-radius: 50%;
+  background: @red;
 }
