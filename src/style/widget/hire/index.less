@@ -21,6 +21,22 @@
   }
   .hire_car_cont{
     padding-top: 40px;
+
+    .car_mode{
+      //background: #ededed;
+      display: inline-block;
+      background: red;
+      border-radius: 5px;
+      span{
+        &.active{
+          padding: 5px;
+          color: @white;
+          background: @baseColor;
+          border-radius: 5px;
+        }
+      }
+    }
+
     .weui-cell{
       .weui-cell__hd{
         padding-right: 2%;

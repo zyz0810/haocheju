@@ -15,7 +15,7 @@
 <link rel="import" href="../../../pages/school/index.html">
 
 <!--模板-->
-<link rel="import" href="../../../model/templete/include/newList.html">
+<!--<link rel="import" href="../../../model/templete/include/newList.html">-->
 
 
 @import "../../../model/widget/include/toast.html";
@@ -24,10 +24,6 @@
 <script type="text/javascript">
     $(function () {
         pageManager.show("index");
-        var aa = new zixun(function (data) {
-            $("#index_slider").silderDot(data, 1800, "");
-        });
-        aa.list();
 
         // var pge = $(".pageable").pageable({
         //     loadUpFn: function (me) {

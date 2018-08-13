@@ -21,6 +21,10 @@
     $(function () {
         pageManager.show("index");
 
+        $('.car_mode span').click(function () {
+           $(this).addClass('active').siblings().removeClass('active');
+        });
+
         var d = new Date();
         var a = (d.getMonth() + 1) + "月" + d.getDate() + '日';
         var b = d.getFullYear() + '-' + (d.getMonth() + 1) + "-" + d.getDate();
