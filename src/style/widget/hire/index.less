@@ -20,12 +20,11 @@
     }
   }
   .hire_car_cont{
-    padding-top: 40px;
+    //padding-top: 40px;
 
     .car_mode{
-      //background: #ededed;
+      background: #ededed;
       display: inline-block;
-      background: red;
       border-radius: 5px;
       span{
         &.active{
@@ -38,6 +37,7 @@
     }
 
     .weui-cell{
+      background: @white;
       .weui-cell__hd{
         padding-right: 2%;
         margin-right: 2%;
@@ -46,6 +46,10 @@
     }
     .car_time{
       background: @white;
+      position: relative;
+      &:after{
+        .mixin(top,solid,@gray03);
+      }
     }
     .arrow{
       background: url("/weixin/images/static/hire/arrow.png") no-repeat 100%;

@@ -50,34 +50,57 @@
 
 
                 <div class="hire_car_cont">
-                    <div class="car_mode">
-                        <span class="f11 active">上门</span>
-                        <span class="f11">到店</span>
-                    </div>
-                    <div class="weui-cells weui-cells_form f15">
-                        <div class="weui-cell">
-                            <div class="weui-cell__hd">取车城市</div>
-                            <div class="weui-cell__bd" id="pickUp">安徽省安庆市宿松县</div>
-                        </div>
-                        <div class="weui-cell">
-                            <div class="weui-cell__hd">取车门店</div>
-                            <a href="javascript:;" class="weui-cell__bd" id="pickUp_address">
-                                <span class="pickUp_address gray04">请选择门店</span>
-                            </a>
+
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd" id="pickUp">安庆</div>
+                        <div class="weui-cell__bd">安庆市宿松县</div>
+                        <div class="weui-cell__ft">
+                            <div class="car_mode">
+                                <span class="f11 active">上门</span>
+                                <span class="f11" data-id="1">到店</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="weui-cells weui-cells_form f15">
-                        <div class="weui-cell">
-                            <div class="weui-cell__hd">还车城市</div>
-                            <div class="weui-cell__bd" id="return">安徽省安庆市宿松县</div>
-                        </div>
-                        <div class="weui-cell">
-                            <div class="weui-cell__hd">还车门店</div>
-                            <a href="javascript:;" class="weui-cell__bd" id="return_address">
-                                <span class="return_address gray04">请选择门店</span>
-                            </a>
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd" id="return">安庆</div>
+                        <div class="weui-cell__bd">安庆市宿松县</div>
+                        <div class="weui-cell__ft">
+                            <div class="car_mode">
+                                <span class="f11 active">上门</span>
+                                <span class="f11" data-id="1">到店</span>
+                            </div>
                         </div>
                     </div>
+
+
+                    <!--<div class="car_mode">-->
+                        <!--<span class="f11 active">上门</span>-->
+                        <!--<span class="f11">到店</span>-->
+                    <!--</div>-->
+                    <!--<div class="weui-cells weui-cells_form f15">-->
+                        <!--<div class="weui-cell">-->
+                            <!--<div class="weui-cell__hd">取车城市</div>-->
+                            <!--<div class="weui-cell__bd" id="pickUp">安徽省安庆市宿松县</div>-->
+                        <!--</div>-->
+                        <!--<div class="weui-cell">-->
+                            <!--<div class="weui-cell__hd">取车门店</div>-->
+                            <!--<a href="javascript:;" class="weui-cell__bd" id="pickUp_address">-->
+                                <!--<span class="pickUp_address gray04">请选择门店</span>-->
+                            <!--</a>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="weui-cells weui-cells_form f15">-->
+                        <!--<div class="weui-cell">-->
+                            <!--<div class="weui-cell__hd">还车城市</div>-->
+                            <!--<div class="weui-cell__bd" id="return">安徽省安庆市宿松县</div>-->
+                        <!--</div>-->
+                        <!--<div class="weui-cell">-->
+                            <!--<div class="weui-cell__hd">还车门店</div>-->
+                            <!--<a href="javascript:;" class="weui-cell__bd" id="return_address">-->
+                                <!--<span class="return_address gray04">请选择门店</span>-->
+                            <!--</a>-->
+                        <!--</div>-->
+                    <!--</div>-->
                     <div class="car_time weui-flex tc">
                         <div id="showDatePicker" class="weui-flex__item">
                             <p class="f14">取车时间</p>
@@ -100,10 +123,13 @@
                 </div>
                 <div class="driving_cont none">
                     <div class="weui-cells weui-cells_form">
-                        <div class="weui-cell">
+                        <div class="weui-cell f14">
                             <div class="weui-cell__bd"><input class="weui-input" type="text" placeholder="请输入您的位置"></div>
                         </div>
-                        <div class="weui-cell weui-cell_access">
+                        <div class="weui-cell f14">
+                            <div class="weui-cell__bd"><input class="weui-input" type="text" placeholder="请输入目的地"></div>
+                        </div>
+                        <div class="weui-cell weui-cell_access f14">
                             <div class="weui-cell__bd" id="driving">
                                 <span class="driving_date"></span>
                                 <span class="driving_hour"></span>

@@ -23,6 +23,17 @@
 
         $('.car_mode span').click(function () {
            $(this).addClass('active').siblings().removeClass('active');
+           var $this = $(this);
+           if($(this).attr('data-id')=='1'){
+               setTimeout(function () {
+                   $('.shop').removeClass('none');
+                   $('.shop .weui-cell').click(function () {
+                       // $(document).on('click', '.shop .weui-cell', function () {
+                       $this.attr('data-name',$(this).find('.weui-cell__bd').html());
+                       $('.shop').addClass('none')
+                   })
+               },1000)
+           }
         });
 
         var d = new Date();
