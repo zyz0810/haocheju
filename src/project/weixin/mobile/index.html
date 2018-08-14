@@ -38,11 +38,11 @@
                     dialog.show("请输入正确的手机号码！");
                     return false;
                 }
-                if($('.code_num').val().length == 6 && $('#weuiAgree').is(':checked')){
-                    $('.publish_btn').css({'background':'#0f84de'});
-                }else{
-                    $('.publish_btn').css({'background':'#ccc'});
-                }
+                // if($('.code_num').val().length == 6 && $('#weuiAgree').is(':checked')){
+                //     $('.publish_btn').css({'background':'#0f84de'});
+                // }else{
+                //     $('.publish_btn').css({'background':'#ccc'});
+                // }
             } else if (number.length > 11) {
                 $('#phone').val('');
                 $('.publish_btn').css({'background':'#ccc'});
@@ -53,21 +53,20 @@
             }
         });
         $("#captcha").bind(bind_name, function (event) {
-            if($('#phone').val().length == 11 && $('.code_num').val().length == 6 && $('#weuiAgree').is(':checked')){
+            if($('#phone').val().length == 11 && $('.code_num').val().length == 6){
                 $('.publish_btn').css({'background':'#0f84de'});
             }else{
                 $('.publish_btn').css({'background':'#ccc'});
             }
         });
 
-
-        $("#weuiAgree").on("change",function(){
-            if($('#phone').val().length == 11 && $('.code_num').val().length == 6 && $('#weuiAgree').is(':checked')){
-                $('.publish_btn').css({'background':'#0f84de'});
-            }else{
-                $('.publish_btn').css({'background':'#ccc'});
-            }
-        });
+        // $("#weuiAgree").on("change",function(){
+        //     if($('#phone').val().length == 11 && $('.code_num').val().length == 6 && $('#weuiAgree').is(':checked')){
+        //         $('.publish_btn').css({'background':'#0f84de'});
+        //     }else{
+        //         $('.publish_btn').css({'background':'#ccc'});
+        //     }
+        // });
 
 
         //绑定手机获取验证码
@@ -89,13 +88,11 @@
                 if (countdown == 0) {
                     val.removeAttribute("disabled");
                     val.value = "重新发送";
-                    val.style.background = "#0f84de";
                     countdown = 60;
                     return;
                 } else {
                     val.setAttribute("disabled", true);
-                    val.value = countdown;
-                    val.style.background = "#ccc";
+                    $(val).html(countdown);
                     countdown--;
                 }
                 setTimeout(function () {
@@ -105,7 +102,7 @@
         }
 
 
-        if($('#weuiAgree').is(':checked')){
+        // if($('#weuiAgree').is(':checked')){
 
             $('.publish_btn').click(function () {
                 if($('#phone').val() == '' || $('#phone').val().length < 11){
@@ -130,11 +127,11 @@
                     }).bindMobile({phonenum:phone,code:code,userId:userId})
                 }
             })
-        }else{
-            $('.publish_btn').click(function () {
-                toast.show('请先阅读并同意《注册协议》')
-            })
-        }
+        // }else{
+        //     $('.publish_btn').click(function () {
+        //         toast.show('请先阅读并同意《注册协议》')
+        //     })
+        // }
 
     });
 </script>

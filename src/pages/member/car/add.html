@@ -1,22 +1,69 @@
-<div class="page myCar">
+<div class="page myCar trial">
     <div class="page__bd" style="height: 100%;">
         <div class="weui-tab">
-            <div class="weui-tab__panel">
+            <div id="areaCont">
+                <div class="weui-actionsheet actionsheet">
+                    <ul class="f17 tc clearfix">
+                        <li class="fl">京</li>
+                        <li class="fl">沪</li>
+                        <li class="fl">浙</li>
+                        <li class="fl">苏</li>
+                        <li class="fl">粤</li>
+                        <li class="fl">鲁</li>
+                        <li class="fl">晋</li>
+                        <li class="fl">冀</li>
+                        <li class="fl">豫</li>
+                        <li class="fl">川</li>
+                        <li class="fl">渝</li>
+                        <li class="fl">辽</li>
+                        <li class="fl">吉</li>
+                        <li class="fl">黑</li>
+                        <li class="fl">皖</li>
+                        <li class="fl">鄂</li>
+                        <li class="fl">湘</li>
+                        <li class="fl">赣</li>
+                        <li class="fl">闽</li>
+                        <li class="fl">陕</li>
+                        <li class="fl">甘</li>
+                        <li class="fl">宁</li>
+                        <li class="fl">蒙</li>
+                        <li class="fl">津</li>
+                        <li class="fl">贵</li>
+                        <li class="fl">云</li>
+                        <li class="fl">桂</li>
+                        <li class="fl">琼</li>
+                        <li class="fl">青</li>
+                        <li class="fl">新</li>
+                        <li class="fl">藏</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="weui-tab__panel pageable add" style="padding: 45px 0 0;">
+                <div class="top_title f18 tc">添加车辆</div>
                 <div class="weui-cells weui-cells_form">
                     <div class="weui-cell weui-cell_access">
-                        <div class="weui-cell__bd">车型</div>
+                        <div class="weui-cell__hd f17">车型</div>
+                        <div class="weui-cell__bd f14"><input class="weui-input" type="text" placeholder="请填写车型"></div>
                         <div class="weui-cell__ft"></div>
                     </div>
-                    <div class="weui-cell weui-cell_access">
-                        <div class="weui-cell__bd">车牌号</div>
-                        <div class="weui-cell__ft"></div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd f17"><label class="weui-label">车牌号</label></div>
+                        <div class="weui-cell__bd f14 license tr">
+                                <span class="area baseColor fl">
+                                    <a href="javascript:;" class="area_txt" id="peccancy_area">皖</a>
+                                    <img src="/weixin/images/static/trial/arrow.png" alt="">
+                                </span>
+                            <input class="weui-input license_num" type="text" id="peccancy_license" placeholder="请输入车牌号">
+                        </div>
                     </div>
                     <div class="weui-cell weui-cell_access">
-                        <div class="weui-cell__bd">车辆品牌</div>
+                        <div class="weui-cell__hd f17">车辆品牌</div>
+                        <div class="weui-cell__bd f14"><input class="weui-input" type="text" placeholder="请填写车辆品牌"></div>
                         <div class="weui-cell__ft"></div>
                     </div>
                 </div>
-                <a href="javascript:;" id="addCar" class="weui-btn weui-btn_primary publish_btn">提交</a>
+                <p class="f12 gray10">所填信息为当地交管局查询必需信息,我们将对信息严格保密，请放心填写</p>
+                <a href="javascript:;" id="addCar" class="weui-btn weui-btn_primary publish_btn publish_bottom">保存</a>
             </div>
         </div>
     </div>

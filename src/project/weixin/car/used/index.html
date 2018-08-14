@@ -54,19 +54,24 @@
 
 
         $('.collect').click(function () {
+            var heart = $(this).find('.heart');
+            heart.css("background-position","");
             if($(this).attr('data-id')==0){
                 new cars(function (data) {
                     $('.collect').attr('data-id','1');
                     $('.collect').attr('data-cid',data.cid);
+                    heart.addClass("heartAnimation");
                     $('.collect>p').html('已收藏');
-                    toast.show('收藏成功');
+                    // toast.show('收藏成功');
                 }).favorite({userId:userId,productId:pageManager.GetQueryString("id"),type:'2'})
             }else{
                 var cid = $(this).attr('data-cid');
                 new cars(function (data) {
                     $('.collect').attr('data-id','0');
+                    heart.removeClass("heartAnimation");
+                    heart.css("background-position","left");
                     $('.collect>p').html('收藏');
-                    toast.show('取消收藏');
+                    // toast.show('取消收藏');
                 }).delFavorite({cid:cid})
             }
         });
