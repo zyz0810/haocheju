@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>我的车辆</title>
-    @import "../../include/header.inc";
+    <title>搜索</title>
+    @import "../include/header.inc";
 
 </head>
 <body ontouchstart>
@@ -12,17 +12,16 @@
 <div class="container" id="container"></div>
 
 <!--首页-->
-<link rel="import" href="../../../../pages/member/car/index.html">
+<link rel="import" href="../../../pages/search/index.html">
 
-@import "../../../../model/widget/include/toast.html";
-@import "../../../../model/widget/include/dialog.html";
+
+
+@import "../../../model/widget/include/toast.html";
+@import "../../../model/widget/include/dialog.html";
 <script src="/weixin/js/wap.min.js"></script>
 <script type="text/javascript">
     $(function () {
         pageManager.show("index");
-        $('.top_tab .weui-flex__item').click(function () {
-           $(this).addClass('active').siblings().removeClass('active');
-        });
     });
 </script>
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>我的车辆</title>
+    <title>我发布的车友圈</title>
     @import "../../include/header.inc";
 
 </head>
@@ -12,7 +12,7 @@
 <div class="container" id="container"></div>
 
 <!--首页-->
-<link rel="import" href="../../../../pages/member/car/index.html">
+<link rel="import" href="../../../../pages/memberTenant/circle/index.html">
 
 @import "../../../../model/widget/include/toast.html";
 @import "../../../../model/widget/include/dialog.html";
@@ -20,9 +20,6 @@
 <script type="text/javascript">
     $(function () {
         pageManager.show("index");
-        $('.top_tab .weui-flex__item').click(function () {
-           $(this).addClass('active').siblings().removeClass('active');
-        });
     });
 </script>
 
