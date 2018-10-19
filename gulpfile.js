@@ -185,7 +185,7 @@ gulp.task('server', function () {
             }
         },
         port: yargs.p,
-        startPath: '/home/index.html'
+        startPath: '/weixin/home/index.html'
     });
 });
 
