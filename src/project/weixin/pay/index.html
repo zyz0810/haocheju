@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>我的-商家</title>
+    <title>确认订单</title>
     @import "../include/header.inc";
 
 </head>
@@ -12,11 +12,9 @@
 <div class="container" id="container"></div>
 
 <!--首页-->
-<link rel="import" href="../../../pages/memberTenant/index.html">
-<!--订单列表-->
-<link rel="import" href="../../../pages/memberTenant/order/orderList.html">
-<!--订单使用-->
-<link rel="import" href="../../../pages/memberTenant/order/use.html">
+<link rel="import" href="../../../pages/pay/index.html">
+
+
 
 @import "../../../model/widget/include/toast.html";
 @import "../../../model/widget/include/dialog.html";
@@ -24,6 +22,12 @@
 <script type="text/javascript">
     $(function () {
         pageManager.show("index");
+        $(document).on('click','.publish_btn',function () {
+            $("#pay_window").actionsheet();
+           $("#close").unbind('click').click(function () {
+               $("#pay_window").actionsheetClose();
+           });
+        })
     });
 </script>
 
