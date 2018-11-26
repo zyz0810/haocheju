@@ -12,7 +12,7 @@ tenant.prototype = {
      */
     list: function (data) {
         ajax.post({
-            url: base + "Api/Newcar/index",
+            url: base + "api/newcar/index",
             data:data,
             success: this.fn
         });

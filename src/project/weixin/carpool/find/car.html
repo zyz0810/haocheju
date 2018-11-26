@@ -24,32 +24,33 @@
         var name = unescape(cookie.getCookie('userName'));
         var phone = cookie.getCookie('phone');
 
-        if(name != 'null'){
+        if (name != 'null') {
             $('#name').val(name);
         }
-        if(phone != 'null'){
+        if (phone != 'null') {
             $('#phone').val(phone);
         }
 
         function p(s) {
-            return s < 10 ? '0' + s: s;
+            return s < 10 ? '0' + s : s;
         }
+
         var myDate = new Date();
-        var year=myDate.getFullYear();
-        var month=myDate.getMonth()+1;
-        var date=myDate.getDate();
-        var h=myDate.getHours();       //获取当前小时数(0-23)
-        var m=myDate.getMinutes();     //获取当前分钟数(0-59)
-        var s=myDate.getSeconds();
-        var now=year+'-'+p(month)+"-"+p(date);
-        var time=p(h)+':'+p(m)+":"+p(s);
+        var year = myDate.getFullYear();
+        var month = myDate.getMonth() + 1;
+        var date = myDate.getDate();
+        var h = myDate.getHours();       //获取当前小时数(0-23)
+        var m = myDate.getMinutes();     //获取当前分钟数(0-59)
+        var s = myDate.getSeconds();
+        var now = year + '-' + p(month) + "-" + p(date);
+        var time = p(h) + ':' + p(m) + ":" + p(s);
         $('.showDatePicker').html(now);
         $('.showTimePicker').html(time);
-        $(document).on('click','#showDatePicker',function () {
+        $(document).on('click', '#showDatePicker', function () {
             weui.datePicker({
                 start: new Date(),
-                end: new Date().getFullYear()+1,
-                defaultValue: [year,month,date],
+                end: new Date().getFullYear() + 1,
+                defaultValue: [year, month, date],
                 onChange: function (result) {
                     console.log(result);
                 },
@@ -61,7 +62,7 @@
                 }
             });
         });
-        $(document).on('click','#showTimePicker',function () {
+        $(document).on('click', '#showTimePicker', function () {
             var hours = [],
                 minites = [],
                 symbol = [{label: ':', value: 0}];
@@ -102,7 +103,7 @@
             }, {
                 label: '3',
                 value: 3
-            },{
+            }, {
                 label: '4',
                 value: 4
             }], {
@@ -137,23 +138,24 @@
                 return false;
             }
         });
-        $("#weuiAgree").on("change",function(){
-            if($('#phone').val().length == 11 && $('.code_num').val().length == 6 && $('#weuiAgree').is(':checked')){
-                $('.publish_btn').css({'background':'#0f84de'});
-            }else{
-                $('.publish_btn').css({'background':'#ccc'});
+        $("#weuiAgree").on("change", function () {
+            if ($('#phone').val().length == 11 && $('.code_num').val().length == 6 && $('#weuiAgree').is(':checked')) {
+                $('.publish_btn').css({'background': '#0f84de'});
+            } else {
+                $('.publish_btn').css({'background': '#ccc'});
             }
         });
 
-        $("#weuiAgree").on("change",function(){
-            if($('#weuiAgree').is(':checked')){
-                $('.publish_btn').css({'background':'#0f84de'});
-            }else{
-                $('.publish_btn').css({'background':'#ccc'});
+        $("#weuiAgree").on("change", function () {
+            if ($('#weuiAgree').is(':checked')) {
+                $('.publish_btn').css({'background': '#0f84de'});
+            } else {
+                $('.publish_btn').css({'background': '#ccc'});
             }
         });
-        if($('#weuiAgree').is(':checked')){
-            $('.publish_btn').click(function () {
+
+        $('.publish_btn').click(function () {
+            if ($('#weuiAgree').is(':checked')) {
                 var name = $('#name').val();
                 var phone = $('#phone').val();
                 var start = $('#start').val();
@@ -162,6 +164,10 @@
                 var starttime = $('.showTimePicker').html();
                 var seat = $('.showPeoplePicker').val();
                 var remarks = $('#remarks').val();
+                if (phone.length < 11) {
+                    dialog.show("请输入11位手机号码！");
+                    return false;
+                }
                 new cars(function (data) {
                     toast.show('发布成功');
                     setTimeout(function () {
@@ -180,12 +186,10 @@
                     series: '',
                     remarks: remarks
                 })
-            });
-        }else {
-            $('.publish_btn').click(function(){
+            } else {
                 toast.show('请先阅读并同意《免责声明》')
-            })
-        }
+            }
+        });
 
     });
 </script>

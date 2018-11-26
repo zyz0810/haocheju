@@ -43,7 +43,7 @@
             weui.datePicker({
                 start: new Date(),
                 end: new Date().getFullYear() + 1,
-                defaultValue: [year,month,date],
+                defaultValue: [year, month, date],
                 onChange: function (result) {
                     console.log(result);
                 },
@@ -55,7 +55,7 @@
                 }
             });
         });
-        $(document).on('click','#showTimePicker',function () {
+        $(document).on('click', '#showTimePicker', function () {
             var hours = [],
                 minites = [],
                 symbol = [{label: ':', value: 0}];
@@ -175,15 +175,16 @@
             }
         });
 
-        $("#weuiAgree").on("change",function(){
-            if($('#weuiAgree').is(':checked')){
-                $('.publish_btn').css({'background':'#0f84de'});
-            }else{
-                $('.publish_btn').css({'background':'#ccc'});
+        $("#weuiAgree").on("change", function () {
+            if ($('#weuiAgree').is(':checked')) {
+                $('.publish_btn').css({'background': '#0f84de'});
+            } else {
+                $('.publish_btn').css({'background': '#ccc'});
             }
         });
-        if($('#weuiAgree').is(':checked')){
-            $('.publish_btn').click(function(){
+
+        $('.publish_btn').click(function () {
+            if ($('#weuiAgree').is(':checked')) {
                 var name = $('#name').val();
                 var phone = $('#phone').val();
                 var start = $('#start').val();
@@ -194,30 +195,33 @@
                 var series = $('#showCar').val();
                 var brand = $('#brandBtn').val();
                 var remarks = $('#remarks').val();
-                new cars(function(data){
+                if (phone.length < 11) {
+                    dialog.show("请输入11位手机号码！");
+                    return false;
+                }
+                new cars(function (data) {
                     toast.show('发布成功');
-                    setTimeout(function(){
+                    setTimeout(function () {
                         history.back(-1);
-                    },2000)
+                    }, 2000)
                 }).pullpool({
-                    type:1,
-                    name:name,
-                    phonenum:phone,
-                    start:start,
-                    end:end,
-                    startdate:startdate,
-                    starttime:starttime,
-                    seat:seat,
-                    brand:brand,
-                    series:series,
-                    remarks:remarks
+                    type: 1,
+                    name: name,
+                    phonenum: phone,
+                    start: start,
+                    end: end,
+                    startdate: startdate,
+                    starttime: starttime,
+                    seat: seat,
+                    brand: brand,
+                    series: series,
+                    remarks: remarks
                 })
-            });
-        }else{
-            $('.publish_btn').click(function(){
+            } else {
                 toast.show('请先阅读并同意《免责声明》')
-            })
-        }
+            }
+        });
+
     });
 </script>
 

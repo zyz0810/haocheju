@@ -1,0 +1,14 @@
+{{#each this}}
+<a href="/weixin/maintain/view/index.html?id={{id}}" class="hot_item">
+    <i class="hot_num f16">{{index}}</i>
+    <!--{{#compare logo '!=' ''}}-->
+    <!--<img src="{{logo}}"/>-->
+    <!--{{/compare}}-->
+    <!--{{#compare logo '==' ''}}-->
+    <img src="/weixin/images/placeholder/logo.png"/>
+    <!--{{/compare}}-->
+
+    <p class="f14 overtwo gray09">{{shopgoods}}</p>
+    <p class="yellow01 f13 price">销售价：{{cost}}</p>
+</a>
+{{/each}}

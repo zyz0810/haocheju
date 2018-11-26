@@ -11,7 +11,7 @@ first.prototype = {
      */
     do: function (data) {
         ajax.get({
-            url: base + 'Api/Home/index',
+            url: base + 'api/home/index',
             data: data,
             success: this.fn
         });

@@ -1,22 +1,56 @@
 {{#each this}}
 {{#compare type '==' '1'}}
-<li class="list_li" data-id="{{id}}">
-    <p><span class="tag f13">{{typename}}</span><span class="seat clr-gray03 f10">{{seat}}个空位</span></p>
-    <p class="f14 clr-gray02"><span>{{start}}</span>→<span>{{end}}</span></p>
-    <p class="time f11">{{startdate}} {{starttime}}出发</p>
-    <p class="f11">车型：<span>{{brand}}{{series}}</span></p>
-    <p class="f11 gray02"><span class="name">{{name}}</span>：<span class="phone">{{mobile}}</span><a
-            href="tel:{{mobile}}" class="call f12 fr">拨号</a></p>
+<li data-id="{{id}}">
+    <div class="weui-cell bordernone">
+        <div class="weui-cell__hd head_img"><img src="/weixin/images/placeholder/logo.png" /></div>
+        <div class="weui-cell__bd f15 gray05">{{name}}</div>
+        <div class="weui-cell__ft f12 gray10">{{wz_addtime}}</div>
+    </div>
+    <div class="weui-cell site">
+        <div class="weui-cell__hd f10 white start_icon tc">起</div>
+        <div class="weui-cell__bd f14 gray05 start">{{start}}<a href="tel:{{mobile}}" class="carpool_call f16 white tc">拨号</a></div>
+    </div>
+    <div class="weui-cell site bordernone">
+        <div class="weui-cell__hd f10 white end_icon tc">终</div>
+        <div class="weui-cell__bd f14 gray05">{{end}}</div>
+    </div>
+    <div class="weui-cell site bordernone">
+        <div class="weui-cell__hd"></div>
+        <div class="weui-cell__bd f14">
+            <p>提供座位&nbsp;&nbsp;&nbsp;<span class="red">{{seat}}</span>个</p>
+            <p>汽车型号&nbsp;&nbsp;&nbsp;{{brand}} {{series}}</p>
+            <p>车牌号&nbsp;&nbsp;&nbsp;皖322256</p>
+            <p class="time">出发时间&nbsp;&nbsp;&nbsp;{{startdate}} {{starttime}}</p>
+            <p class="gray10">车主留言：{{remark}}</p>
+        </div>
+
+    </div>
 </li>
 {{/compare}}
 {{#compare type '==' '2'}}
-<li class="list_li" data-id="{{id}}">
-    <p><span class="tag f13 bg_blue05">{{typename}}</span><span class="seat clr-gray03 f10">{{seat}}个人</span></p>
-    <p class="f14 clr-gray02"><span>{{start}}</span>→<span>{{end}}</span></p>
-    <p class="time f11">{{startdate}} {{starttime}}出发</p>
-    <!--<p class="f11">备注：</span></p>-->
-    <p class="f11 gray02"><span class="name">{{name}}</span>：<span class="phone">{{mobile}}</span><a
-            href="tel:{{mobile}}" class="call f12 fr">拨号</a></p>
+<li data-id="{{id}}">
+    <div class="weui-cell bordernone">
+        <div class="weui-cell__hd head_img"><img src="/weixin/images/placeholder/logo.png" /></div>
+        <div class="weui-cell__bd f15 gray05">{{name}}</div>
+        <div class="weui-cell__ft f12 gray10">{{wz_addtime}}</div>
+    </div>
+    <div class="weui-cell site">
+        <div class="weui-cell__hd f10 white start_icon tc">起</div>
+        <div class="weui-cell__bd f14 gray05 start">{{start}}<a href="tel:{{mobile}}" class="carpool_call f16 white tc">拨号</a></div>
+    </div>
+    <div class="weui-cell site bordernone">
+        <div class="weui-cell__hd f10 white end_icon tc">终</div>
+        <div class="weui-cell__bd f14 gray05">{{end}}</div>
+    </div>
+    <div class="weui-cell site bordernone">
+        <div class="weui-cell__hd"></div>
+        <div class="weui-cell__bd f14">
+            <p>座位需求&nbsp;&nbsp;&nbsp;<span class="red">{{seat}}</span>个</p>
+            <p class="time">出发时间&nbsp;&nbsp;&nbsp;{{startdate}} {{starttime}}</p>
+            <p class="gray10">留言：{{remark}}</p>
+        </div>
+
+    </div>
 </li>
 {{/compare}}
 {{/each}}

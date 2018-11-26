@@ -24,7 +24,7 @@ member.prototype = {
 
     checkLogin: function (data) {
         ajax.get({
-            url:'http://www.51studytime.cn/Wap/Index/getCode',
+            url:'http://che.0556360.com/api/index/getOauthRedirect',
             success: this.fn,
             data:data
         });

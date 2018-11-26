@@ -8,10 +8,10 @@
         </p>
     </div>
     <div class="weui-cell__ft">
-        {{#compare icon '!=' null}}
-        <img src="/weixin/images/placeholder/logo.png" data-original="{{imgurl}}" alt="">
+        {{#compare imgurl '!=' null}}
+        <img src="{{imgurl}}" alt="">
         {{/compare}}
-        {{#compare icon '==' null}}
+        {{#compare imgurl '==' null}}
         <img src="/weixin/images/placeholder/logo.png" alt=""/>
         {{/compare}}
     </div>

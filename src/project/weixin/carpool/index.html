@@ -15,7 +15,7 @@
 <link rel="import" href="../../../pages/carpool/index.html">
 
 <!--模板-->
-<!--<link rel="import" href="../../../model/templete/carpool/list.html">-->
+<link rel="import" href="../../../model/templete/carpool/list.html">
 @import "../../../model/widget/include/toast.html";
 @import "../../../model/widget/include/dialog.html";
 <script src="/weixin/js/wap.min.js"></script>
@@ -37,48 +37,49 @@
         }).carPool({page:1,type:1});
 
 
-        // $(document).on('click','.nav .weui-flex__item',function () {
-        //     $(this).addClass('active').siblings().removeClass('active');
-        //     var index = $(this).attr('data-id');
-        //     var type = '';
-        //     jsonsData.page='1';
-        //     jsonsData.type=index;
-        //     pge.refresh();
-        // });
-        //
-        // var jsonsData = {
-        //     page: 1,
-        //     type:'1'
-        // };
-        //
-        // var pge = null;
-        // pge = $(".pageable").pageable({
-        //     loadUpFn: function () {
-        //         var tu = new cars(function (data) {
-        //             jsonsData.page += 1;
-        //             var h = render.fill($("#tpl_list"), data.return_new);
-        //             $(".pageable .list").html(h);
-        //             $('img').picLazyLoad();
-        //             pge.resetload();
-        //         });
-        //         jsonsData.page = 1;
-        //         tu.carPool(jsonsData);
-        //     },
-        //     loadDownFn: function (me) {
-        //         var td = new cars(function (data) {
-        //             jsonsData.page += 1;
-        //             var h = render.fill($("#tpl_list"), data.return_new);
-        //             $(".pageable .list").append(h);
-        //             $('img').picLazyLoad();
-        //             if (data.return_new.length < 10) {
-        //                 pge.lock();
-        //                 pge.noData();
-        //             }
-        //             pge.resetload();
-        //         });
-        //         td.carPool(jsonsData);
-        //     }
-        // });
+        $(document).on('click','.nav .weui-flex__item',function () {
+            $(this).addClass('active').siblings().removeClass('active');
+            var index = $(this).attr('data-id');
+            var type = '';
+            jsonsData.page='1';
+            jsonsData.type=index;
+            pge.refresh();
+        });
+
+        var jsonsData = {
+            page: 1,
+            pageSize:10,
+            type:'1'
+        };
+
+        var pge = null;
+        pge = $(".pageable").pageable({
+            loadUpFn: function () {
+                var tu = new cars(function (data) {
+                    jsonsData.page += 1;
+                    var h = render.fill($("#tpl_list"), data.return_new.data);
+                    $(".pageable .list2").html(h);
+                    $('img').picLazyLoad();
+                    pge.resetload();
+                });
+                jsonsData.page = 1;
+                tu.carPool(jsonsData);
+            },
+            loadDownFn: function (me) {
+                var td = new cars(function (data) {
+                    jsonsData.page += 1;
+                    var h = render.fill($("#tpl_list"), data.return_new.data);
+                    $(".pageable .list2").append(h);
+                    $('img').picLazyLoad();
+                    if (data.return_new.data.length < 10) {
+                        pge.lock();
+                        pge.noData();
+                    }
+                    pge.resetload();
+                });
+                td.carPool(jsonsData);
+            }
+        });
     });
 </script>
 
