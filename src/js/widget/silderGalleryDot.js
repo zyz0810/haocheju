@@ -5,38 +5,48 @@
     "use strict";
     var time;
     var type;
+    var pImage;
 
-    var SilderGallery = function (el, jsons, atime, atype) {
+    var SilderGallery = function (el, jsons, atime, atype,apImage) {
         this.data = jsons;
         this.el = el;
         time = atime;
         type = atype;
+        pImage = apImage;
     };
     SilderGallery.prototype = {
         show: function () {
             var list = [];
             var str = '';
-            for (var i = 0; i < this.data.return_banner.length; i++) {
-                var _url = "";
-                if(this.data.return_banner[i].linkurl == ''){
-                    _url = 'javascript:;';
-                }else {
-                    _url = this.data.return_banner[i].linkurl;
+            if(pImage == 'product'){
+                for (var i = 0; i < this.data.length; i++) {
+                    str = '<img src="' + this.data[i]  + '"/>';
+                    list.push({content:str});
                 }
+            }else{
+                for (var i = 0; i < this.data.return_banner.length; i++) {
+                    var _url = "";
+                    if(this.data.return_banner[i].linkurl == ''){
+                        _url = 'javascript:;';
+                    }else {
+                        _url = this.data.return_banner[i].linkurl;
+                    }
 
-                if ((i % 1) == 0) {
-                    str = '<a href="' + _url + '">';
+                    if ((i % 1) == 0) {
+                        str = '<a href="' + _url + '">';
+                    }
+                    str += '<img src="' + this.data.return_banner[i].img + '">';
+
+
+                    if ((i % 1) == 0 && i >= 0) {
+                        str += '</a>';
+                        list.push({content: str});
+                        str = "";
+                    }
+                    // list.push({content:this.data[i].image});
                 }
-                str += '<img src="' + this.data.return_banner[i].img + '">';
-
-
-                if ((i % 1) == 0 && i >= 0) {
-                    str += '</a>';
-                    list.push({content: str});
-                    str = "";
-                }
-                // list.push({content:this.data[i].image});
             }
+
 
 
             var S = new iSlider({
@@ -56,8 +66,8 @@
         }
     };
 
-    $.fn.silderDot = function (jsons, time, type) {
-        var sg = new SilderGallery(document.getElementById(this.attr("id")), jsons, time, type);
+    $.fn.silderDot = function (jsons, time, type,apImage) {
+        var sg = new SilderGallery(document.getElementById(this.attr("id")), jsons, time, type,apImage);
         return sg.show();
     }
 })();

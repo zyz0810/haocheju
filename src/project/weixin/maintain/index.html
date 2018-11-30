@@ -17,6 +17,8 @@
 <!--模板-->
 <!--本周热销榜-->
 <link rel="import" href="../../../model/templete/product/hotList.html">
+<!--导购推荐-->
+<link rel="import" href="../../../model/templete/product/commendList.html">
 
 @import "../../../model/widget/include/toast.html";
 @import "../../../model/widget/include/dialog.html";
@@ -34,9 +36,41 @@
                     var hot = render.fill($("#tpl_hotList"), data.return_hot.data);
                     $(".hot_list").html(hot);
                 }
+                if(data.return_shop.data.length == 0){
+                    $('.commend').addClass('none')
+                }
             }
         );
         aa.list({type:1});
+
+
+        var pge = $(".pageable").pageable({
+            loadUpFn: function (me) {
+                var tu = new product(function (data) {
+                    me.pageNumber = me.pageNumber + 1;
+                    var h = render.fill($("#tpl_commendList"), data.return_shop.data);
+                    $(".pageable .commend_list").html(h);
+                    $('img').picLazyLoad();
+                    pge.resetload();
+                });
+                me.pageNumber = 1;
+                tu.list({type:1,page:me.pageNumber,pageSize:10});
+            },
+            loadDownFn: function (me) {
+                var td = new product(function (data) {
+                    me.pageNumber = me.pageNumber + 1;
+                    var h = render.fill($("#tpl_commendList"), data.return_shop.data);
+                    $(".pageable .commend_list").append(h);
+                    $('img').picLazyLoad();
+                    if (data.return_shop.data.length < 10) {
+                        pge.lock();
+                        pge.noData();
+                    }
+                    pge.resetload();
+                });
+                td.list({type:1,page:me.pageNumber,pageSize:10});
+            }
+        });
     });
 </script>
 

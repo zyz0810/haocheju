@@ -1,0 +1,38 @@
+<div class="information_person">
+    <div class="weui-cell infor_tit">
+        <div class="weui-cell__bd f16">个人信息</div>
+    </div>
+    <div class="f13">联系人：{{info.phone}}</div>
+    <div class="f13">联系电话：{{info.nickname}}</div>
+</div>
+<div class="information_order">
+    <div class="weui-cell infor_tit">
+        <div class="weui-cell__bd f16">订单信息</div>
+    </div>
+    <div class='f13 gray10'>下单编号：{{order.trade_no}}</div>
+    <div class='f13 gray10 time'>下单时间：{{order.addtime}}</div>
+</div>
+<div class="information_order">
+    <div class="weui-cell product">
+        <div class="weui-cell__hd product_img"><img src="{{goods.logo}}"></div>
+        <div class="weui-cell__bd f15 overtwo goods_name">{{goods.shopgoods}}</div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd f15 gray02">优惠：</div>
+        <div class="weui-cell__bd f15 red tr">-{{order.discount}}</div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd">备注留言：</div>
+        <div class="weui-cell__bd f14 tr">
+            <input type="text" maxlength="500" placeholder="给商家留言（500字以内）" class="f14 tr">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd f15 gray10">共一件商品 合计：</div>
+        <div class="weui-cell__ft f15 red money" data-id="{{order.cost}}">￥{{order.cost}}元</div>
+    </div>
+</div>
+<form class='submit'>
+    <!--<button class='right' type="submit" style='border-radius:0'>确认下单</button>-->
+    <a href="javascript:;" class="weui-btn weui-btn_primary publish_btn">确认下单</a>
+</form>

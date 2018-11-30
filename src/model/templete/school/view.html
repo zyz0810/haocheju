@@ -1,0 +1,38 @@
+<div class="info">
+    <div class="weui-cell">
+        <div class="weui-cell__bd f16 gray05 school_name">{{name}}</div>
+        {{#compare mobile '!=' null}}
+        <a href="tel:{{mobile}}" class="weui-cell__ft f13 call">拨号联系</a>
+        {{/compare}}
+    </div>
+    <div class="weui-flex gray02 f13">
+        {{#compare grade '!=' null}}
+        <div class="weui-flex__item tl">评分：{{grade}}分</div>|
+        {{/compare}}
+        {{#compare grade '==' null}}
+        <div class="weui-flex__item tl">评分：暂无评分</div>|
+        {{/compare}}
+        <div class="weui-flex__item tc">{{college}}学员</div>|
+        <div class="weui-flex__item tc">合格率：{{qualified}}</div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd f13">{{address}}</div>
+    </div>
+</div>
+<div class="intro">
+    <div class="tit f16">简介</div>
+    <div class="intro_cont f13">
+        <p>{{abstract}}</p>
+    </div>
+</div>
+
+<div class="intro">
+    <div class="tit f16">驾校环境</div>
+    <div class="environment clearfix">
+        {{#each environment}}
+        <img class="fl" src="{{this}}"/>
+        {{/each}}
+    </div>
+</div>
+
+

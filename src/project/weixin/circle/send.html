@@ -20,6 +20,7 @@
 <script type="text/javascript">
     $(function () {
         pageManager.show("send");
+        var userId = cookie.getCookie('userId');
         var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)"></li>',
             $gallery = $("#gallery"),
             $galleryImg = $("#galleryImg"),
@@ -90,7 +91,7 @@
             var formData = new FormData($('#updateForm')[0]);
             var txt = $('#sendTxt').val();
             formData.append('content',txt);
-            formData.append('userId','1');
+            formData.append('userId',userId);
             sc.uploadImg(formData);
         })
 

@@ -55,7 +55,7 @@ contact.prototype = {
      */
     reply: function (data) {
         ajax.post({
-            url: base + 'Api/Circle/issue',
+            url: base + 'api/circle/issue',
             data: data,
             success: this.fn
         });

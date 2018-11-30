@@ -1,0 +1,14 @@
+{{#each this}}
+<a href="/weixin/maintain/view/index.html?id={{id}}" class="commend_item">
+    {{#compare logo '==' ""}}
+    <img src="/weixin/images/placeholder/logo.png" />
+    {{/compare}}
+    {{#compare logo '!=' ""}}
+    <img src="{{logo}}" />
+    {{/compare}}
+
+    <p class="yellow01 f13 price">{{cost}}</p>
+    <p class="f14 overtwo name gray09">{{shopgoods}}</p>
+    <p class="f10 overone gray10">已有{{num}}人购买</p>
+</a>
+{{/each}}

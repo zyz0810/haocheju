@@ -1,7 +1,7 @@
 // var base = location.origin == "http://localhost:8080" ? "https://dev.tiaohuo.com/" : location.origin + "/";
 // var paymentBase = location.origin == "http://localhost:8080" ? "https://dev.tiaohuo.com/" : location.origin + "/";
-var base = "http://www.chexiangguan.com/";
-var paymentBase= "http://www.chexiangguan.com/";
+var base = "http://che.0556360.com/";
+var paymentBase= "http://che.0556360.com/";
 
 
 var redirecting = false;
@@ -281,6 +281,11 @@ var pageManager = {
             }
             return options.inverse(this);
         });
+        //注册索引+1的helper
+        Handlebars.registerHelper("addOne",function(index){
+            //返回+1之后的结果
+            return index+1;
+        });
 
         Handlebars.registerHelper('floor', function (num) {
             return Math.floor(parseFloat(num));
@@ -389,7 +394,13 @@ var isWeiXin = function() {
 };
 
 $(function () {
-    // new member().checkLogin();
+    // console.log('登陆')
+    // new member(function (data) {
+    //     console.log(00000)
+    //     console.log(data)
+    //     console.log(1111)
+    // }).checkLogin();
+    // console.log('登陆2')
 
     // new member(function (data) {
     //     console.log(data);
@@ -468,14 +479,19 @@ var ajax={
                     }
                 }
             },
-            error: function (xhr, type) {
-                if(redirecting) return;
-                if (options.error) {
-                    options.error(data.message);
-                } else {
-                    // toast.show("获取数据失败");
-                }
+            error: function (a) {
+                console.log(1)
+                console.log(a)
+                console.log(2)
             }
+            // error: function (xhr, type) {
+                // if(redirecting) return;
+                // if (options.error) {
+                //     options.error(data.message);
+                // } else {
+                //     toast.show("获取数据失败");
+                // }
+            // }
         })
     },
     //标准 ajax post 方法

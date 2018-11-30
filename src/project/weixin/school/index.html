@@ -15,8 +15,7 @@
 <link rel="import" href="../../../pages/school/index.html">
 
 <!--模板-->
-<!--<link rel="import" href="../../../model/templete/include/newList.html">-->
-
+<link rel="import" href="../../../model/templete/school/list.html">
 
 @import "../../../model/widget/include/toast.html";
 @import "../../../model/widget/include/dialog.html";
@@ -25,32 +24,38 @@
     $(function () {
         pageManager.show("index");
 
-        // var pge = $(".pageable").pageable({
-        //     loadUpFn: function (me) {
-        //         var tu = new zixun(function (data) {
-        //             var h = render.fill($("#tpl_newList"), data.return_new);
-        //             $(".pageable .hot_cont").html(h);
-        //             $('img').picLazyLoad();
-        //             pge.resetload();
-        //         });
-        //         me.pageNumber = 1;
-        //         tu.list({page:me.pageNumber});
-        //     },
-        //     loadDownFn: function (me) {
-        //         var td = new zixun(function (data) {
-        //             me.pageNumber = me.pageNumber + 1;
-        //             var h = render.fill($("#tpl_newList"), data.return_new);
-        //             $(".pageable .hot_cont").append(h);
-        //             $('img').picLazyLoad();
-        //             if (data.length < 10) {
-        //                 pge.lock();
-        //                 pge.noData();
-        //             }
-        //             pge.resetload();
-        //         });
-        //         td.list({page:me.pageNumber});
-        //     }
-        // });
+        // new drivers(function (data) {
+        //     $("#index_slider").silderDot(data, 1800, "");
+        // }).list();
+
+
+        var pge = $(".pageable").pageable({
+            loadUpFn: function (me) {
+                var tu = new drivers(function (data) {
+                    var h = render.fill($("#tpl_list"), data.return_job.data);
+                    $(".pageable .list").html(h);
+                    $('img').picLazyLoad();
+                    pge.resetload();
+                });
+                me.pageNumber = 1;
+                tu.list({page:me.pageNumber,pageSize:10});
+            },
+            loadDownFn: function (me) {
+                var td = new drivers(function (data) {
+                    me.pageNumber = me.pageNumber + 1;
+                    var h = render.fill($("#tpl_list"), data.return_job.data);
+                    $(".pageable .list").append(h);
+                    $('img').picLazyLoad();
+                    if (data.return_job.data.length < 10) {
+                        pge.lock();
+                        pge.noData();
+                    }
+                    pge.resetload();
+                });
+                td.list({page:me.pageNumber,pageSize:10});
+            }
+        });
+
     });
 </script>
 

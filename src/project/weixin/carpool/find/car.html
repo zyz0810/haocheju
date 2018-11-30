@@ -20,6 +20,7 @@
 <script type="text/javascript">
     $(function () {
         pageManager.show("car");
+        var userId = cookie.getCookie('userId');
 
         var name = unescape(cookie.getCookie('userName'));
         var phone = cookie.getCookie('phone');
@@ -184,7 +185,8 @@
                     seat: seat,
                     brand: '',
                     series: '',
-                    remarks: remarks
+                    remarks: remarks,
+                    userId:userId
                 })
             } else {
                 toast.show('请先阅读并同意《免责声明》')

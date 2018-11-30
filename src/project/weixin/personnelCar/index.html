@@ -32,7 +32,7 @@
             loadUpFn: function (me) {
                 var tu = new personnel(function (data) {
                     me.pageNumber = me.pageNumber + 1;
-                    var h = render.fill($("#tpl_list"), data.return_job);
+                    var h = render.fill($("#tpl_list"), data.return_job.data);
                     $(".pageable .list").html(h);
                     $('img').picLazyLoad();
                     pge.resetload();
@@ -43,10 +43,10 @@
             loadDownFn: function (me) {
                 var td = new personnel(function (data) {
                     me.pageNumber = me.pageNumber + 1;
-                    var h = render.fill($("#tpl_list"), data.return_job);
+                    var h = render.fill($("#tpl_list"), data.return_job.data);
                     $(".pageable .list").append(h);
                     $('img').picLazyLoad();
-                    if (data.length < 10) {
+                    if (data.return_job.data.length < 10) {
                         pge.lock();
                         pge.noData();
                     }

@@ -23,6 +23,7 @@
 <script type="text/javascript">
     $(function () {
         pageManager.show("people");
+        var userId = cookie.getCookie('userId');
 
         function p(s) {
             return s < 10 ? '0' + s : s;
@@ -215,7 +216,8 @@
                     seat: seat,
                     brand: brand,
                     series: series,
-                    remarks: remarks
+                    remarks: remarks,
+                    userId:userId
                 })
             } else {
                 toast.show('请先阅读并同意《免责声明》')

@@ -15,6 +15,8 @@
 <link rel="import" href="../../../pages/pay/index.html">
 
 
+<!--模板-->
+<link rel="import" href="../../../model/templete/pay/view.html">
 
 @import "../../../model/widget/include/toast.html";
 @import "../../../model/widget/include/dialog.html";
@@ -22,11 +24,60 @@
 <script type="text/javascript">
     $(function () {
         pageManager.show("index");
+
+        var trade_no = pageManager.GetQueryString('trade_no');
+
+        new order(function (data) {
+            console.log(data);
+            var view = render.fill($("#tpl_view"), data);
+            $(".pageable").html(view);
+        }).detail({trade_no:trade_no});
+
         $(document).on('click','.publish_btn',function () {
+            $('#pay_money').html($('.money').attr('data-id'));
             $("#pay_window").actionsheet();
            $("#close").unbind('click').click(function () {
                $("#pay_window").actionsheetClose();
            });
+        });
+        $(document).on('click','#pay_btn',function () {
+            var goodname = $('.goods_name').html();
+            var amount = $('.money').attr('data-id');
+            new order(function (data) {
+                function onBridgeReady() {
+                    WeixinJSBridge.invoke(
+                        'getBrandWCPayRequest', {
+                            "appId": data.appId,
+                            "timeStamp": data.timeStamp,
+                            "nonceStr": data.nonceStr,
+                            "package": data.package,
+                            "signType": data.signType,
+                            "paySign": data.paySign
+                        },
+                        function (res) {
+                            if (res.err_msg == "get_brand_wcpay_request:ok") {
+                                //支付成功
+                                // pageManager.replace('paySuccessPayBill')
+                                location.replace(location.origin + '/weixin/payment/pay.html?sn=' + sn + '&ext='+(+new Date())+'#paySuccess');
+
+                            } else {
+                                //支付失败
+                            }
+                        }
+                    );
+                }
+
+                if (typeof WeixinJSBridge == "undefined") {
+                    if (document.addEventListener) {
+                        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+                    } else if (document.attachEvent) {
+                        document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+                    }
+                } else {
+                    onBridgeReady();
+                }
+            }).pay({trade_no:trade_no,goodname:goodname,amount:amount,openid:'oihEZxAVRO8ISJZo5fnmxP5FkEYw'})
         })
     });
 </script>

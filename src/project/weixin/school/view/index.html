@@ -13,6 +13,8 @@
 
 <!--首页-->
 <link rel="import" href="../../../../pages/school/view/index.html">
+<!--模板-->
+<link rel="import" href="../../../../model/templete/school/view.html">
 
 @import "../../../../model/widget/include/toast.html";
 @import "../../../../model/widget/include/dialog.html";
@@ -20,20 +22,13 @@
 <script type="text/javascript">
     $(function () {
         pageManager.show("index");
-        // var aa = new zixun(function (data) {
-        //     document.title = data.title;
-        //     $('#title').html(data.title);
-        //     if(data.author == '' || data.author == null){
-        //         $('#author').addClass('none');
-        //     }else{
-        //         $('#author').html(data.author);
-        //     }
-        //     $('#time').html(data.addtime);
-        //     $('#watch').html(data.hitcount);
-        //     $('.cont').html(data.content);
-        //     console.log(data);
-        // });
-        // aa.view({id: pageManager.GetQueryString("id")});
+        var aa = new drivers(function (data) {
+            $("#index_slider").silderDot(data.banner, 1800, "","product");
+            var h = render.fill($("#tpl_view"), data);
+            $(".school_view").html(h);
+            console.log(data);
+        });
+        aa.view({id: pageManager.GetQueryString("id")});
     });
 </script>
 

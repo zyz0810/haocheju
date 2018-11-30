@@ -25,7 +25,9 @@
     $(function () {
         pageManager.show("index");
         var aa = new zixun(function (data) {
-            $("#index_slider").silderDot(data, 1800, "");
+           if(data.return_banner.length != 0){
+               $("#index_slider").silderDot(data.return_banner, 1800, "","product");
+           }
         });
         aa.list();
 
@@ -33,27 +35,27 @@
             loadUpFn: function (me) {
                 var tu = new zixun(function (data) {
                     me.pageNumber = me.pageNumber + 1;
-                    var h = render.fill($("#tpl_newList"), data.return_new);
+                    var h = render.fill($("#tpl_newList"), data.return_new.data);
                     $(".pageable .hot_cont").html(h);
                     $('img').picLazyLoad();
                     pge.resetload();
                 });
                 me.pageNumber = 1;
-                tu.list({page:me.pageNumber});
+                tu.list({page:me.pageNumber,pageSize:10});
             },
             loadDownFn: function (me) {
                 var td = new zixun(function (data) {
                     me.pageNumber = me.pageNumber + 1;
-                    var h = render.fill($("#tpl_newList"), data.return_new);
+                    var h = render.fill($("#tpl_newList"), data.return_new.data);
                     $(".pageable .hot_cont").append(h);
                     $('img').picLazyLoad();
-                    if (data.return_new.length < 10) {
+                    if (data.return_new.data.length < 10) {
                         pge.lock();
                         pge.noData();
                     }
                     pge.resetload();
                 });
-                td.list({page:me.pageNumber});
+                td.list({page:me.pageNumber,pageSize:10});
             }
         });
     });

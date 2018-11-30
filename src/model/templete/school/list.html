@@ -1,0 +1,29 @@
+{{#each this}}
+<div class="weui-cells bordernone">
+    <a href="/weixin/school/view/index.html?id={{id}}" class="weui-cell">
+        <div class="weui-cell__bd school_img">
+            {{#each banner}}
+                {{#compare @index '==' '0'}}
+                    <img src="{{this}}" />
+                {{/compare}}
+            {{/each}}
+        </div>
+    </a>
+    <div class="weui-cell bordernone list_item">
+        <div class="weui-cell__hd school_logo"><img src="{{logo}}"/></div>
+        <div class="weui-cell__bd">
+            <a href="/weixin/school/view/index.html?id={{id}}" class="weui-cell weui-cell_access bordernone">
+                <div class="weui-cell__bd f15 gray05">{{name}}</div>
+                <div class="weui-cell__ft"></div>
+            </a>
+            <div class="weui-cell">
+                <div class="weui-cell__bd f13 gray06">
+                    <p>驾校地址：{{address}}</p>
+                    <p>联系电话：{{mobile}}</p>
+                    <p class="fr"><a href="tel:{{mobile}}" class="weui-cell__ft f13 call">拨号</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/each}}

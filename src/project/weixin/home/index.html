@@ -27,6 +27,9 @@
     $(function () {
         pageManager.show("main");
 
+
+
+
         var username = unescape(pageManager.GetQueryString("nickname"));
         var userId = pageManager.GetQueryString("userId");
         var verify = pageManager.GetQueryString("verify");
@@ -38,11 +41,17 @@
         cookie.setCookie("type", type, 1,'/');
         cookie.setCookie("verify", verify, 1,'/');
 
-        if(verify != 1){
-            dialog.show('请先绑定手机',function () {
-                window.location.href = '/weixin/mobile/index.html';
-            })
-        }
+        console.log('姓名' + username)
+        console.log('userId' + userId)
+        console.log('verify' + verify)
+        console.log('type' + type)
+        console.log('phone' + phone)
+
+        // if(verify != 1){
+        //     dialog.show('请先绑定手机',function () {
+        //         window.location.href = '/weixin/mobile/index.html';
+        //     })
+        // }
 
         var aa = new first(
             function (data) {
