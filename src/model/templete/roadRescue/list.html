@@ -1,0 +1,29 @@
+{{#each this}}
+<div class="weui-cells" data-id="{{id}}">
+    <div class="weui-cell list_item">
+        <div class="weui-cell__hd weui-cell_img">
+            {{#compare logo '==' null}}
+            <img src="../images/placeholder/logo.png" />
+            {{/compare}}
+            {{#compare logo '!=' null}}
+            <img src="../images/placeholder/logo.png" data-original="{{logo}}" />
+            {{/compare}}
+        </div>
+        <div class="weui-cell__bd">
+            <div class="weui-cell weui-cell_access">
+                <div class="weui-cell__bd f16">{{title}}</div>
+                <div class="weui-cell__ft"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd gray02 f13">
+                    <p>地址：{{address}}</p>
+                    <p>联系电话：{{mobile}}</p>
+                    {{#compare mobile '!=' null}}
+                    <p class="fr"><a href="tel:{{mobile}}" class="call f12">拨号</a></p>
+                    {{/compare}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/each}}

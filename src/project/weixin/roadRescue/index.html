@@ -14,12 +14,45 @@
 <!--首页-->
 <link rel="import" href="../../../pages/roadRescue/index.html">
 
+<link rel="import" href="../../../model/templete/roadRescue/list.html">
+
 @import "../../../model/widget/include/toast.html";
 @import "../../../model/widget/include/dialog.html";
 <script src="/weixin/js/wap.min.js"></script>
 <script type="text/javascript">
     $(function () {
         pageManager.show("index");
+        var aa = new personnel(function (data) {
+            $("#index_slider").silderDot(data, 1800, "");
+        });
+        aa.road();
+        var pge = $(".pageable").pageable({
+            loadUpFn: function (me) {
+                var tu = new personnel(function (data) {
+                    me.pageNumber = me.pageNumber + 1;
+                    var h = render.fill($("#tpl_list"), data.return_job.data);
+                    $(".pageable .list").html(h);
+                    $('img').picLazyLoad();
+                    pge.resetload();
+                });
+                me.pageNumber = 1;
+                tu.road({page:me.pageNumber,pageSize:10});
+            },
+            loadDownFn: function (me) {
+                var td = new personnel(function (data) {
+                    me.pageNumber = me.pageNumber + 1;
+                    var h = render.fill($("#tpl_list"), data.return_job.data);
+                    $(".pageable .list").append(h);
+                    $('img').picLazyLoad();
+                    if (data.return_job.data.length < 10) {
+                        pge.lock();
+                        pge.noData();
+                    }
+                    pge.resetload();
+                });
+                td.road({page:me.pageNumber,pageSize:10});
+            }
+        });
     });
 </script>
 

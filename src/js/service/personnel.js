@@ -28,7 +28,20 @@ personnel.prototype = {
             data: data,
             success: this.fn
         });
+    },
+    /**
+     * 道路救援
+     * page 页码
+     * pageSize  一页几条数据
+     */
+    road: function (data) {
+        ajax.post({
+            url: base + "api/road/roadlist",
+            data: data,
+            success: this.fn
+        });
     }
+
 };
 
 
