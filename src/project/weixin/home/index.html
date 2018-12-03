@@ -26,20 +26,46 @@
 <script type="text/javascript">
     $(function () {
         pageManager.show("main");
+        // var b = new Base64();
+        if(pageManager.GetQueryString("data") != '' || pageManager.GetQueryString("data") != null){
+            var str = decode(pageManager.GetQueryString("data"));
+            console.log('str:'+str)
+
+            var regex3 = /\{(.+?)\}/g;
+            var aa = str.match(regex3)
+            var bb = JSON.parse(aa)
+            console.log(bb.nickname)
+            console.log(2222)
+
+            var username = bb.nickname;
+            var userId = bb.userId;
+            var verify = bb.verify;
+            var type = bb.type;
+            var phone = bb.mobile;
+            var openid = bb.openid;
+            var avatar = bb.avatar;
+            cookie.setCookie("userId", userId, 1,'/');
+            cookie.setCookie("userName", escape(username), 1,'/');
+            cookie.setCookie("phone", phone, 1,'/');
+            cookie.setCookie("type", type, 1,'/');
+            cookie.setCookie("verify", verify, 1,'/');
+            cookie.setCookie("openid", openid, 1,'/');
+            cookie.setCookie("avatar", avatar, 1,'/');
+        }
 
 
 
 
-        var username = unescape(pageManager.GetQueryString("nickname"));
-        var userId = pageManager.GetQueryString("userId");
-        var verify = pageManager.GetQueryString("verify");
-        var type = pageManager.GetQueryString("type");
-        var phone = pageManager.GetQueryString("phone");
-        cookie.setCookie("userId", userId, 1,'/');
-        cookie.setCookie("userName", escape(username), 1,'/');
-        cookie.setCookie("phone", phone, 1,'/');
-        cookie.setCookie("type", type, 1,'/');
-        cookie.setCookie("verify", verify, 1,'/');
+        // var username = unescape(pageManager.GetQueryString("nickname"));
+        // var userId = pageManager.GetQueryString("userId");
+        // var verify = pageManager.GetQueryString("verify");
+        // var type = pageManager.GetQueryString("type");
+        // var phone = pageManager.GetQueryString("phone");
+        // cookie.setCookie("userId", userId, 1,'/');
+        // cookie.setCookie("userName", escape(username), 1,'/');
+        // cookie.setCookie("phone", phone, 1,'/');
+        // cookie.setCookie("type", type, 1,'/');
+        // cookie.setCookie("verify", verify, 1,'/');
 
         console.log('姓名' + username)
         console.log('userId' + userId)

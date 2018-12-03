@@ -17,6 +17,7 @@
 @import "../../js/widget/weixin.js";
 @import "../../js/widget/weui.js";
 @import "../../js/widget/base64.js";
+@import "../../js/widget/base64_2.js";
 @import "../../js/widget/jsbn.js";
 @import "../../js/widget/prng4.js";
 @import "../../js/widget/rng.js";

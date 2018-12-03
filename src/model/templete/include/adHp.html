@@ -1,3 +1,8 @@
 {{#each this}}
+{{#compare linkurl '==' ""}}
+<a href="javascript:;" data-id="{{id}}"><img src="{{img}}" alt="" /></a>
+{{/compare}}
+{{#compare linkurl '!=' ""}}
 <a href="{{linkurl}}" data-id="{{id}}"><img src="{{img}}" alt="" /></a>
+{{/compare}}
 {{/each}}

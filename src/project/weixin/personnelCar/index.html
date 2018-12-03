@@ -38,7 +38,7 @@
                     pge.resetload();
                 });
                 me.pageNumber = 1;
-                tu.list({page:me.pageNumber});
+                tu.list({page:me.pageNumber,pageSize:10});
             },
             loadDownFn: function (me) {
                 var td = new personnel(function (data) {
@@ -52,7 +52,7 @@
                     }
                     pge.resetload();
                 });
-                td.list({page:me.pageNumber});
+                td.list({page:me.pageNumber,pageSize:10});
             }
         });
     });

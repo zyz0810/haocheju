@@ -41,9 +41,19 @@ order.prototype = {
             data:data,
             success: this.fn
         });
+    },
+    /**
+     * 我的订单列表
+     * userId  用户Id
+     * type 1、未支付 2、已经付 3、未核销 3、已核销 4、已完成
+     */
+    list: function (data) {
+        ajax.post({
+            url: base + "api/order/lists",
+            data:data,
+            success: this.fn
+        });
     }
-
-
 };
 
 

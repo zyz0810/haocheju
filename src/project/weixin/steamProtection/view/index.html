@@ -20,12 +20,25 @@
 <script type="text/javascript">
     $(function () {
         pageManager.show("index");
-        var aa = new first(
+        var userId = cookie.getCookie('userId');
+        var id = pageManager.GetQueryString('id');
+        var aa = new product(
             function (data) {
-                $("#index_slider").silderDot(data, 1800, "");
+                $("#index_slider").silderDot(data.images, 1800, "", "product");
+                $('.name').html(data.shopgoods);
+                $('.price_now').html(data.cost);
+                $('.price_old').html(data.price);
+                $('.detail').html(data.detail);
             }
         );
-        aa.do();
+        aa.view({id:id});
+        $(document).on('click','#sheet_buy_now',function () {
+            var money = $('.price_now').html();
+            var cost = $('.price_old').html();
+            new order(function (data) {
+                location.href='/weixin/pay/index.html?trade_no=' + data.trade_no;
+            }).add({gid:id,uid:userId,money:money,cost:cost,discount:'0'})
+        })
     });
 </script>
 

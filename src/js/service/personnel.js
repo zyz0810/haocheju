@@ -7,8 +7,9 @@ var personnel = function (fn) {
 };
 personnel.prototype = {
     /**
-     * 资讯页banner及列表
+     * 汽车人才banner及列表
      * page 页码
+     * pageSize 一页几条数据
      */
     list: function (data) {
         ajax.post({

@@ -9,6 +9,7 @@ tenant.prototype = {
     /**
      * 汽贸交易列表
      * page 页码
+     * pageSize  一页几条数据
      */
     list: function (data) {
         ajax.post({

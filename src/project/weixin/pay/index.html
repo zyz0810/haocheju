@@ -27,6 +27,11 @@
 
         var trade_no = pageManager.GetQueryString('trade_no');
 
+        var openid = cookie.getCookie('openid');
+
+        console.log(222222222222222)
+        console.log(openid)
+
         new order(function (data) {
             console.log(data);
             var view = render.fill($("#tpl_view"), data);

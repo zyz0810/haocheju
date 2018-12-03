@@ -55,6 +55,8 @@
 
 @import "/js/picker.min.js";
 
+@import "/js/base64_2.js";
+
 @import "../../js/widget.js";
 
 @import "../../js/service.js";

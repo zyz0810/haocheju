@@ -32,11 +32,25 @@
             $('#personnel_experience').html(data.experience);
 
             $('#personnel_education').html(data.education);
-            $('#interviewer_name').html(data.name);
+
             $('#interviewer_position').html(data.position);
 
 
-            $('#interviewer_phone').attr({'href':'tel:'+data.mobile});
+            if(data.name == null && data.mobile == null){
+                $('.contacts').addClass('none');
+            }
+            if(data.name == null){
+                $('.interviewer_name').addClass('none');
+            }else{
+                $('#interviewer_name').html(data.name);
+            }
+            if(data.mobile == null){
+                $('.recruit_phone').addClass('none');
+            }else{
+                $('#interviewer_phone').attr({'href':'tel:'+data.mobile});
+            }
+
+
             $('.details_cont').html(data.content);
 
             console.log(data);

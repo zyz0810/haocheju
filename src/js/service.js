@@ -10,7 +10,7 @@
 @import "../../js/service/contact.js";
 @import "../../js/service/cars.js";
 @import "../../js/service/tenant.js";
-@import "../../js/service/trial.js";
+@import "../../js/service/nianshen.js";
 @import "../../js/service/product.js";
 @import "../../js/service/drivers.js";
 @import "../../js/service/order.js";

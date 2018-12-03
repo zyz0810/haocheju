@@ -18,12 +18,87 @@
 <!--订单使用-->
 <link rel="import" href="../../../pages/memberTenant/order/use.html">
 
+<link rel="import" href="../../../model/templete/member/order/list.html">
+
 @import "../../../model/widget/include/toast.html";
 @import "../../../model/widget/include/dialog.html";
 <script src="/weixin/js/wap.min.js"></script>
 <script type="text/javascript">
     $(function () {
         pageManager.show("index");
+        //订单列表
+        var userId = cookie.getCookie('userId');
+
+        if (pageManager._getHash() === '#orderList') {
+            var type = pageManager.GetQueryString('type');
+            type = type ? type : 'all';
+            var typeNum =  pageManager.GetQueryString('typeNum');
+            var thistype = $('.' + type);
+            thistype.next('p').show().siblings('p').hide();
+            var jsonsData = {
+                pageSize: 10,
+                pageNumber: 1,
+                userId:userId,
+                type: type ? type : 'all'
+            };
+            var pge;
+            var loadUpFn = function (type) {
+                if (type) jsonsData.type = type;
+                //                    pge.refresh();
+                pageManager.replace('orderList?type=' + type)
+                //                    window.location.replace(location.origin+'/weixin/member/index.html?type='+type+'#orderList');
+            };
+
+            $(document).on('click', '.memberOrderGo', function () {
+                var thisTypeOrder = $(this).attr('otype');
+                loadUpFn(thisTypeOrder)
+            });
+            document.title = '我的订单';
+            //切换加载数据
+            pge = $(".orderList .pageable").pageable({
+                loadUpFn: function (me) {
+                    var tu = new order(function (data) {
+                        jsonsData.pageNumber = jsonsData.pageNumber + 1;
+                        var h = render.fill($("#tpl_list"), data);
+                        $(".pageable .orderList").html(h);
+                        pge.resetload();
+                    });
+                    jsonsData.pageNumber = 1;
+                    tu.list(jsonsData);
+                },
+                loadDownFn: function (me) {
+                    var td = new order(function (data) {
+                        jsonsData.pageNumber = jsonsData.pageNumber + 1;
+                        var h = render.fill($("#tpl_list"), data);
+                        $(".pageable .orderList").append(h);
+                        if (data.length < jsonsData.pageSize) {
+                            pge.lock();
+                            pge.noData();
+                        }
+                        pge.resetload();
+                    });
+                    td.list(jsonsData);
+                }
+            });
+            $('.vux-tab .vux-tab-item').on('click', function () {
+                $(this).next('p').show().siblings('p').hide();
+                var otype = $(this).attr('otype');
+            });
+
+
+            //立即支付订单
+            $(document).on('click', '.payod', function () {
+                var order_id;
+                order_id = $(this).parent().attr('order-id');
+                var od = new order(function (data) {
+                    location.href = location.origin + '/weixin/payment/pay.html?sn=' + data;
+                });
+                od.tradePayment({id: order_id});
+            });
+
+
+        }
+
     });
 </script>
 
