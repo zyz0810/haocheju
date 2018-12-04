@@ -20,6 +20,47 @@
 <script type="text/javascript">
     $(function () {
         pageManager.show("edit");
+        var userId = cookie.getCookie('userId');
+        new member(function (data) {
+            console.log(data);
+            if(data.avatar != '' || data.avatar != null){
+                $('.head_img').attr('src',data.avatar);
+            }
+            $('#nickname').val(data.nickname);
+            $('#phonenum').val(data.phone);
+            $('#signature').val(data.signature);
+        }).view({userId:userId});
+
+        $(document).on('click','.sex',function () {
+            $("#sex_cont").actionsheet();
+
+            // $("#close").unbind('click').click(function () {
+            //     $("#sex_cont").actionsheetClose();
+            // });
+        });
+
+        $(document).on('click','#sex_cont .weui-check__label',function () {
+            var sexId = $(this).attr('data-id');
+            var sexTxt = $(this).find('.weui-cell__bd').html();
+            $('.sex').attr('data-id',sexId);
+            $('.sex .weui-cell__bd').html(sexTxt);
+            $("#sex_cont").actionsheetClose();
+        });
+
+        $(document).on('click','.mask',function () {
+            $("#sex_cont").actionsheetClose();
+        });
+
+        $(document).on('click','.publish_btn',function () {
+            var userId = cookie.getCookie('userId');
+            var phonenum = $('#phonenum').val();
+            var nickname = $('#nickname').val();
+            var sex = $('.sex').attr('data-id');
+            var signature = $('#signature').val();
+            new member(function () {
+
+            }).edit({userId:userId,phonenum:phonenum,nickname:nickname,sex:sex,signature:signature})
+        })
     });
 </script>
 

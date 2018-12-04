@@ -1,17 +1,37 @@
 {{#each this}}
 <div class="list_item">
     <div class="weui-cell bottomLine">
-        <div class="weui-cell__bd f13">订单编号：1234567890</div>
-        <div class="weui-cell__ft f13 gray02">2018-11-1</div>
+        <div class="weui-cell__bd f13">订单编号：{{trade_no}}</div>
+        <div class="weui-cell__ft f13 gray02">{{wz_addtime}}</div>
     </div>
     <div class="weui-cell product">
         <div class="weui-cell__hd product_img">
-            <image src='http://m.0556360.com/weixin/images/placeholder/logo.png'></image>
+            <image src='{{logo}}'></image>
         </div>
-        <div class="weui-cell__bd f15 overTwo">比速 比速T5 2017款1.5T手动尊贵型</div>
+        <div class="weui-cell__bd f15 overTwo">{{shopgoods}}</div>
     </div>
+    {{#compare pay_status '==' '1'}}
     <div class="weui-cell">
-        <div class="weui-cell__ft f13">共1件商品合计：￥3000.00</div>
+        <div class="weui-cell__bd f13">共1件商品合计：￥3000.00</div>
+        <div class="weui-cell__ft"><a href="javascript:;" class="pay_btn f14 baseColor payBtn" data-id="{{trade_no}}">去支付</a></div>
     </div>
+    {{/compare}}
+    {{#compare pay_status '==' '2'}}
+    <div class="weui-cell">
+        <div class="weui-cell__bd f13">共1件商品合计：￥3000.00</div>
+        <div class="weui-cell__ft"><a href="javascript:pageManager.go('use')" class="pay_btn f14 baseColor">去使用</a></div>
+    </div>
+    {{/compare}}
+    {{#compare pay_status '==' '3'}}
+    <div class="weui-cell">
+        <div class="weui-cell__ft f13">共1件商品合计：￥{{cost}}</div>
+    </div>
+    {{/compare}}
+    {{#compare pay_status '==' '4'}}
+    <div class="weui-cell">
+        <div class="weui-cell__ft f13">共1件商品合计：￥{{cost}}</div>
+    </div>
+    {{/compare}}
+
 </div>
 {{/each}}

@@ -9,7 +9,8 @@ product.prototype = {
     /**
      * 商品页banner及列表
      * page 页码
-     * 1、维修保养 2、用品配车 3、汽保设备 4、美容装饰
+     * type 1、维修保养 2、用品配车 3、汽保设备 4、美容装饰
+     * flag 1、是否是优惠商品
      */
     list: function (data) {
         ajax.post({

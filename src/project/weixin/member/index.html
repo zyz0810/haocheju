@@ -26,8 +26,38 @@
 <script type="text/javascript">
     $(function () {
         pageManager.show("index");
+
+
+
+    });
+
+    window.onpageshow = function (ev) {
+        if (pageManager._getHash() == '#orderList') {
+            if (ev.persisted && WeixinJSBridge) {
+                window.location.reload()
+            }
+        }
+    };
+
+    var pageFn = function () {
         //订单列表
         var userId = cookie.getCookie('userId');
+
+
+        new member(function (data) {
+            console.log(data);
+            if(data.avatar != '' || data.avatar != null){
+                $('#userAvatar').attr('src',data.avatar);
+            }
+            $('#userName').html(data.nickname);
+            $('#userSignature').html(data.signature);
+            if(data.idtype == '1' && data.verify == '1'){
+                $('.grade').css('background','#fffc24');
+            }else{
+                $('.grade').css('background','#ccc');
+            }
+
+        }).view({userId:userId});
 
         if (pageManager._getHash() === '#orderList') {
             var type = pageManager.GetQueryString('type');
@@ -39,7 +69,7 @@
                 pageSize: 10,
                 pageNumber: 1,
                 userId:userId,
-                type: type ? type : 'all'
+                type: typeNum ? typeNum : '0'
             };
             var pge;
             var loadUpFn = function (type) {
@@ -59,8 +89,8 @@
                 loadUpFn: function (me) {
                     var tu = new order(function (data) {
                         jsonsData.pageNumber = jsonsData.pageNumber + 1;
-                        var h = render.fill($("#tpl_list"), data);
-                        $(".pageable .orderList").html(h);
+                        var h = render.fill($("#tpl_list"), data.data);
+                        $(".pageable .Details").html(h);
                         pge.resetload();
                     });
                     jsonsData.pageNumber = 1;
@@ -69,9 +99,9 @@
                 loadDownFn: function (me) {
                     var td = new order(function (data) {
                         jsonsData.pageNumber = jsonsData.pageNumber + 1;
-                        var h = render.fill($("#tpl_list"), data);
-                        $(".pageable .orderList").append(h);
-                        if (data.length < jsonsData.pageSize) {
+                        var h = render.fill($("#tpl_list"), data.data);
+                        $(".pageable .Details").append(h);
+                        if (data.data.length < jsonsData.pageSize) {
                             pge.lock();
                             pge.noData();
                         }
@@ -87,19 +117,18 @@
 
 
             //立即支付订单
-            $(document).on('click', '.payod', function () {
-                var order_id;
-                order_id = $(this).parent().attr('order-id');
-                var od = new order(function (data) {
-                    location.href = location.origin + '/weixin/payment/pay.html?sn=' + data;
-                });
-                od.tradePayment({id: order_id});
+            $(document).on('click', '.payBtn', function () {
+                var trade_no;
+                trade_no = $(this).attr('data-id');
+                // var od = new order(function (data) {
+                    location.href = location.origin + '/weixin/pay/index.html?trade_no=' + trade_no;
+                // });
+                // od.tradePayment({id: order_id});
             });
-
-
         }
+    }
+    window.addEventListener('pageGoOk', pageFn)
 
-    });
 </script>
 
 </body>

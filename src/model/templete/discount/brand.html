@@ -1,0 +1,8 @@
+{{#each this}}
+{{#compare @index '==' '0'}}
+<li class="f13 gray02 tc active"><a href="javascript:;">{{brandname}}</a></li>
+{{/compare}}
+{{#compare @index '!=' '0'}}
+<li class="f13 gray02 tc"><a href="javascript:;">{{brandname}}</a></li>
+{{/compare}}
+{{/each}}

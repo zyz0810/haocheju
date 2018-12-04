@@ -1,8 +1,31 @@
 <div class="page edit myCar">
     <div class="page__bd" style="height: 100%;">
+        <div id="sex_cont">
+            <div class="weui-mask_transparent actionsheet__mask" style="opacity: 0;display: none;"></div>
+            <div class="weui-actionsheet actionsheet">
+
+
+                <div class="weui-cells weui-cells_radio">
+                    <label class="weui-cell weui-check__label" for="x11" data-id="1">
+                        <div class="weui-cell__bd">男</div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" class="weui-check" name="radio1" id="x11">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                    <label class="weui-cell weui-check__label" for="x12" data-id="2">
+                        <div class="weui-cell__bd">女</div>
+                        <div class="weui-cell__ft">
+                            <input type="radio" name="radio1" class="weui-check" id="x12" checked="checked">
+                            <span class="weui-icon-checked"></span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
         <div class="weui-tab">
             <div class="weui-tab__panel pageable" style="padding: 45px 0 0;">
-                <div class="top_title f18 tc">我的车库<a href="javascript:;" class="f14 white tr add_car">完成</a></div>
+                <!--<div class="top_title f18 tc">我的车库<a href="javascript:;" class="f14 white tr add_car">完成</a></div>-->
                 <!--<div class="weui-cells weui-cells_form">-->
                     <div class="weui-cell f16 gray02">
                         <div class="weui-cell__hd">头像</div>
@@ -10,26 +33,27 @@
                     </div>
                     <div class="weui-cell f16 gray02">
                         <div class="weui-cell__hd">昵称</div>
-                        <div class="weui-cell__bd"><input type="text" class="weui-input tr" placeholder="请输入昵称" value="haocheju" /></div>
+                        <div class="weui-cell__bd"><input type="text" class="weui-input tr" id="nickname" placeholder="请输入昵称" value="" /></div>
                     </div>
                     <div class="weui-cell f16 gray02">
                         <div class="weui-cell__hd">手机号</div>
-                        <div class="weui-cell__bd"><input type="text" class="weui-input tr" placeholder="请输入手机号" value="15155133955" /></div>
+                        <div class="weui-cell__bd"><input type="text" class="weui-input tr" id="phonenum" placeholder="请输入手机号" value="" /></div>
                     </div>
-                    <div class="weui-cell f16 gray02">
+                    <div class="weui-cell f16 gray02 sex">
                         <div class="weui-cell__hd">性别</div>
                         <div class="weui-cell__bd tr">女</div>
                     </div>
-                    <div class="weui-cell f16 gray02">
-                        <div class="weui-cell__hd">生日</div>
-                        <div class="weui-cell__bd tr">请选择出生日期</div>
-                    </div>
+                    <!--<div class="weui-cell f16 gray02">-->
+                        <!--<div class="weui-cell__hd">生日</div>-->
+                        <!--<div class="weui-cell__bd tr">请选择出生日期</div>-->
+                    <!--</div>-->
                     <div class="weui-cell f16 gray02">
                         <div class="weui-cell__bd">个性签名</div>
                     </div>
                     <div class="weui-cell">
-                        <div class="weui-cell__bd"><textarea placeholder="介绍一下自己吧" class="autograph"></textarea></div>
+                        <div class="weui-cell__bd"><textarea placeholder="介绍一下自己吧" class="autograph" id="signature"></textarea></div>
                     </div>
+                <a href="javascript:;" class="weui-btn weui-btn_primary publish_btn">确定</a>
                 <!--</div>-->
             </div>
         </div>

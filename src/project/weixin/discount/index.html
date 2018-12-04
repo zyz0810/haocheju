@@ -14,12 +14,52 @@
 <!--首页-->
 <link rel="import" href="../../../pages/discount/index.html">
 
+<link rel="import" href="../../../model/templete/discount/brand.html">
+<link rel="import" href="../../../model/templete/discount/list.html">
+
 @import "../../../model/widget/include/toast.html";
 @import "../../../model/widget/include/dialog.html";
 <script src="/weixin/js/wap.min.js"></script>
 <script type="text/javascript">
     $(function () {
         pageManager.show("index");
+
+        new product(function (data) {
+            $("#index_slider").silderDot(data, 1800, "");
+            var h = render.fill($("#tpl_brand"), data.list);
+            $(".brandList").html(h);
+        }).list({flag:1});
+
+
+
+        var pge = $(".pageable").pageable({
+            loadUpFn: function (me) {
+                var tu = new product(function (data) {
+                    me.pageNumber = me.pageNumber + 1;
+                    var h = render.fill($("#tpl_list"), data.return_shop.data);
+                    $(".pageable .discount_listGrid").html(h);
+                    $('img').picLazyLoad();
+                    pge.resetload();
+                });
+                me.pageNumber = 1;
+                tu.list({page:me.pageNumber,pageSize:10,flag:1});
+            },
+            loadDownFn: function (me) {
+                var td = new product(function (data) {
+                    me.pageNumber = me.pageNumber + 1;
+                    var h = render.fill($("#tpl_list"), data.return_shop.data);
+                    $(".pageable .discount_listGrid").append(h);
+                    $('img').picLazyLoad();
+                    if (data.return_shop.data.length < 10) {
+                        pge.lock();
+                        pge.noData();
+                    }
+                    pge.resetload();
+                });
+                td.list({page:me.pageNumber,pageSize:10,flag:1});
+            }
+        });
+
 
     });
 </script>
