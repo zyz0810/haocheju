@@ -1,0 +1,24 @@
+{{#each this}}
+<a class="weui-cell" href="/weixin/car/used/index.html?id={{oldproductid}}">
+    <div class="weui-cell__hd">
+        {{#compare applistthumb '!=' ''}}
+        <img src="{{applistthumb}}"/>
+        {{/compare}}
+        {{#compare applistthumb '==' ''}}
+        <img src="/weixin/images/placeholder/logo.png"/>
+        {{/compare}}
+    </div>
+    <div class="weui-cell__bd">
+        <p class="f12 gray05 overtwo">{{carname}} {{cartype}} {{carconfig}}</p>
+        <p class="f10 gray12">{{mileage}}/{{productiondate}}/{{attribution}}</p>
+        <p class="tag">
+            <span class="tag_orange orange01 f10">准新车</span>
+            <!--<span class="tag_orange orange01 f10">0过户</span>-->
+            <!--<span class="tag_orange orange01 f10">品牌认证</span>-->
+            <span class="tag_yellow yellow01 f10">质保</span>
+        </p>
+        <!--<p class="f12 orange01"><span class="f15 price">{{totalprice}}</span>首付{{saleprice}}</p>-->
+        <p class="f12 orange01"><span class="f15 price fl">优惠价{{saleprice}}</span><s class="fr">{{totalprice}}</s></p>
+    </div>
+</a>
+{{/each}}
