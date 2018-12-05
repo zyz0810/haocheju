@@ -22,23 +22,71 @@
         pageManager.show("index");
         var userId = cookie.getCookie('userId');
         var id = pageManager.GetQueryString("id");
+
+
+        //实时判断手机号
+        var mobilevalid = /^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$/;
+        var bind_name = 'input';
+        if (navigator.userAgent.indexOf("MSIE") != -1) {
+            bind_name = 'propertychange';
+        }
+        if (navigator.userAgent.match(/android/i) == "android") {
+            bind_name = "keydown";
+        }
+        $("#phone").bind(bind_name, function (event) {
+            var number = $('#phone').val();
+            if (number.length == 11) {
+                if (!mobilevalid.test(number)) {
+                    dialog.show("请输入正确的手机号码！");
+                    return false;
+                }
+            } else if (number.length > 11) {
+                $('#phone').val('');
+                dialog.show("请输入11位手机号码！");
+                return false;
+            }
+        });
+
+
+        var countdown = 60;
+        function settime(val) {
+            if ($('#mobnum').val() != "") {
+                if (countdown == 0) {
+                    val.removeAttribute("disabled");
+                    val.value = "发送验证码";
+                    val.style.background = "#00a0e9";
+                    countdown = 60;
+                    return;
+                } else {
+                    val.setAttribute("disabled", true);
+                    val.value = "重新发送(" + countdown + ")";
+                    val.style.background = "#999";
+                    countdown--;
+                }
+                setTimeout(function () {
+                    settime(val)
+                }, 1000)
+            }
+        }
+        //绑定手机获取验证码
+        $("#getcap").click(function () {
+            var $this = this;
+            var mobnum = $("#phone").val();
+            if (mobnum.length < 11)  {
+                toast.show("请输入正确的手机号码");
+            } else {
+                var me = new member(function (data) {
+                    toast.show('发送成功');
+                    settime($this);
+                });
+                me.getCode({ phonenum: mobnum })
+            }
+        });
+
+
         if(pageManager.GetQueryString("type") == 'new'){
 
-
-
-
-
-
-
-
-
-
-
-
-
-
             new cars(function (data) {
-
                 var str = '';
                 str += '<a href="/weixin/car/new/index.html' + id + '" class="weui-cell">';
                 str += '<div class="weui-cell__hd">';
@@ -53,7 +101,7 @@
                 str += '<div class="weui-cell__bd">';
                 str += '<p class="f14">' + data.carname + ' ' + data.cartype + '</p>';
                 if(data.carconfig != ''){
-                    str += '<p class="f12 gray02">配置：' + data.carconfig + '</p>';
+                    str += '<p class="f12 gray02">配置：' + data.cartype + '</p>';
                 }
                 str += '<p class="f12 yellow01">销售价：' + data.carprice + '元</p>';
                 str += '</div>';
@@ -61,16 +109,21 @@
 
                 $('.product_tenant').html(str);
 
-
-            }).subscribeNew({productId:pageManager.GetQueryString("id")});
+            }).newView({id:pageManager.GetQueryString("id")});
 
             $('.publish_btn').click(function () {
                 var name = $('#name').val();
                 var phone = $('#phone').val();
+                if(phone.length < 11){
+                    toast.show('请输入正确的手机号码');
+                    return ;
+                }
                 new cars(function (data) {
                     toast.show('预约成功');
                 }).subscribe({username:name,phonenum:phone,type:'1',productId:pageManager.GetQueryString("id")})
             })
+
+
         }else{
 
             new cars(function (data) {

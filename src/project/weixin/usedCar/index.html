@@ -24,122 +24,97 @@
 <script type="text/javascript">
     $(function () {
         pageManager.show("index");
-        $('#nav .weui-flex__item.brand_btn').click(function () {
-                $('.brand').toggle('none');
-                $('.mask').toggle('none');
-        });
-        $('.mask').click(function () {
-            $('.brand').css({'display':'none !important'});
-            $('.mask').css({'display':'none !important'});
-        });
-        // $(document).on('click','.mask',function () {
+        // 第一版开始
+        // $('#nav .weui-flex__item.brand_btn').click(function () {
+        //         $('.brand').toggle('none');
+        //         $('.mask').toggle('none');
+        // });
+        // $('.mask').click(function () {
         //     $('.brand').css({'display':'none !important'});
         //     $('.mask').css({'display':'none !important'});
         // });
-        $('.brand li').click(function () {
-            var brand = $(this).html();
-            $('.brand_btn').html(brand);
-            $('.brand').css({'display':'none !important'});
-            $('.mask').css({'display':'none !important'});
-        });
-        // $(document).on('click','.brand li',function () {
+        // $('.brand li').click(function () {
         //     var brand = $(this).html();
         //     $('.brand_btn').html(brand);
         //     $('.brand').css({'display':'none !important'});
         //     $('.mask').css({'display':'none !important'});
-        // })
-
-        var aa = new tenant(function (data) {
-            $("#index_slider").silderDot(data, 1800, "");
-            var h = render.fill($("#tpl_brand"), data.brandlist);
-            console.log(data.brandlist);
-            $('.brand').html(h)
-        });
-        aa.usedList();
-
-        // var pge = $(".pageable").pageable({
-        //     loadUpFn: function (me) {
+        // });
+        //
+        // var aa = new tenant(function (data) {
+        //     $("#index_slider").silderDot(data, 1800, "");
+        //     var h = render.fill($("#tpl_brand"), data.brandlist);
+        //     console.log(data.brandlist);
+        //     $('.brand').html(h)
+        // });
+        // aa.usedList();
+        //
+        // document.getElementById('mask').addEventListener('touchmove', function (event) {     //对蒙版绑定touchmove的属性
+        //     //判断条件,条件成立才阻止背景页面滚动,其他情况不会再影响到页面滚动
+        //     if ($('#mask').css("display","block")) {
+        //         event.preventDefault();
+        //     }
+        // });
+        //
+        //
+        // var jsonsData = {
+        //     page: 1,
+        //     brandname:''
+        // };
+        // //列表及分页
+        // var pge = null;
+        // pge = $(".pageable").pageable({
+        //     loadUpFn: function () {
         //         var tu = new tenant(function (data) {
+        //             jsonsData.page += 1;
         //             var h = render.fill($("#tpl_list"), data.return_newcar);
         //             $(".pageable .list_cart").html(h);
         //             $('img').picLazyLoad();
         //             pge.resetload();
         //         });
-        //         me.pageNumber = 1;
-        //         tu.usedList({page:me.pageNumber});
+        //         jsonsData.page = 1;
+        //         tu.usedList(jsonsData);
         //     },
         //     loadDownFn: function (me) {
         //         var td = new tenant(function (data) {
-        //             me.pageNumber = me.pageNumber + 1;
+        //             jsonsData.page += 1;
         //             var h = render.fill($("#tpl_list"), data.return_newcar);
         //             $(".pageable .list_cart").append(h);
         //             $('img').picLazyLoad();
+        //
         //             if (data.return_newcar.length < 10) {
         //                 pge.lock();
         //                 pge.noData();
         //             }
         //             pge.resetload();
         //         });
-        //         td.usedList({page:me.pageNumber});
+        //         td.usedList(jsonsData);
         //     }
         // });
+        //
+        // $(document).on("click",".brand li",function (){
+        //     var name = $(this).html();
+        //     $('.brand').css({'display':'none !important'});
+        //     $('.mask').css({'display':'none !important'});
+        //     jsonsData.brandname = name;
+        //     pge.refresh();
+        // });
+        // $(document).on("click",".all_btn",function (){
+        //     $('.brand').css({'display':'none !important'});
+        //     $('.mask').css({'display':'none !important'});
+        //     jsonsData.brandname = '';
+        //     pge.refresh();
+        // });
+        // 第一版结束
 
-        document.getElementById('mask').addEventListener('touchmove', function (event) {     //对蒙版绑定touchmove的属性
-            //判断条件,条件成立才阻止背景页面滚动,其他情况不会再影响到页面滚动
-            if ($('#mask').css("display","block")) {
-                event.preventDefault();
-            }
-        });
 
+        new cars(function (data) {
+            console.log(data)
+        }).usedList({})
 
-        var jsonsData = {
-            page: 1,
-            brandname:''
-        };
-        //列表及分页
-        var pge = null;
-        pge = $(".pageable").pageable({
-            loadUpFn: function () {
-                var tu = new tenant(function (data) {
-                    jsonsData.page += 1;
-                    var h = render.fill($("#tpl_list"), data.return_newcar);
-                    $(".pageable .list_cart").html(h);
-                    $('img').picLazyLoad();
-                    pge.resetload();
-                });
-                jsonsData.page = 1;
-                tu.usedList(jsonsData);
-            },
-            loadDownFn: function (me) {
-                var td = new tenant(function (data) {
-                    jsonsData.page += 1;
-                    var h = render.fill($("#tpl_list"), data.return_newcar);
-                    $(".pageable .list_cart").append(h);
-                    $('img').picLazyLoad();
+        new cars(function (data) {
 
-                    if (data.return_newcar.length < 10) {
-                        pge.lock();
-                        pge.noData();
-                    }
-                    pge.resetload();
-                });
-                td.usedList(jsonsData);
-            }
-        });
+        }).usedCommend()
 
-        $(document).on("click",".brand li",function (){
-            var name = $(this).html();
-            $('.brand').css({'display':'none !important'});
-            $('.mask').css({'display':'none !important'});
-            jsonsData.brandname = name;
-            pge.refresh();
-        });
-        $(document).on("click",".all_btn",function (){
-            $('.brand').css({'display':'none !important'});
-            $('.mask').css({'display':'none !important'});
-            jsonsData.brandname = '';
-            pge.refresh();
-        });
 
     });
 </script>

@@ -7,6 +7,44 @@ var cars = function (fn) {
 };
 cars.prototype = {
     /**
+     * 汽贸交易列表
+     * @param page 页码
+     * @param pageSize 一页几条数据
+     */
+    newList: function (data) {
+        ajax.post({
+            url: base + "api/newcar/index",
+            data:data,
+            success: this.fn
+        });
+    },
+    /**
+     * 二手车列表
+     * @param page 页码
+     * @param pageSize 一页几条数据
+     * brandname  传0
+     * price 传0
+     * type 传0
+     */
+    usedList: function (data) {
+        ajax.post({
+            url: base + "api/oldcar/index",
+            data:data,
+            success: this.fn
+        });
+    },
+    /**
+     * 获取车系
+     * @param carId 车系Id
+     */
+    usedCommend: function (data) {
+        ajax.post({
+            url: base + "api/oldcar/lists",
+            data:data,
+            success: this.fn
+        });
+    },
+    /**
      * 获取车系
      * @param carId 车系Id
      */
@@ -106,7 +144,7 @@ cars.prototype = {
      */
     subscribe: function (data) {
         ajax.post({
-            url: base + "Api/Subscribe/pull",
+            url: base + "api/subscribe/pull",
             data: data,
             success: this.fn
         });

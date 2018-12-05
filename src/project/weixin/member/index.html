@@ -36,17 +36,21 @@
     };
 
     var pageFn = function () {
-        //订单列表
-        var userId = cookie.getCookie('userId');
 
+        var userId = cookie.getCookie('userId');
 
         new member(function (data) {
             console.log(data);
             if(data.avatar != '' || data.avatar != null){
                 $('#userAvatar').attr('src',data.avatar);
             }
-            $('#userName').html(data.nickname);
+
             $('#userSignature').html(data.signature);
+            if(data.nickname == ""){
+                $('#userName').html(data.username);
+            }else{
+                $('#userName').html(data.nickname);
+            }
             if(data.idtype == '1' && data.verify == '1'){
                 $('.grade').css('background','#fffc24');
             }else{
@@ -55,6 +59,7 @@
 
         }).view({userId:userId});
 
+        //订单列表
         if (pageManager._getHash() === '#orderList') {
             var type = pageManager.GetQueryString('type');
             type = type ? type : 'all';

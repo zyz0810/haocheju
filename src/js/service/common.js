@@ -24,14 +24,5 @@ common.prototype = {
             url: base + 'weixin/common/base_set.jhtml',
             success:this.fn
         });
-    },
-    /**
-     * 修改拼手气活动分享日期和优惠券红包领到次数
-     */
-    updateLuck:function () {
-        ajax.post({
-            url: base + 'weixin/common/updateLuck.jhtml',
-            success:this.fn
-        });
     }
 };

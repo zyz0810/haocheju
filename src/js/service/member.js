@@ -79,6 +79,17 @@ member.prototype = {
             data: data,
             success: this.fn
         });
+    },
+    /**
+     * 发短信
+     * phonenum 手机号
+     */
+    getCode: function (data) {
+        ajax.post({
+            url: base + 'api/code/getcode',
+            data: data,
+            success: this.fn
+        });
     }
 
 

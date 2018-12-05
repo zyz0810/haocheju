@@ -45,17 +45,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
         new cars(function (data) {
             // $("#index_slider").silderDot(data, 1800, "");
             $("#index_slider").silderTenant(data.banner, 1800, "");
@@ -68,6 +57,10 @@
             }else{
                 $('.collect').attr('data-id','0');
                 $('.collect>p').html('收藏');
+            }
+            if(data.providerid == null){
+                $('.tenant_btn').addClass('none');
+                // $('.heart').css('')
             }
 
         }).newView({id:pageManager.GetQueryString("id")});

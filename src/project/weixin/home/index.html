@@ -27,10 +27,13 @@
     $(function () {
         pageManager.show("main");
         // var b = new Base64();
-        if(pageManager.GetQueryString("data") != '' || pageManager.GetQueryString("data") != null){
+
+
+        var url = window.location.href;
+
+        if(url.indexOf('?data=') > -1){
             var str = decode(pageManager.GetQueryString("data"));
             console.log('str:'+str)
-
             var regex3 = /\{(.+?)\}/g;
             var aa = str.match(regex3)
             var bb = JSON.parse(aa)
