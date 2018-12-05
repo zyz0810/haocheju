@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>我的</title>
+    @import "../../include/header.inc";
+
+</head>
+<body ontouchstart>
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+<div class="container" id="container"></div>
+
+<!--首页-->
+<link rel="import" href="../../../../pages/member/order/use.html">
+
+<!--模板-->
+<link rel="import" href="../../../../model/templete/member/use/view.html">
+
+@import "../../../../model/widget/include/toast.html";
+@import "../../../../model/widget/include/dialog.html";
+<script src="/weixin/js/wap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        pageManager.show("use");
+
+        var userId = cookie.getCookie('userId');
+        var trade_no = pageManager.GetQueryString('trade_no');
+        new order(function (data) {
+            console.log(data);
+            var view = render.fill($("#tpl_view"), data);
+            $(".order_use").html(view);
+        }).detail({trade_no:trade_no});
+
+
+
+    });
+
+</script>
+
+</body>
+</html>

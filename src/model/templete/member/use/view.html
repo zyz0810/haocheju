@@ -1,0 +1,30 @@
+<div class="cont">
+    <div class="weui-cell f14 gray02">
+        <div class="weui-cell__hd">订单编号：</div>
+        <div class="weui-cell__bd">{{order.trade_no}}</div>
+    </div>
+    <div class="circle"><div class='sawtooth_top'></div></div>
+    <div class='ewm tc'><img src="{{img}}"></div>
+    <div class="weui-cell bordernone">
+        <div class="weui-cell__bd f15 tc">{{goods.shopgoods}}</div>
+    </div>
+    <div class="weui-cell bordernone">
+        <div class="weui-cell__bd f15 red tc">￥{{order.cost}}</div>
+    </div>
+    <div class="weui-cell f11 gray10 tc bordernone">
+        <div class="weui-cell__bd">(请将此二维码展示给商家)</div>
+    </div>
+    <div class="weui-cell f14 gray02">
+        <div class="weui-cell__bd">用户名：</div>
+        <div class="weui-cell__ft">{{info.nickname}}</div>
+    </div>
+    <div class="weui-cell f14 gray02">
+        <div class="weui-cell__bd">支付时间：</div>
+        <div class="weui-cell__ft">{{order.addtime}}</div>
+    </div>
+</div>
+<!--<div class="weui-cell f14 gray02 verification">-->
+<!--<div class="weui-cell__hd">核销码：</div>-->
+<!--<div class="weui-cell__bd">656231</div>-->
+<!--</div>-->
+<a class='baseBg f16 white tc return' id="goReturn" href="javascript:history.go(-1)">返回</a>

@@ -14,10 +14,9 @@
 <!--首页-->
 <link rel="import" href="../../../pages/member/index.html">
 <!--订单列表-->
-<link rel="import" href="../../../pages/memberTenant/order/orderList.html">
-<!--订单使用-->
-<link rel="import" href="../../../pages/memberTenant/order/use.html">
+<link rel="import" href="../../../pages/member/order/orderList.html">
 
+<!--模板-->
 <link rel="import" href="../../../model/templete/member/order/list.html">
 
 @import "../../../model/widget/include/toast.html";
@@ -26,9 +25,6 @@
 <script type="text/javascript">
     $(function () {
         pageManager.show("index");
-
-
-
     });
 
     window.onpageshow = function (ev) {
@@ -67,38 +63,39 @@
             thistype.next('p').show().siblings('p').hide();
             var jsonsData = {
                 pageSize: 10,
-                pageNumber: 1,
+                page: 1,
                 userId:userId,
                 type: typeNum ? typeNum : '0'
             };
             var pge;
-            var loadUpFn = function (type) {
-                if (type) jsonsData.type = type;
+            var loadUpFn = function (type,typeNum) {
+                if (typeNum) jsonsData.typeNum = typeNum;
                 //                    pge.refresh();
-                pageManager.replace('orderList?type=' + type)
+                pageManager.replace('orderList?type=' + type + '&typeNum=' + typeNum)
                 //                    window.location.replace(location.origin+'/weixin/member/index.html?type='+type+'#orderList');
             };
 
             $(document).on('click', '.memberOrderGo', function () {
                 var thisTypeOrder = $(this).attr('otype');
-                loadUpFn(thisTypeOrder)
+                var thisTypeNum = $(this).attr('data-id');
+                loadUpFn(thisTypeOrder,thisTypeNum)
             });
             document.title = '我的订单';
             //切换加载数据
             pge = $(".orderList .pageable").pageable({
                 loadUpFn: function (me) {
                     var tu = new order(function (data) {
-                        jsonsData.pageNumber = jsonsData.pageNumber + 1;
+                        jsonsData.page = jsonsData.page + 1;
                         var h = render.fill($("#tpl_list"), data.data);
                         $(".pageable .Details").html(h);
                         pge.resetload();
                     });
-                    jsonsData.pageNumber = 1;
+                    jsonsData.page = 1;
                     tu.list(jsonsData);
                 },
                 loadDownFn: function (me) {
                     var td = new order(function (data) {
-                        jsonsData.pageNumber = jsonsData.pageNumber + 1;
+                        jsonsData.page = jsonsData.page + 1;
                         var h = render.fill($("#tpl_list"), data.data);
                         $(".pageable .Details").append(h);
                         if (data.data.length < jsonsData.pageSize) {
@@ -126,7 +123,8 @@
                 // od.tradePayment({id: order_id});
             });
         }
-    }
+
+    };
     window.addEventListener('pageGoOk', pageFn)
 
 </script>

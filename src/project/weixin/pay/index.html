@@ -63,8 +63,7 @@
                             if (res.err_msg == "get_brand_wcpay_request:ok") {
                                 //支付成功
                                 // pageManager.replace('paySuccessPayBill')
-                                location.replace(location.origin + '/weixin/payment/pay.html?sn=' + sn + '&ext='+(+new Date())+'#paySuccess');
-
+                                location.replace(location.origin + '/weixin/member/index.html#orderList?type=unused&typeNum=2');
                             } else {
                                 //支付失败
                             }
