@@ -58,9 +58,12 @@
                 $('.collect').attr('data-id','0');
                 $('.collect>p').html('收藏');
             }
+
             if(data.providerid == null){
                 $('.tenant_btn').addClass('none');
                 // $('.heart').css('')
+            }else{
+                $('.tenant_btn').attr('href','/weixin/tenant/index.html?id='+data.providerid);
             }
 
         }).newView({id:pageManager.GetQueryString("id")});

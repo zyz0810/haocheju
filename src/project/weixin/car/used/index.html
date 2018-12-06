@@ -20,8 +20,6 @@
 @import "../../../../model/widget/include/dialog.html";
 <script src="/weixin/js/wap.min.js"></script>
 <script type="text/javascript">
-
-
     $(function () {
         pageManager.show("index");
         var userId = cookie.getCookie('userId');
@@ -50,7 +48,16 @@
             }
             $('.collect').attr('data-cid',data.cid);
 
-        }).usedView({id:pageManager.GetQueryString("id"),userId:userId})
+
+            if(data.countpic != 0){
+                $('.banner_num').attr('href','/weixin/car/used/pic.html?id='+pageManager.GetQueryString("id"));
+            }
+            if(data.providerid == null){
+                $('.tenant_btn').addClass('none');
+                // $('.heart').css('')
+            }
+
+        }).usedView({id:pageManager.GetQueryString("id"),userId:userId});
 
 
         $('.collect').click(function () {

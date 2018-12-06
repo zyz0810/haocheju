@@ -86,6 +86,33 @@
 
         if(pageManager.GetQueryString("type") == 'new'){
 
+            // new cars(function (data) {
+            //     var str = '';
+            //     str += '<a href="/weixin/car/new/index.html' + id + '" class="weui-cell">';
+            //     str += '<div class="weui-cell__hd">';
+            //
+            //     if(data.brandlogo == ''){
+            //         str += '<img src="/weixin/images/placeholder/logo.png" class="car_img"/>';
+            //     }else{
+            //         str += '<img src="' + data.brandlogo + '" class="car_img"/>';
+            //     }
+            //     str += '<span class="car_tag f12">新车</span>';
+            //     str += '</div>';
+            //     str += '<div class="weui-cell__bd">';
+            //     str += '<p class="f14">' + data.carname + ' ' + data.cartype + '</p>';
+            //     if(data.carconfig != ''){
+            //         str += '<p class="f12 gray02">配置：' + data.cartype + '</p>';
+            //     }
+            //     str += '<p class="f12 yellow01">销售价：' + data.carprice + '元</p>';
+            //     str += '</div>';
+            //     str += '</a>';
+            //
+            //     $('.product_tenant').html(str);
+            //
+            // }).newView({id:pageManager.GetQueryString("id")});
+
+
+
             new cars(function (data) {
                 var str = '';
                 str += '<a href="/weixin/car/new/index.html' + id + '" class="weui-cell">';
@@ -101,15 +128,14 @@
                 str += '<div class="weui-cell__bd">';
                 str += '<p class="f14">' + data.carname + ' ' + data.cartype + '</p>';
                 if(data.carconfig != ''){
-                    str += '<p class="f12 gray02">配置：' + data.cartype + '</p>';
+                    str += '<p class="f12 gray02">配置：' + data.carconfig + '</p>';
                 }
                 str += '<p class="f12 yellow01">销售价：' + data.carprice + '元</p>';
                 str += '</div>';
                 str += '</a>';
 
                 $('.product_tenant').html(str);
-
-            }).newView({id:pageManager.GetQueryString("id")});
+            }).subscribeNew({productId:id});
 
             $('.publish_btn').click(function () {
                 var name = $('#name').val();
@@ -120,6 +146,9 @@
                 }
                 new cars(function (data) {
                     toast.show('预约成功');
+                    setTimeout(function () {
+                        history.go(-1);
+                    },3000)
                 }).subscribe({username:name,phonenum:phone,type:'1',productId:pageManager.GetQueryString("id")})
             })
 
@@ -127,7 +156,7 @@
         }else{
 
             new cars(function (data) {
-                console.log(data)
+                console.log(data);
                 var str = '';
                 str += '<a href="/weixin/car/new/index.html' + id + '" class="weui-cell">';
                 str += '<div class="weui-cell__hd">';
@@ -154,10 +183,19 @@
             $('.publish_btn').click(function () {
                 var name = $('#name').val();
                 var phone = $('#phone').val();
+                if(phone.length < 11){
+                    toast.show('请输入正确的手机号码');
+                    return ;
+                }
                 new cars(function (data) {
                     toast.show('预约成功');
+                    setTimeout(function () {
+                        history.go(-1);
+                    },3000)
                 }).subscribe({username:name,phonenum:phone,type:'2',productId:pageManager.GetQueryString("id")})
             })
+
+
         }
 
         //实时判断手机号

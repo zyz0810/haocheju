@@ -1,6 +1,9 @@
 <div class="banner">
     <img src="{{banner}}" alt=""/>
-    <a href="/weixin/car/used/pic.html" class="banner_num f11">共{{countpic}}张图</a>
+
+    {{#compare countpic '!=' '0'}}
+    <a href="javascript:;" class="banner_num f11">共{{countpic}}张图</a>
+    {{/compare}}
 </div>
 <div class="car_instro weui-cells">
     <div class="weui-cell">

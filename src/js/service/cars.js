@@ -84,7 +84,7 @@ cars.prototype = {
      */
     usedView: function (data) {
         ajax.post({
-            url: base + "Api/Oldcar/detail",
+            url: base + "api/oldcar/detail",
             data: data,
             success: this.fn
         });

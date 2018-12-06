@@ -14,18 +14,21 @@
 <!--首页-->
 <link rel="import" href="../../../../pages/car/used/pic.html">
 
+<!--模板-->
+<link rel="import" href="../../../../model/templete/car/picCont.html">
+
 @import "../../../../model/widget/include/toast.html";
 @import "../../../../model/widget/include/dialog.html";
 <script src="/weixin/js/wap.min.js"></script>
 <script type="text/javascript">
-
-
     $(function () {
         pageManager.show("pic");
+        var userId = cookie.getCookie('userId');
+        new cars(function (data) {
+            var h = render.fill($("#tpl_picCont"), data);
+            $(".pageable").html(h);
+        }).usedView({id:pageManager.GetQueryString("id"),userId:userId});
     });
-
-
 </script>
-
 </body>
 </html>
