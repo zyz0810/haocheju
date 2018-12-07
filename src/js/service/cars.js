@@ -60,7 +60,7 @@ cars.prototype = {
      */
     brand: function (data) {
         ajax.post({
-            url: base + "Api/Brandlist/first",
+            url: base + "api/brandlist/first",
             data:data,
             success: this.fn
         });

@@ -14,6 +14,11 @@
 <!--首页-->
 <link rel="import" href="../../../pages/usedCar/buy.html">
 
+<!--模板-->
+<link rel="import" href="../../../model/templete/used/brand.html"><!--品牌列表-->
+<link rel="import" href="../../../model/templete/used/price.html"><!--价格列表-->
+<link rel="import" href="../../../model/templete/used/level.html"><!--级别列表-->
+<link rel="import" href="../../../model/templete/used/likeList.html"> <!--二手车列表-->
 
 @import "../../../model/widget/include/toast.html";
 @import "../../../model/widget/include/dialog.html";
@@ -26,45 +31,138 @@
             $(this).addClass('orange01').siblings().removeClass('orange01');
             if(index == 1){
                 $('.brand').removeClass('none');
-                $('.price').addClass('none');
+                $('.price_cont').addClass('none');
                 $('.level').addClass('none');
                 $('.weui-mask').css({'display':'block'})
             }else if(index == 2){
                 $('.brand').addClass('none');
-                $('.price').removeClass('none');
+                $('.price_cont').removeClass('none');
                 $('.level').addClass('none');
                 $('.weui-mask').css({'display':'block'})
             }else if(index == 3){
                 $('.brand').addClass('none');
-                $('.price').addClass('none');
+                $('.price_cont').addClass('none');
                 $('.level').removeClass('none');
                 $('.weui-mask').css({'display':'block'})
+            }else{
+                $(".pageable .used_list").html('');
+                $('#brand').html('品牌');
+                $('#price').html('价格');
+                $('#level').html('级别');
+                $('.brand').addClass('none');
+                $('.price_cont').addClass('none');
+                $('.level').addClass('none');
+                $('.weui-mask').css({'display':'none'});
+                jsonsData.brandname='0';
+                jsonsData.price='0';
+                jsonsData.type='0';
+                pge.refreshDown();
             }
         });
         $(document).on('click','.brand li',function () {
+            $(".pageable .used_list").html('');
             var html = $(this).html();
             $('#brand').html(html);
+            $('#price').html('价格');
+            $('#level').html('级别');
             $('.brand').addClass('none');
-            $('.price').addClass('none');
+            $('.price_cont').addClass('none');
             $('.level').addClass('none');
-            $('.weui-mask').css({'display':'none'})
+            $('.weui-mask').css({'display':'none'});
+            jsonsData.brandname=html;
+            jsonsData.price='0';
+            jsonsData.type='0';
+            pge.refreshDown();
         });
-        $(document).on('click','.price li',function () {
+        $(document).on('click','.price_cont li',function () {
+            $(".pageable .used_list").html('');
             var html = $(this).html();
+            var price = $(this).attr('data-id');
             $('#price').html(html);
+            $('#brand').html('品牌');
+            $('#level').html('级别');
             $('.brand').addClass('none');
-            $('.price').addClass('none');
+            $('.price_cont').addClass('none');
             $('.level').addClass('none');
-            $('.weui-mask').css({'display':'none'})
+            $('.weui-mask').css({'display':'none'});
+            jsonsData.brandname='0';
+            jsonsData.price=price;
+            jsonsData.type='0';
+            pge.refreshDown();
         });
         $(document).on('click','.level li',function () {
+            $(".pageable .used_list").html('');
             var html = $(this).html();
             $('#level').html(html);
+            $('#brand').html('品牌');
+            $('#price').html('价格');
             $('.brand').addClass('none');
-            $('.price').addClass('none');
+            $('.price_cont').addClass('none');
             $('.level').addClass('none');
-            $('.weui-mask').css({'display':'none'})
-        })
+            $('.weui-mask').css({'display':'none'});
+            jsonsData.brandname='0';
+            jsonsData.price='0';
+            jsonsData.type=html;
+            pge.refreshDown();
+        });
+
+
+        new cars(function (data) {
+            var brand = render.fill($("#tpl_brand"), data.brandlist);
+            $('.brand').html(brand);
+            var price = render.fill($("#tpl_price"), data.pricelist);
+            $('.price_cont').html(price);
+            var level = render.fill($("#tpl_level"), data.typelist);
+            $('.level').html(level);
+        }).usedList();
+
+
+
+        var jsonsData = {
+            pageSize: 10,
+            page: 1,
+            brandname:0,
+            price:0,
+            type:0
+        };
+
+        var pge = null;
+        pge = $(".pageable").pageable({
+            scrollFn:function () {
+                $(window).trigger('scroll');
+            },
+            loadUpFn: function () {
+                var tu = new cars(function (data) {
+                    jsonsData.page += 1;
+                    var h = render.fill($("#tpl_likeList"), data.return_newcar.data);
+                    $(".pageable .used_list").html(h);
+                    $('img').picLazyLoad();
+                    pge.resetload();
+                });
+                jsonsData.page = 1;
+                tu.usedList(jsonsData);
+            },
+            loadDownFn: function (me) {
+                var td = new cars(function (data) {
+                    console.log('222222222');
+                    jsonsData.page = jsonsData.page + 1;
+                    var h = render.fill($("#tpl_likeList"), data.return_newcar.data);
+                    $(".pageable .used_list").append(h);
+                    $('img').picLazyLoad();
+                    if (data.return_newcar.data.length < 10) {
+                        pge.lock();
+                        pge.noData();
+                    }
+                    pge.resetload();
+                });
+                td.usedList(jsonsData);
+            }
+        });
+
+
+
+
+
     });
 </script>
 
