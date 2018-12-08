@@ -57,6 +57,17 @@
                 $('.grade').css('background','#ccc');
             }
 
+            if(data.idtype == '1'){
+                $('#bindAutonym').css({'display':'none'});
+            }else{
+                $('#bindAutonym').css({'display':'inline-block'});
+            }
+            if(data.verify == '1'){
+                $('#bindPhone').css({'display':'none'});
+            }else{
+                $('#bindPhone').css({'display':'inline-block'});
+            }
+
         }).view({userId:userId});
 
         //订单列表

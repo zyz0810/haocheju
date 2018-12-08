@@ -92,7 +92,7 @@
                     heart.addClass("heartAnimation");
                     $('.collect>p').html('已收藏');
                     // toast.show('收藏成功');
-                }).favorite({userId:userId,productId:pageManager.GetQueryString("id"),type:'2'})
+                }).favorite({userId:userId,productId:pageManager.GetQueryString("id"),type:'1'})
             }else{
                 var cid = $(this).attr('data-cid');
                 new cars(function (data) {

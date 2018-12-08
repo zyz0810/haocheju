@@ -14,12 +14,199 @@
 <!--首页-->
 <link rel="import" href="../../../../pages/member/circle/index.html">
 
+<link rel="import" href="../../../../model/templete/circle/list.html"> <!--优惠券列表模板-->
+
 @import "../../../../model/widget/include/toast.html";
 @import "../../../../model/widget/include/dialog.html";
 <script src="/weixin/js/wap.min.js"></script>
 <script type="text/javascript">
     $(function () {
         pageManager.show("index");
+        var userId = cookie.getCookie('userId');
+        var pge = $(".pageable").pageable({
+            loadUpFn: function (me) {
+                new contact(function (data) {
+                    $(".circle_list").html('');
+                    console.log(data);
+                    for(var i = 0; i<data.return_new.data.length; i++){
+                        var str = '';
+                        str += '<div class="circle_item weui-cell" data-id="' + data.return_new.data[i].id + '">';
+                        if(data.return_new.data.headerimg == null){
+                            str += '<div class="weui-cell__hd headImg"><img src="/weixin/images/placeholder/logo.png"/></div>';
+                        }else {
+                            str += '<div class="weui-cell__hd headImg"><img src="' + data.return_new.data[i].headerimg + '"/></div>';
+                        }
+                        str += '<div class="weui-cell__bd cont' + data.return_new.data[i].id + '">';
+                        str += '<span class="f13 gray02">' + data.return_new.data[i].username + '</span>';
+                        str += '<div class="circle_txt f13">' + data.return_new.data[i].content + '</div>';
+                        if(data.return_new.data[i].images != null){
+                            str += '<div class="circle_img clearfix">';
+                            for(var j = 0;j < data.return_new.data[i].images.length; j++){
+                                str += '<img class="sendimg" src="' + data.return_new.data[i].images[j] + '"/>';
+                            }
+                            str += '</div>';
+                        }
+                        str += '<div class="weui-cell bordernone operation">';
+                        str += '<div class="weui-cell__hd time f10 gray04">' + data.return_new.data[i].addtime + '</div>';
+                        str += '<div class="weui-cell__bd tr" data-id="' + data.return_new.data[i].id + '">';
+                        str += '<i class="iconfont icon-pinglun f20 blue01 operation_btn"></i>';
+                        str += '<div class="operationCont gray07_bg f10 weui-flex none" data-id="' + data.return_new.data[i].id + '" id="' + data.return_new.data[i].id + '">';
+                        str += '<span class="weui-flex__item tc dianzan"><i class="iconfont icon-heart f16"></i>';
+                        if(data.return_new.data[i].isspot == '0'){
+                            str += '<span class="dianzan_txt">点赞</span>';
+                            str += '<span class="quxiao_txt none">取消</span>';
+                        }else{
+                            str += '<span class="dianzan_txt none">点赞</span>';
+                            str += '<span class="quxiao_txt">取消</span>';
+                        }
+                        str += '</span>';
+                        str += '<span class="weui-flex__item tc pinglun"><i class="iconfont icon-pinglun-copy f16"></i><span>评论</span></span>';
+                        str += '</div>';
+                        str += '</div>';
+                        str += '</div>';
+
+                        if(data.return_new.data[i].spotlist != '' || data.return_new.data[i].comment != ''){
+                            str += '<div class="operationTxt gray08_bg operationTxt' +  data.return_new.data[i].id + '">';
+                            str += '<span class="arrow_top"></span>';
+
+                            if(data.return_new.data[i].spotlist != ''){
+                                str += '<div class="zan_people">';
+                                str += '<i class="iconfont icon-heart f13 blue02"></i>';
+                                str += '<div class="blue02 f13">';
+                                for(var l = 0; l < data.return_new.data[i].spotlist.length;l++){
+                                    if(l==data.return_new.data[i].spotlist.length - 1){
+                                        str += '<div data-id="' + data.return_new.data[i].spotlist[l].id + '"><span>' + data.return_new.data[i].spotlist[l].nickname + '<span></div>';
+                                    }else{
+                                        str += '<div data-id="' + data.return_new.data[i].spotlist[l].id + '"><span>' + data.return_new.data[i].spotlist[l].nickname + '<span>，</div>';
+                                    }
+                                }
+                                str += '</div>';
+                                str += '</div>';
+                            }
+
+                            if(data.return_new.data[i].comment != ''){
+                                str += '<div class="comment topLine comment' + data.return_new.data[i].id + '">';
+                                for(var k = 0; k<data.return_new.data[i].comment.length; k++){
+                                    if(data.return_new.data[i].comment[k].pname == ''){
+                                        str += '<p class="f13 gray02" data-id="' + data.return_new.data[i].id + '"><span class="blue02">' + data.return_new.data[i].comment[k].author + '</span>：'+ data.return_new.data[i].comment[k].comment + '</p>';
+                                    }else{
+                                        str += '<p class="f13 gray02" data-id="' + data.return_new.data[i].id + '"><span class="blue02">' + data.return_new.data[i].comment[k].pname + '</span> 回复 <span class="blue02">' + data.return_new.data[i].comment[k].author + '</span>：'+ data.return_new.data[i].comment[k].comment + '</p>';
+                                    }
+                                }
+                                str += '</div>';
+                            }
+                            str += '</div>';
+                        }
+                        str += '</div>';
+                        str += '<div class="weui-cell comment_area none comment_area' + data.return_new.data[i].id + '"><div class="weui-cell__bd"><input type="text" placeholder="评论" class="comment_txt" data-id="' + data.return_new.data[i].id + '" /></div><div class="weui-cell__ft">发送</div></div>';
+                        str += '</div>';
+                        $(".circle_list").append(str);
+                    }
+
+                    $('img').picLazyLoad();
+                    pge.resetload();
+
+                }).list({page: 1,pageSize:10,userId:userId})
+            },
+            loadDownFn: function (me) {
+                new contact(function (data) {
+                    console.log(data);
+                    me.pageNumber = me.pageNumber +1;
+                    // var circle = render.fill($("#tpl_list"), data.return_new.data);
+                    // $(".circle_list").html(circle);
+                    for(var i = 0; i<data.return_new.data.length; i++){
+                        var str = '';
+                        str += '<div class="circle_item weui-cell" data-id="' + data.return_new.data[i].id + '">';
+                        if(data.return_new.data[i].headerimg == null){
+                            str += '<div class="weui-cell__hd headImg"><img src="/weixin/images/placeholder/logo.png"/></div>';
+                        }else {
+                            str += '<div class="weui-cell__hd headImg"><img src="' + data.return_new.data[i].headerimg + '"/></div>';
+                        }
+                        str += '<div class="weui-cell__bd cont' + data.return_new.data[i].id + '">';
+                        str += '<span class="f13 gray02">' + data.return_new.data[i].username + '</span>';
+                        str += '<div class="circle_txt f13">' + data.return_new.data[i].content + '</div>';
+                        if(data.return_new.data[i].images != null){
+                            str += '<div class="circle_img clearfix">';
+                            for(var j = 0;j < data.return_new.data[i].images.length; j++){
+                                str += '<img class="sendimg" src="' + data.return_new.data[i].images[j] + '"/>';
+                            }
+                            str += '</div>';
+                        }
+                        str += '<div class="weui-cell bordernone operation">';
+                        str += '<div class="weui-cell__hd time f10 gray04">' + data.return_new.data[i].addtime + '</div>';
+                        str += '<div class="weui-cell__bd tr" style="align-items: flex-end;" data-id="' + data.return_new.data[i].id + '">';
+                        str += '<i class="iconfont icon-pinglun f20 blue01 operation_btn" style="display: block;width: 30px;cursor: pointer;"></i>';
+                        str += '<div class="operationCont gray07_bg f10 weui-flex none" data-id="' + data.return_new.data[i].id + '" id="' + data.return_new.data[i].id + '">';
+                        str += '<span class="weui-flex__item tc dianzan"><i class="iconfont icon-heart f16"></i>';
+                        if(data.return_new.data[i].isspot == '0'){
+                            str += '<span class="dianzan_txt">点赞</span>';
+                            str += '<span class="quxiao_txt none">取消</span>';
+                        }else{
+                            str += '<span class="dianzan_txt none">点赞</span>';
+                            str += '<span class="quxiao_txt">取消</span>';
+                        }
+                        str += '</span>';
+                        str += '<span class="weui-flex__item tc pinglun"><i class="iconfont icon-pinglun-copy f16"></i><span>评论</span></span>';
+                        str += '</div>';
+                        str += '</div>';
+                        str += '</div>';
+
+                        if(data.return_new.data[i].spotlist != '' || data.return_new.data[i].comment != ''){
+                            str += '<div class="operationTxt gray08_bg operationTxt' +  data.return_new.data[i].id + '">';
+                            str += '<span class="arrow_top"></span>';
+
+                            if(data.return_new.data[i].spotlist != ''){
+                                str += '<div class="zan_people">';
+                                str += '<i class="iconfont icon-heart f13 blue02"></i>';
+                                str += '<div class="blue02 f13">';
+                                for(var l = 0; l < data.return_new.data[i].spotlist.length;l++){
+                                    if(l==data.return_new.data[i].spotlist.length - 1){
+                                        str += '<div data-id="' + data.return_new.data[i].spotlist[l].id + '"><span>' + data.return_new.data[i].spotlist[l].nickname + '<span></div>';
+                                    }else{
+                                        str += '<div data-id="' + data.return_new.data[i].spotlist[l].id + '"><span>' + data.return_new.data[i].spotlist[l].nickname + '<span>，</div>';
+                                    }
+                                }
+                                str += '</div>';
+                                str += '</div>';
+                            }
+
+                            if(data.return_new.data[i].comment != ''){
+                                if(data.return_new.data[i].comment.length > 6){
+                                    str += '<div class="comment more_height topLine comment' + data.return_new.data[i].id + '">';
+                                }else{
+                                    str += '<div class="comment topLine comment' + data.return_new.data[i].id + '">';
+                                }
+                                for(var k = 0; k<data.return_new.data[i].comment.length; k++){
+                                    if(data.return_new.data[i].comment[k].pname == ''){
+                                        str += '<p class="f13 gray02" data-id="' + data.return_new.data[i].id + '"><span class="blue02">' + data.return_new.data[i].comment[k].author + '</span>：'+ data.return_new.data[i].comment[k].comment + '</p>';
+                                    }else{
+                                        str += '<p class="f13 gray02" data-id="' + data.return_new.data[i].id + '"><span class="blue02">' + data.return_new.data[i].comment[k].pname + '</span> 回复 <span class="blue02">' + data.return_new.data[i].comment[k].author + '</span>：'+ data.return_new.data[i].comment[k].comment + '</p>';
+                                    }
+                                }
+                                if(data.return_new.data[i].comment.length > 6){
+                                    str += '<div class="more_comment f12 tc gray02 gray08_bg blue02">更多</div>';
+                                }
+                                str += '</div>';
+                            }
+                            str += '</div>';
+                        }
+                        str += '</div>';
+                        str += '<div class="weui-cell comment_area none comment_area' + data.return_new.data[i].id + '"><div class="weui-cell__bd"><input type="text" placeholder="评论" class="comment_txt" data-id="' + data.return_new.data[i].id + '" /></div><div class="weui-cell__ft">发送</div></div>';
+                        str += '</div>';
+                        $(".circle_list").append(str);
+                    }
+
+                    $('img').picLazyLoad();
+                    if (data.return_new.data.length < 10) {
+                        pge.lock();
+                        pge.noData();
+                    }
+                    pge.resetload();
+
+                }).list({page: me.pageNumber,pageSize:10,userId:userId});
+            }
+        });
+
     });
 </script>
 

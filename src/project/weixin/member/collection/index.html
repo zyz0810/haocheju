@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>我的车辆</title>
+    @import "../../include/header.inc";
+
+</head>
+<body ontouchstart>
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+<div class="container" id="container"></div>
+
+<!--首页-->
+<link rel="import" href="../../../../pages/member/collection/index.html">
+
+<link rel="import" href="../../../../model/templete/member/collection/new.html"> <!--新车列表-->
+<link rel="import" href="../../../../model/templete/member/collection/old.html"> <!--二手车列表-->
+
+@import "../../../../model/widget/include/toast.html";
+@import "../../../../model/widget/include/dialog.html";
+<script src="/weixin/js/wap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        pageManager.show("index");
+
+        var userId = cookie.getCookie('userId');
+
+        $('.top_tab .weui-flex__item').click(function () {
+           $(this).addClass('active').siblings().removeClass('active');
+           $('.member_carList').html('');
+            if($(this).attr('data-id') == 'new'){
+                //新车
+                jsonsData.type='1';
+                jsonsData.page='1';
+                pge.refreshDown();
+
+            }else if($(this).attr('data-id') == 'old'){
+                jsonsData.type='2';
+                jsonsData.page='1';
+                pge.refreshDown();
+            }
+
+        });
+
+
+        var jsonsData = {
+            pageSize: 10,
+            page: 1,
+            userId:userId,
+            type:1
+        };
+
+        var pge = $(".pageable").pageable({
+            scrollFn:function () {
+                $(window).trigger('scroll');
+            },
+            loadUpFn: function (me) {
+                var tu = new member(function (data) {
+                    jsonsData.page = jsonsData.page + 1;
+                    var h = render.fill($("#tpl_new"), data.data);
+                    $(".pageable .member_carList").html(h);
+                    $('img').picLazyLoad();
+                    pge.resetload();
+                });
+                jsonsData.page = 1;
+                tu.collection(jsonsData);
+            },
+            loadDownFn: function (me) {
+                var td = new member(function (data) {
+                    jsonsData.page = jsonsData.page + 1;
+                    var h = render.fill($("#tpl_new"), data.data);
+                    $(".pageable .member_carList").append(h);
+                    $('img').picLazyLoad();
+                    if (data.data.length < 10) {
+                        pge.lock();
+                        pge.noData();
+                    }
+                    pge.resetload();
+                });
+                td.collection(jsonsData);
+            }
+        });
+
+
+
+
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+{{#each this}}
+<a href="/weixin/car/new/index.html?id={{productid}}" data-id="productid" class="weui-cell">
+    <div class="weui-cell__hd">
+        {{#compare logo '==' null}}
+        <img src="../images/placeholder/logo.png"/>
+        {{/compare}}
+        {{#compare logo '!=' null}}
+        <img src="../images/placeholder/logo.png" data-original="{{logo}}" />
+        {{/compare}}
+    </div>
+    <div class="weui-cell__bd f17 gray05">
+        <p class="f14 overtwo">{{name}} {{config}}</p>
+        <p class="f14 yellow01">{{price}}元</p>
+        <!--<p class="f11 gray10">已有3人购买</p>-->
+    </div>
+</a>
+{{/each}}

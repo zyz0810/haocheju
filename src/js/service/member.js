@@ -103,7 +103,20 @@ member.prototype = {
             data: data,
             success: this.fn
         });
+    },
+    /**
+     * 实名认证
+     * type 1、新车 2、二手车
+     */
+    collection: function (data) {
+        ajax.post({
+            url: base + '/api/collect/user',
+            data: data,
+            success: this.fn
+        });
     }
+
+
 
 };
 
