@@ -78,7 +78,7 @@
                 settime(this);
                 new member(function (data) {
                     toast.show('发送成功')
-                }).sendCode({phonenum:phone});
+                }).getCode({phonenum:phone});
             }
         });
 
@@ -114,15 +114,15 @@
                     var code = $('.code_num').val();
                     new member(function (data) {
                         toast.show('绑定成功');
-                        cookie.delCookie("verify");
-                        cookie.setCookie("verify", '1', 1);
-                        cookie.setCookie("phone", phone, 1);
-
-                        console.log(cookie.getCookie('userId'));
-                        console.log(cookie.getCookie('username'));
-                        console.log(cookie.getCookie('phone'));
+                        // cookie.delCookie("verify");
+                        // cookie.setCookie("verify", '1', 1);
+                        // cookie.setCookie("phone", phone, 1);
+                        //
+                        // console.log(cookie.getCookie('userId'));
+                        // console.log(cookie.getCookie('username'));
+                        // console.log(cookie.getCookie('phone'));
                         setTimeout(function () {
-                            window.location.href = '/weixin/home/index.html?verify=1';
+                            window.location.href = '/weixin/member/index.html';
                         },2000)
                     }).bindMobile({phonenum:phone,code:code,userId:userId})
                 }

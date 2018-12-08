@@ -34,13 +34,13 @@ member.prototype = {
      * 绑定手机获取验证码
      * phonenum 手机号
      */
-    sendCode: function (data) {
-        ajax.post({
-            url: base + "Api/User/getcode",
-            data: data,
-            success: this.fn
-        });
-    },
+    // sendCode: function (data) {
+    //     ajax.post({
+    //         url: base + "Api/User/getcode",
+    //         data: data,
+    //         success: this.fn
+    //     });
+    // },
     /**
      * 绑定手机
      * phonenum 手机号
@@ -49,7 +49,7 @@ member.prototype = {
      */
     bindMobile: function (data) {
         ajax.post({
-            url: base + 'Api/User/bindPhone',
+            url: base + 'api/users/bindPhone',
             data: data,
             success: this.fn
         });
@@ -90,9 +90,20 @@ member.prototype = {
             data: data,
             success: this.fn
         });
+    },
+    /**
+     * 实名认证
+     * username 姓名
+     * idcard 身份证
+     * userId 用户Id
+     */
+    autonym: function (data) {
+        ajax.post({
+            url: base + 'api/illegal/autonym',
+            data: data,
+            success: this.fn
+        });
     }
-
-
 
 };
 

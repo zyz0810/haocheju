@@ -58,7 +58,7 @@
             var sex = $('.sex').attr('data-id');
             var signature = $('#signature').val();
             new member(function () {
-
+                window.location.href='../member/index.html';
             }).edit({userId:userId,phonenum:phonenum,nickname:nickname,sex:sex,signature:signature})
         })
     });
