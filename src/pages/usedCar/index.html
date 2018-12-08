@@ -23,12 +23,20 @@
                             <!--<a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>-->
                         <!--</div>-->
                     <!--</div>-->
-                    <div class="new_search clearfix" style="position: static;">
+                    <div class="new_search clearfix" style="position: static; width: 100%;">
                         <div class="area fl f14 gray02 tc">安庆</div>
-                        <div class="search fr">
-                            <i class="weui-icon-search"></i>
-                            <input type="text" class="f12" placeholder="搜索 品牌/车系/参数/商家">
+                        <!--<div class="search fr">-->
+                            <!--<i class="weui-icon-search"></i>-->
+                            <!--<input type="text" class="f12" placeholder="搜索 品牌/车系/参数/商家">-->
+                            <!--<a href="javascript:;" class="fr f12 true_btn">搜索</a>-->
+                        <!--</div>-->
+
+                        <div class="search fr weui-cell bordernone" style="padding: 0;">
+                            <div class="weui-cell__hd" style="width: 25px;"><i class="weui-icon-search"></i></div>
+                            <div class="weui-cell__bd"><input type="text" class="f12" id="searchInput" placeholder="搜索 品牌" style="padding: 0; width: 100%;"></div>
+                            <div class="weui-cell__ft"><a href="javascript:;" class="fr f12 white true_btn" id="searchGo">搜索</a></div>
                         </div>
+
                     </div>
 
                     <div class="f13 baseColor used_txt">好车居二手车，买卖更放心</div>

@@ -109,9 +109,6 @@
 
 
 
-
-
-
         var aa = new cars(
             function (data) {
                 $("#index_slider").silderDot(data, 1800, "");
@@ -157,6 +154,39 @@
                 td.usedCommend({page:me.pageNumber,pageSize:10});
             }
         });
+
+
+
+        //好货搜索searchGo
+        $('#searchGo').click(function() {
+            var keyword = $("#searchInput").val();
+            if ( keyword == null || keyword == '') {
+                toast.show('请先输入您想搜索的品牌');
+                return;
+            }
+            alert(keyword)
+            window.location.href='../search/result.html?type=usedCar&keyword='+ escape(keyword);
+            // window.location.href='../search/result.html?type=usedCar&keyword='+ keyword;
+            return false;
+        });
+
+        //产品搜索
+        $(document).on('keydown',function(e) {
+            // 回车键事件
+            var code = e.keyCode || e.which;
+            if( code == 13) {
+                var keyword = $("#searchInput").val();
+                if ( keyword == null || keyword == '') {
+                    toast.show('请先输入您想搜索的品牌');
+                    return;
+                }
+                window.location.href='../search/result.html?type=usedCar&keyword='+ escape(keyword);
+                return false;
+            }
+        });
+
+
+
 
 
 

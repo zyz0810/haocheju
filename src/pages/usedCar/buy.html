@@ -2,40 +2,25 @@
     <div class="page__bd" style="height: 100%;">
         <div class="weui-tab">
             <!--<div class="top_title f18 tc">二手车区</div>-->
-            <div class="weui-mask mask"></div>
-            <div class="screen weui-flex tc">
-                <div class="weui-flex__item overone">默认排序</div>
-                <div class="weui-flex__item overone" id="brand">品牌</div>
-                <div class="weui-flex__item orange01 overone" id="price">价格</div>
-                <div class="weui-flex__item overone" id="level">级别</div>
-                <div class="brand none">
-                    <!--<li class="fl f14 gray05 active">大众</li>-->
-                    <!--<li class="fl f14 gray05">马自达</li>-->
-                    <!--<li class="fl f14 gray05">吉利</li>-->
-                    <!--<li class="fl f14 gray05">奥迪</li>-->
-                    <!--<li class="fl f14 gray05">宝马</li>-->
-                    <!--<li class="fl f14 gray05">奔驰</li>-->
+
+            <div class="weui-tab__panel pageable" style="padding: 32px 0 0;background: #fff;">
+                <div class="weui-mask mask"></div>
+                <div class="screen weui-flex tc">
+                    <div class="weui-flex__item overone orange01">默认排序</div>
+                    <div class="weui-flex__item overone" id="brand">品牌</div>
+                    <div class="weui-flex__item overone" id="price">价格</div>
+                    <div class="weui-flex__item overone" id="level">级别</div>
+                    <div class="brand none">
+                        <!--<li class="fl f14 gray05 active">大众</li>-->
+                        <!--<li class="fl f14 gray05">马自达</li>-->
+                        <!--<li class="fl f14 gray05">吉利</li>-->
+                        <!--<li class="fl f14 gray05">奥迪</li>-->
+                        <!--<li class="fl f14 gray05">宝马</li>-->
+                        <!--<li class="fl f14 gray05">奔驰</li>-->
+                    </div>
+                    <div class="price_cont none"></div>
+                    <ul class="level none"></ul>
                 </div>
-                <div class="price_cont none">
-                    <li class="fl f14 gray05 active">不限</li>
-                    <li class="fl f14 gray05">0-3万</li>
-                    <li class="fl f14 gray05">3-6万</li>
-                    <li class="fl f14 gray05">6-9万</li>
-                    <li class="fl f14 gray05">9-12万</li>
-                    <li class="fl f14 gray05">12-15万</li>
-                    <li class="fl f14 gray05">15-18万</li>
-                </div>
-                <ul class="level none">
-                    <li class="fl f14 gray05 active">不限</li>
-                    <li class="fl f14 gray05">0-3万</li>
-                    <li class="fl f14 gray05">3-6万</li>
-                    <li class="fl f14 gray05">6-9万</li>
-                    <li class="fl f14 gray05">9-12万</li>
-                    <li class="fl f14 gray05">12-15万</li>
-                    <li class="fl f14 gray05">15-18万</li>
-                </ul>
-            </div>
-            <div class="weui-tab__panel pageable" style="padding: 0;background: #fff;">
                 <div class="used_list">
                     <!--<a class="weui-cell" href="javascript:;">-->
                         <!--<div class="weui-cell__hd">-->

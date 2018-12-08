@@ -18,7 +18,7 @@
 <link rel="import" href="../../../model/templete/used/brand.html"><!--品牌列表-->
 <link rel="import" href="../../../model/templete/used/price.html"><!--价格列表-->
 <link rel="import" href="../../../model/templete/used/level.html"><!--级别列表-->
-<link rel="import" href="../../../model/templete/used/likeList.html"> <!--二手车列表-->
+<link rel="import" href="../../../model/templete/used/likeList.html"><!--二手车列表-->
 
 @import "../../../model/widget/include/toast.html";
 @import "../../../model/widget/include/dialog.html";
@@ -56,6 +56,7 @@
                 jsonsData.brandname='0';
                 jsonsData.price='0';
                 jsonsData.type='0';
+                jsonsData.page='1';
                 pge.refreshDown();
             }
         });
@@ -72,6 +73,7 @@
             jsonsData.brandname=html;
             jsonsData.price='0';
             jsonsData.type='0';
+            jsonsData.page='1';
             pge.refreshDown();
         });
         $(document).on('click','.price_cont li',function () {
@@ -88,6 +90,7 @@
             jsonsData.brandname='0';
             jsonsData.price=price;
             jsonsData.type='0';
+            jsonsData.page='1';
             pge.refreshDown();
         });
         $(document).on('click','.level li',function () {
@@ -103,6 +106,7 @@
             jsonsData.brandname='0';
             jsonsData.price='0';
             jsonsData.type=html;
+            jsonsData.page='1';
             pge.refreshDown();
         });
 
@@ -115,8 +119,6 @@
             var level = render.fill($("#tpl_level"), data.typelist);
             $('.level').html(level);
         }).usedList();
-
-
 
         var jsonsData = {
             pageSize: 10,
@@ -158,10 +160,6 @@
                 td.usedList(jsonsData);
             }
         });
-
-
-
-
 
     });
 </script>

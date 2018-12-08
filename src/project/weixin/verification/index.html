@@ -20,6 +20,27 @@
 <script type="text/javascript">
     $(function () {
         pageManager.show("index");
+
+
+        var str = decode(pageManager.GetQueryString("data"));
+        console.log('str:'+str);
+        console.log(2222);
+        var regex3 = /\{(.+?)\}/g;
+        var aa = str.match(regex3);
+        var bb = JSON.parse(aa);
+
+        var type = bb.type;
+        var content = bb.content;
+        if(type == 'error'){
+            $('.success').addClass('none');
+            $('.fail').removeClass('none');
+            $('.success_txt').html(content);
+        }else{
+            $('.success').removeClass('none');
+            $('.fail').addClass('none');
+            $('.fail_txt').html(content);
+        }
+
     });
 </script>
 
