@@ -110,13 +110,44 @@ member.prototype = {
      */
     collection: function (data) {
         ajax.post({
-            url: base + '/api/collect/user',
+            url: base + 'api/collect/user',
             data: data,
             success: this.fn
         });
+    },
+    /**
+     * 添加车商
+     * 	userId 用户Id
+     * 	providername 车商名字
+     * 	prividerperson 联系人
+     * 	address 公司地址
+     * 	position 职位
+     * 	phone 手机号
+     * 	logo logo
+     * 	images 门面图
+     * 	license 营业执照
+     * 	name 账号（只能是英文或数字）
+     */
+    dealer: function (data) {
+        ajax.post({
+            url: base + 'api/provider/add',
+            data: data,
+            success: this.fn
+        });
+    },
+    /**
+     * 上传图片
+     * 	file 文件名
+     */
+    uploads: function (data) {
+        ajax.post({
+            url: base + 'api/users/uploads',
+            data: data,
+            contentType: false,
+            processData: false,
+            success: this.fn
+        });
     }
-
-
 
 };
 

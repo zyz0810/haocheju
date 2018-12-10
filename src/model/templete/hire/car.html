@@ -1,0 +1,19 @@
+{{#each this}}
+<a href="javascript:;" class="weui-cells" data-id="{{id}}">
+    <div class="weui-cell">
+        <div class="weui-cell__hd" data-txt="{{shopname}}---{{brand}}--{{type}}" data-price="{{price}}" data-id="{{id}}">
+            {{#compare images '==' 'null'}}
+            <img src="/weixin/images/placeholder/logo.png"/>
+            {{/compare}}
+            {{#compare images '!=' 'null'}}
+            <img src="/weixin/images/placeholder/logo.png" data-original="{{images}}" />
+            {{/compare}}
+        </div>
+        <div class="weui-cell__bd">
+            <p class="f15">{{brand}}</p>
+            <p class="f13">{{type}}</p>
+            <p class="f10"><span class="yellow01 f16">{{price}}</span>/日均</p>
+        </div>
+    </div>
+</a>
+{{/each}}

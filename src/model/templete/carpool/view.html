@@ -1,0 +1,56 @@
+{{#each this}}
+{{#compare type '==' '1'}}
+<li data-id="{{id}}">
+    <div class="weui-cell bordernone">
+        <div class="weui-cell__hd head_img"><img src="/weixin/images/placeholder/logo.png" /></div>
+        <div class="weui-cell__bd f15 gray05">{{name}}</div>
+        <div class="weui-cell__ft f12 gray10">{{wz_addtime}}</div>
+    </div>
+    <div class="weui-cell site">
+        <div class="weui-cell__hd f10 white start_icon tc">起</div>
+        <div class="weui-cell__bd f14 gray05 start">{{start}}<a href="tel:{{mobile}}" class="carpool_call f16 white tc">拨号</a></div>
+    </div>
+    <div class="weui-cell site bordernone">
+        <div class="weui-cell__hd f10 white end_icon tc">终</div>
+        <div class="weui-cell__bd f14 gray05">{{end}}</div>
+    </div>
+    <div class="weui-cell site bordernone">
+        <div class="weui-cell__hd"></div>
+        <div class="weui-cell__bd f14">
+            <p>提供座位&nbsp;&nbsp;&nbsp;<span class="red">{{seat}}</span>个</p>
+            <p>汽车型号&nbsp;&nbsp;&nbsp;{{brand}} {{series}}</p>
+            <p>车牌号&nbsp;&nbsp;&nbsp;皖322256</p>
+            <p class="time">出发时间&nbsp;&nbsp;&nbsp;{{startdate}} {{starttime}}</p>
+            <p class="gray10">车主留言：{{remark}}</p>
+        </div>
+
+    </div>
+</li>
+{{/compare}}
+{{#compare type '==' '2'}}
+<li data-id="{{id}}">
+    <div class="weui-cell bordernone">
+        <div class="weui-cell__hd head_img"><img src="/weixin/images/placeholder/logo.png" /></div>
+        <div class="weui-cell__bd f15 gray05">{{name}}</div>
+        <div class="weui-cell__ft f12 gray10">{{wz_addtime}}</div>
+    </div>
+    <div class="weui-cell site">
+        <div class="weui-cell__hd f10 white start_icon tc">起</div>
+        <div class="weui-cell__bd f14 gray05 start">{{start}}<a href="tel:{{mobile}}" class="carpool_call f16 white tc">拨号</a></div>
+    </div>
+    <div class="weui-cell site bordernone">
+        <div class="weui-cell__hd f10 white end_icon tc">终</div>
+        <div class="weui-cell__bd f14 gray05">{{end}}</div>
+    </div>
+    <div class="weui-cell site bordernone">
+        <div class="weui-cell__hd"></div>
+        <div class="weui-cell__bd f14">
+            <p>座位需求&nbsp;&nbsp;&nbsp;<span class="red">{{seat}}</span>个</p>
+            <p class="time">出发时间&nbsp;&nbsp;&nbsp;{{startdate}} {{starttime}}</p>
+            <p class="gray10">留言：{{remark}}</p>
+        </div>
+
+    </div>
+</li>
+{{/compare}}
+{{/each}}

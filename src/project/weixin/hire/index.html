@@ -14,6 +14,10 @@
 <!--首页-->
 <link rel="import" href="../../../pages/hire/index.html">
 
+<!--模板-->
+<link rel="import" href="../../../model/templete/hire/tenant.html">
+<link rel="import" href="../../../model/templete/hire/car.html">
+
 @import "../../../model/widget/include/toast.html";
 @import "../../../model/widget/include/dialog.html";
 <script src="/weixin/js/wap.min.js"></script>
@@ -118,6 +122,138 @@
 
             })
         });
+
+
+
+
+        //实时判断手机号
+        var mobilevalid = /^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$/;
+        var bind_name = 'input';
+        if (navigator.userAgent.indexOf("MSIE") != -1) {
+            bind_name = 'propertychange';
+        }
+        if (navigator.userAgent.match(/android/i) == "android") {
+            bind_name = "keydown";
+        }
+        $("#phone").bind(bind_name, function (event) {
+            var number = $('#phone').val();
+            if (number.length == 11) {
+                if (!mobilevalid.test(number)) {
+                    dialog.show("请输入正确的手机号码！");
+                    return false;
+                }
+            } else if (number.length > 11) {
+                $('#phone').val('');
+                dialog.show("请输入11位手机号码！");
+                return false;
+            }
+        });
+        $("#phone2").bind(bind_name, function (event) {
+            var number = $('#phone').val();
+            if (number.length == 11) {
+                if (!mobilevalid.test(number)) {
+                    dialog.show("请输入正确的手机号码！");
+                    return false;
+                }
+            } else if (number.length > 11) {
+                $('#phone').val('');
+                dialog.show("请输入11位手机号码！");
+                return false;
+            }
+        });
+
+
+        var countdown = 60;
+        function settime(val) {
+
+                if (countdown == 0) {
+                    val.removeAttribute("disabled");
+                    val.value = "发送验证码";
+                    val.style.background = "#00a0e9";
+                    countdown = 60;
+                    return;
+                } else {
+                    val.setAttribute("disabled", true);
+                    val.value = "重新发送(" + countdown + ")";
+                    val.style.background = "#999";
+                    countdown--;
+                }
+                setTimeout(function () {
+                    settime(val)
+                }, 1000)
+
+        }
+        //绑定手机获取验证码
+        $("#getcap").click(function () {
+            var $this = this;
+            var mobnum = $("#phone").val();
+            if (mobnum.length < 11)  {
+                toast.show("请输入正确的手机号码");
+            } else {
+                var me = new member(function (data) {
+                    toast.show('发送成功');
+                    settime($this);
+                });
+                me.getCode({ phonenum: mobnum })
+            }
+        });
+        $("#getcap2").click(function () {
+            var $this = this;
+            var mobnum = $("#phone2").val();
+            if (mobnum.length < 11)  {
+                toast.show("请输入正确的手机号码");
+            } else {
+                var me = new member(function (data) {
+                    toast.show('发送成功');
+                    settime($this);
+                });
+                me.getCode({ phonenum: mobnum })
+            }
+        });
+
+
+        $('#chooseTenant').click(function () {
+            // $(document).on('click', '#return_address', function () {
+            jsonsType.type = 'tenant';
+            jsonsData.page = '1';
+            $(".pageable .shop .weui-cells").html('');
+            $('.shop').removeClass('none');
+            pge.refreshDown();
+        });
+
+        //点击门店
+        // $('.shop .weui-cell').click(function () {
+        $(document).on('click', '.shop .weui-cell', function () {
+            $('#chooseTenant').html($(this).html());
+            $('.shop').addClass('none');
+        });
+
+
+        $('#chooseCar').click(function () {
+        // $(document).on('click','#chooseCar',function () {
+
+            // alert($('#tenant_choosed').attr('data-id'))
+            var tenantId =$('#chooseTenant').find('.weui-cell__bd').attr('data-id');
+            if(tenantId != 'null'){
+                jsonsType.type = 'car';
+                jsonsCar.page = '1';
+                jsonsCar.providerid = tenantId;
+                $(".pageable .car_model").html('');
+                pge.refreshDown();
+                $('.car_model').removeClass('none');
+            }else{
+                toast.show('请先选择门店')
+            }
+
+        });
+
+        //门店车列表
+        // $('.car_model .weui-cell').click(function () {
+        $(document).on('click', '.car_model .weui-cell', function () {
+            $('#chooseCar').html($(this).html());
+            $('.car_model').addClass('none');
+        });
+
 
         //城市三级联动
         $('#pickUp').click(function () {
@@ -328,6 +464,8 @@
         });
 
 
+
+
         //取车时间
         $('#showDatePicker').click(function () {
             // $(document).on('click', '#showDatePicker', function () {
@@ -463,6 +601,115 @@
             }
         });
 
+        //预约租车
+        $('#orderCar').click(function () {
+            var name = $('#name').val();
+            var mobile = $('#phone').val();
+            var ordercar = $('#chooseCar .weui-cell__hd').attr('data-txt');
+            var day = $('#days').html();
+            var price = $('#chooseCar .weui-cell__hd').attr('data-price');
+            var start = $('#showDatePicker').attr('data-id');
+            var end = $('#showReturnPicker').attr('data-id');
+            var carid = $('#chooseCar .weui-cell__hd').attr('data-id');
+            new rent(function () {
+                toast.show('预约成功')
+            }).orderrent({name:name,mobile:mobile,ordercar:ordercar,day:day,price:price,start:start,end:end,carid:carid})
+        });
+
+
+
+        // new rent(function (data) {
+        //     var h = render.fill($("#tpl_tenant"), data.list);
+        //     $(".shop").html(h);
+        // }).tenant({});
+
+
+
+
+        var jsonsData = {
+            pageSize: 10,
+            page: 1
+        };
+        var jsonsCar = {
+            pageSize: 10,
+            page: 1,
+            providerid:''
+        };
+        var jsonsType = {
+            type:'tenant'
+        };
+
+        var pge = $(".pageable").pageable({
+            loadUpFn: function (me) {
+                if(jsonsType.type == 'tenant'){
+                    var tu = new rent(function (data) {
+                        jsonsData.page = jsonsData.page + 1;
+                        var h = render.fill($("#tpl_tenant"), data.data);
+                        $(".pageable .shop .weui-cells").html(h);
+                        $('img').picLazyLoad();
+                        pge.resetload();
+                    });
+                    jsonsData.page = 1;
+                    tu.tenant(jsonsData);
+                }else if(jsonsType.type == 'car'){
+                    var tu = new rent(function (data) {
+                        jsonsData.page = jsonsData.page + 1;
+                        var h = render.fill($("#tpl_car"), data.data);
+                        $(".pageable .car_model").html(h);
+                        $('img').picLazyLoad();
+                        pge.resetload();
+                    });
+                    jsonsData.page = 1;
+                    tu.car(jsonsCar);
+                }
+
+            },
+            loadDownFn: function (me) {
+                if(jsonsType.type == 'tenant'){
+                    var td = new rent(function (data) {
+                        jsonsData.page = jsonsData.page + 1;
+                        var h = render.fill($("#tpl_tenant"), data.data);
+                        $(".pageable .shop .weui-cells").append(h);
+                        $('img').picLazyLoad();
+                        if (data.data.length < 10) {
+                            pge.lock();
+                            pge.noData();
+                        }
+                        pge.resetload();
+                    });
+                    td.tenant(jsonsData);
+                }else if(jsonsType.type == 'car'){
+                    console.log(22222222222)
+                    var td = new rent(function (data) {
+                        jsonsData.page = jsonsData.page + 1;
+                        var h = render.fill($("#tpl_car"), data.data);
+                        $(".pageable .car_model").append(h);
+                        $('img').picLazyLoad();
+                        if (data.data.length < 10) {
+                            pge.lock();
+                            pge.noData();
+                        }
+                        pge.resetload();
+                    });
+                    td.car(jsonsCar);
+                }
+                $('.pageable-down').addClass('none');
+            }
+        });
+
+
+
+
+
+        // new rent(function (data) {
+        //
+        // }).car({providerid:1});
+
+
+
+
+
+
 
         //代驾
 
@@ -541,6 +788,67 @@
                 });
             }
         });
+
+
+        // weixin.location(function (flag) {
+        //
+        // })
+
+        //
+        // wx.getLocation({
+        //     success: function (res) {
+        //         console.log(res.latitude);  //纬度
+        //         console.log(res.longitude); //经度
+        //         alert(res.longitude);
+        //         var geocoder = new qq.maps.Geocoder({
+        //             complete: function (result) {   //解析成功的回调函数
+        //                 var address = result.detail.address;  //获取详细地址信息
+        //                 console.log(address);
+        //             }
+        //         });
+        //         geocoder.getAddress(new qq.maps.LatLng(res.latitude, res.longitude));
+        //     },
+        //     fail: function (res) {
+        //         alert(0)
+        //     },
+        //     cancel: function (res) {
+        //         alert(1)
+        //     }
+        // });
+
+
+        wx.getLocation({
+            type: 'gcj02',
+            success: function (res) {
+                alert('chengg ')
+                weixin.lat = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                weixin.lng = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                weixin.speed = res.speed; // 速度，以米/每秒计
+                weixin.accuracy = res.accuracy; // 位置精度
+                console.log("定位到的经纬度：");
+                console.log("lat:" + weixin.lat);
+                console.log("lng:" + weixin.lng);
+
+                var geocoder = new qq.maps.Geocoder({
+                    complete: function (result) {   //解析成功的回调函数
+                        var address = result.detail.address;  //获取详细地址信息
+                        console.log(address);
+                    }
+                });
+                geocoder.getAddress(new qq.maps.LatLng(res.latitude, res.longitude));
+
+
+
+
+            },
+            fail: function () {
+                debugger
+                console.log("定位失败");
+alert("定位失败");
+            }
+        });
+
+
 
 
     });

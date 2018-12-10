@@ -14,3 +14,4 @@
 @import "../../js/service/product.js";
 @import "../../js/service/drivers.js";
 @import "../../js/service/order.js";
+@import "../../js/service/rent.js";

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>申请成为车商</title>
+    @import "../include/header.inc";
+
+</head>
+<body ontouchstart>
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+<div class="container" id="container"></div>
+
+<!--首页-->
+<link rel="import" href="../../../pages/dealer/index.html">
+
+
+@import "../../../model/widget/include/toast.html";
+@import "../../../model/widget/include/dialog.html";
+<script src="/weixin/js/wap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        pageManager.show("index");
+
+        var userId = cookie.getCookie('userId');
+
+        //正面图片预览方法
+        function getFullPath() {
+            var file = document.getElementById('idcard1');
+            var fileList = file.files;
+            var img = document.getElementById("uploadimg1");
+            for (var i = 0; i < fileList.length; i++) {
+                if (file.files[0]) {
+                    img.style.display = 'block';
+                    img.style.width = '100px';
+                    img.style.height = '100px';
+                    if (window.createObjectURL != undefined) { // basic
+                        img.src = window.createObjectURL(file.files[0]);
+                    } else if (window.URL != undefined) { // mozilla(firefox)
+                        img.src = window.URL.createObjectURL(file.files[0]);
+                    } else if (window.webkitURL != undefined) { // webkit or chrome
+                        img.src = window.webkitURL.createObjectURL(file.files[0]);
+                    }
+                }
+                var f_i = new FormData();
+                f_i.append("file", fileList[i])
+            }
+        }
+        //反面图片预览方法
+        function getFullPath2() {
+            var file = document.getElementById('idcard2');
+            var fileList = file.files;
+            var img = document.getElementById("uploadimg2");
+            for (var i = 0; i < fileList.length; i++) {
+                if (file.files[0]) {
+                    img.style.display = 'block';
+                    img.style.width = '100px';
+                    img.style.height = '100px';
+                    if (window.createObjectURL != undefined) { // basic
+                        img.src = window.createObjectURL(file.files[0]);
+                    } else if (window.URL != undefined) { // mozilla(firefox)
+                        img.src = window.URL.createObjectURL(file.files[0]);
+                    } else if (window.webkitURL != undefined) { // webkit or chrome
+                        img.src = window.webkitURL.createObjectURL(file.files[0]);
+                    }
+                }
+                var f_i = new FormData();
+                f_i.append("file", fileList[i])
+            }
+        }
+
+        //反面图片预览方法
+        function getFullPath3() {
+            var file = document.getElementById('idcard3');
+            var fileList = file.files;
+            var img = document.getElementById("uploadimg3");
+            for (var i = 0; i < fileList.length; i++) {
+                if (file.files[0]) {
+                    img.style.display = 'block';
+                    img.style.width = '100px';
+                    img.style.height = '100px';
+                    if (window.createObjectURL != undefined) { // basic
+                        img.src = window.createObjectURL(file.files[0]);
+                    } else if (window.URL != undefined) { // mozilla(firefox)
+                        img.src = window.URL.createObjectURL(file.files[0]);
+                    } else if (window.webkitURL != undefined) { // webkit or chrome
+                        img.src = window.webkitURL.createObjectURL(file.files[0]);
+                    }
+                }
+                var f_i = new FormData();
+                f_i.append("file", fileList[i])
+            }
+        }
+
+
+        var img1src;
+        var img2src;
+        var img3src;
+        $("#idcard1").on('change', function () {
+            toast.loading2('上传中');
+            $('#loadingToast').css('opacity', 1);
+            var fl = new member(function (data) {
+                getFullPath();
+                img1src = data;
+                //                    $('.certification #uploadimg1').attr('src',data);
+                $('#loadingToast').css('opacity', 0);
+            });
+            fl.uploads(new FormData($("#idform1")[0]));
+        });
+        $("#idcard2").on('change', function () {
+            toast.loading2('上传中');
+            $('#loadingToast').css('opacity', 1);
+            var fl = new member(function (data) {
+                img2src = data;
+                getFullPath2();
+                $('#loadingToast').css('opacity', 0);
+                //                    $('.certification #uploadimg2').attr('src',data);
+            });
+            fl.uploads(new FormData($("#idform2")[0]));
+        });
+        $("#idcard3").on('change', function () {
+            toast.loading2('上传中');
+            $('#loadingToast').css('opacity', 1);
+            var fl = new member(function (data) {
+                img3src = data;
+                getFullPath3();
+                $('#loadingToast').css('opacity', 0);
+                //                    $('.certification #uploadimg2').attr('src',data);
+            });
+            fl.uploads(new FormData($("#idform2")[0]));
+        });
+
+        //实时判断手机号
+        var mobilevalid = /^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$/;
+        var bind_name = 'input';
+        if (navigator.userAgent.indexOf("MSIE") != -1) {
+            bind_name = 'propertychange';
+        }
+        if (navigator.userAgent.match(/android/i) == "android") {
+            bind_name = "keydown";
+        }
+        $("#phone").bind(bind_name, function (event) {
+            var number = $('#phone').val();
+            if (number.length == 11) {
+                if (!mobilevalid.test(number)) {
+                    dialog.show("请输入正确的手机号码！");
+                    return false;
+                }
+            } else if (number.length > 11) {
+                $('#phone').val('');
+                dialog.show("请输入11位手机号码！");
+                return false;
+            }
+        });
+
+        $(document).on('click','.publish_btn',function () {
+            var providername = $('#providername').val();
+            var prividerperson = $('#prividerperson').val();
+            var address = $('#address').val();
+            var position = $('#position').val();
+            var phone = $('#phone').val();
+            var logo = img1src;
+            var images = img2src;
+            var license = img3src;
+            var name = $('#name').val();
+            new member(function (data) {
+                toast.show('提交成功')
+            }).dealer({userId:userId,providername:providername,prividerperson:prividerperson,address:address,position:position,phone:phone,logo:logo,images:images,license:license,name:name})
+        })
+
+
+    });
+</script>
+
+</body>
+</html>

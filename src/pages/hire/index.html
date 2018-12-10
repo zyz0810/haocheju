@@ -1,41 +1,20 @@
 <div class="page hire">
     <div class="page__bd" style="height: 100%;">
         <div class="weui-tab">
-            <div class="shop none">
-                <div class="weui-cells">
-                    <div class="weui-cell" data-id="0">
-                        <div class="weui-cell__bd">
-                            <p class="f15">好车居汽车服务连锁0</p>
-                            <p class="f13 gray02">地址：宿松县宿松路</p>
-                        </div>
-                    </div>
-                    <div class="weui-cell" data-id="1">
-                        <div class="weui-cell__bd">
-                            <p class="f15">好车居汽车服务连锁1</p>
-                            <p class="f13 gray02">地址：宿松县宿松路</p>
-                        </div>
-                    </div>
-                    <div class="weui-cell" data-id="2">
-                        <div class="weui-cell__bd">
-                            <p class="f15">好车居汽车服务连锁2</p>
-                            <p class="f13 gray02">地址：宿松县宿松路</p>
-                        </div>
-                    </div>
-                    <div class="weui-cell" data-id="3">
-                        <div class="weui-cell__bd">
-                            <p class="f15">好车居汽车服务连锁3</p>
-                            <p class="f13 gray02">地址：宿松县宿松路</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+
+
+
             <ul class="tab weui-flex f16 tc">
                 <li class="hire_car weui-flex__item active" data-id="0"><span>租车</span></li>
                 <li class="driving weui-flex__item" data-id="1"><span>代驾</span></li>
             </ul>
-            <div class="weui-tab__panel" style="padding-bottom: 0;padding-top: 45px;">
+            <div class="weui-tab__panel pageable" style="padding-bottom: 0;padding-top: 45px;">
 
-
+                <div class="shop none">
+                    <div class="weui-cells"></div>
+                </div>
+                <div class="model car_model none"></div>
                 <!--BEGIN gallery-slider-->
                 <!--<div id="iSlider-wrapper">-->
                     <!--<img src="../images/placeholder/blank750x340.png" class="site" alt="">-->
@@ -51,26 +30,36 @@
 
                 <div class="hire_car_cont">
 
-                    <div class="weui-cell">
-                        <div class="weui-cell__hd" id="pickUp">安庆</div>
-                        <div class="weui-cell__bd">安庆市宿松县</div>
-                        <div class="weui-cell__ft">
-                            <div class="car_mode">
-                                <span class="f11 active">上门</span>
-                                <span class="f11" data-id="1">到店</span>
-                            </div>
-                        </div>
+                    <div class="weui-cell" id="chooseTenant">
+                        <div class="weui-cell__bd f14 gray10" data-id="null">请选择门店</div>
                     </div>
-                    <div class="weui-cell">
-                        <div class="weui-cell__hd" id="return">安庆</div>
-                        <div class="weui-cell__bd">安庆市宿松县</div>
-                        <div class="weui-cell__ft">
-                            <div class="car_mode">
-                                <span class="f11 active">上门</span>
-                                <span class="f11" data-id="1">到店</span>
-                            </div>
-                        </div>
+
+                    <div class="weui-cell" id="chooseCar">
+                        <div class="weui-cell__bd f14 gray10">请选择车型</div>
                     </div>
+
+
+
+                    <!--<div class="weui-cell">-->
+                        <!--<div class="weui-cell__hd" id="pickUp">安庆</div>-->
+                        <!--<div class="weui-cell__bd">安庆市宿松县</div>-->
+                        <!--<div class="weui-cell__ft">-->
+                            <!--<div class="car_mode">-->
+                                <!--<span class="f11 active">上门</span>-->
+                                <!--<span class="f11" data-id="1">到店</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="weui-cell">-->
+                        <!--<div class="weui-cell__hd" id="return">安庆</div>-->
+                        <!--<div class="weui-cell__bd">安庆市宿松县</div>-->
+                        <!--<div class="weui-cell__ft">-->
+                            <!--<div class="car_mode">-->
+                                <!--<span class="f11 active">上门</span>-->
+                                <!--<span class="f11" data-id="1">到店</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
 
 
                     <!--<div class="car_mode">-->
@@ -119,7 +108,20 @@
                             <p class="f14"><span class="hour">8:00</span></p>
                         </div>
                     </div>
-                    <a href="car/model.html" class="weui-btn weui-btn_primary publish_btn">立即去选车</a>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd f14"><input class="weui-input" type="text" id="name" placeholder="请输入姓名"></div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd f14">
+                            <input class="weui-input" type="number" id="phone" placeholder="请输入手机号码">
+                        </div>
+                        <div class="weui-cell__ft"><input type="button" id="getcap" class="weui-btn weui-btn__primary" style="background:#00a0e9;font-size: 12px;" value="发送验证码"></div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd f14"><input type="number" class="weui-input" placeholder="请输入验证码"></div>
+                    </div>
+
+                    <a href="javascript:;" class="weui-btn weui-btn_primary publish_btn" id="orderCar">确  定</a>
                 </div>
                 <div class="driving_cont none" style="padding-top: 0;">
                     <div class="weui-cells weui-cells_form">
@@ -136,8 +138,17 @@
                             </div>
                             <div class="weui-cell__ft"></div>
                         </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__bd f14">
+                                <input class="weui-input" type="number" id="phone2" placeholder="请输入手机号码">
+                            </div>
+                            <div class="weui-cell__ft"><input type="button" id="getcap2" class="weui-btn weui-btn__primary" style="background:#00a0e9;font-size: 12px;" value="发送验证码"></div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__bd f14"><input type="number" class="weui-input" placeholder="请输入验证码"></div>
+                        </div>
                     </div>
-                    <a href="javascript:;" class="weui-btn weui-btn_primary publish_btn driving_btn" style="position: static;">立即下单预约</a>
+                    <a href="javascript:;" class="weui-btn weui-btn_primary publish_btn driving_btn" style="position: relative; left: 0;">立即下单预约</a>
                 </div>
             </div>
         </div>
