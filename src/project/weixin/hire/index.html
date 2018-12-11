@@ -790,9 +790,9 @@
         });
 
 
-        // weixin.location(function (flag) {
-        //
-        // })
+        weixin.location(function (flag) {
+
+        })
 
         //
         // wx.getLocation({
@@ -817,36 +817,68 @@
         // });
 
 
+//         wx.getLocation({
+//             type: 'gcj02',
+//             success: function (res) {
+//                 alert('chengg ')
+//                 weixin.lat = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+//                 weixin.lng = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+//                 weixin.speed = res.speed; // 速度，以米/每秒计
+//                 weixin.accuracy = res.accuracy; // 位置精度
+//                 console.log("定位到的经纬度：");
+//                 console.log("lat:" + weixin.lat);
+//                 console.log("lng:" + weixin.lng);
+//
+//                 var geocoder = new qq.maps.Geocoder({
+//                     complete: function (result) {   //解析成功的回调函数
+//                         var address = result.detail.address;  //获取详细地址信息
+//                         console.log(address);
+//                     }
+//                 });
+//                 geocoder.getAddress(new qq.maps.LatLng(res.latitude, res.longitude));
+//
+//
+//
+//
+//             },
+//             fail: function () {
+//                 debugger
+//                 console.log("定位失败");
+// alert("定位失败");
+//             }
+//         });
+
+
+
+
+
+
+        wx.config({
+            debug: false,
+            appId: '', // 必填，公众号的唯一标识
+            timestamp: '', // 必填，生成签名的时间戳
+            nonceStr: '', // 必填，生成签名的随机串
+            signature: '',// 必填，签名
+            jsApiList: [
+                'checkJsApi',
+                'getLocation'
+            ]
+        });
+
         wx.getLocation({
-            type: 'gcj02',
+            type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
             success: function (res) {
-                alert('chengg ')
-                weixin.lat = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-                weixin.lng = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-                weixin.speed = res.speed; // 速度，以米/每秒计
-                weixin.accuracy = res.accuracy; // 位置精度
-                console.log("定位到的经纬度：");
-                console.log("lat:" + weixin.lat);
-                console.log("lng:" + weixin.lng);
-
-                var geocoder = new qq.maps.Geocoder({
-                    complete: function (result) {   //解析成功的回调函数
-                        var address = result.detail.address;  //获取详细地址信息
-                        console.log(address);
-                    }
-                });
-                geocoder.getAddress(new qq.maps.LatLng(res.latitude, res.longitude));
-
-
-
-
+                alert('1111');
+                var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                var speed = res.speed; // 速度，以米/每秒计
+                var accuracy = res.accuracy; // 位置精度
             },
-            fail: function () {
-                debugger
-                console.log("定位失败");
-alert("定位失败");
+            fail:function () {
+                alert('获取失败')
             }
         });
+
 
 
 

@@ -69,27 +69,6 @@ var weixin = {
         return $def.promise();
     },
 
-    // addCard: function () {
-    //     weixin.init().done(function () {
-    //         $.getJSON(weixin.cardUrl).done(function (res) {
-    //             var cardExt = res.data;
-    //             var cardExtJson='{"timestamp":"' + cardExt.timestamp + '","nonce_str":"' + cardExt.nonceStr + '","signature":"' + cardExt.signature + '"}';
-    //             wx.ready(function () {
-    //                 wx.addCard({
-    //                     cardList: [{
-    //                         cardId: cardExt.cardId,
-    //                         cardExt: cardExtJson
-    //                     }], // 需要添加的卡券列表
-    //                     success: function (res) {
-    //                         var cardList = res.cardList; // 添加的卡券列表信息
-    //                     }
-    //                 });
-    //
-    //             });
-    //         });
-    //
-    //     });
-    // },
     /**
      * 分享接口
      * title    分享标题

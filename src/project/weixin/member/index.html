@@ -56,7 +56,6 @@
             }else{
                 $('.grade').css('background','#ccc');
             }
-
             if(data.idtype == '1'){
                 $('#bindAutonym').css({'display':'none'});
             }else{
@@ -67,7 +66,11 @@
             }else{
                 $('#bindPhone').css({'display':'inline-block'});
             }
-
+            if(data.type == '2'){//type 1、普通用户 2、服务商
+                $('#bindDealer').css({'display':'none'});
+            }else{
+                $('#bindDealer').css({'display':'inline-block'});
+            }
         }).view({userId:userId});
 
         //订单列表

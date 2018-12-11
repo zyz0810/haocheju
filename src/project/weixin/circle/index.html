@@ -23,9 +23,85 @@
     $(function () {
         pageManager.show("index");
         var userId = cookie.getCookie('userId');
-        var myname = cookie.getCookie('userName');
+        // var myname = cookie.getCookie('userName');
 
-        console.log('用户id：'+userId)
+
+        new member(function (data) {
+            var myname = data.nickname;
+
+
+
+
+
+
+
+
+
+            //评论
+            // $(document).on('click','.pinglun',function () {
+            $('.pinglun').die().live('click',function () {
+                console.log('00')
+                var id = $(this).parent().attr('data-id');
+                $('#' + id).addClass('none');
+                var $this=$(this);
+                var myname = $(this).attr('data-name');
+                var id = $(this).parent().attr('id');
+                $(".comment_area" + id).removeClass('none');
+                $('.foot_menu').addClass('none');
+                $(".comment_area" + id + " input").focus();
+                $(".comment_area" + id + " input").die().live('change',function () {
+                    var $sth=$(this);
+                    var content= $(".comment_area" + id).find('input').val();
+                    new contact(function (data) {
+                        $(".comment_area" + id).addClass('none');
+                        $('.foot_menu').removeClass('none');
+                        if($('.operationTxt'+id).length == 0){
+                            $this.parent().parent().parent().parent().append('<div class="operationTxt gray08_bg operationTxt' + id + '"><span class="arrow_top"></span><div class="comment topLine comment'+ id +'"><p class="f13 gray02"><span class="blue02">' + myname + '：</span>'+ content + '</p></div></div>')
+                            // <div class="operationTxt gray08_bg operationTxt6"><span class="arrow_top"></span><div class="comment topLine comment6"><p class="f13 gray02" data-id="6"><span class="blue02"></span>：1</p></div></div>
+                        }else if($('.comment'+id).length == 0){
+                            $this.parent().parent().parent().parent().find('.operationTxt'+id).append('<div class="comment topLine comment'+ id +'"><p class="f13 gray02"><span class="blue02">' + myname + '：</span>'+ content + '</p></div>')
+                        }else{
+                            $this.parent().parent().parent().parent().find('.comment').append('<p class="f13 gray02"><span class="blue02">' + myname + '：</span>'+ content + '</p>');
+                        }
+                        $(this).val('');
+                    }).reply({pauthor:'',author:myname,cid:id,comment:content});
+                    $(".comment_area" + id).find('input').val('');
+                })
+            });
+
+
+            //回复下方已有的评论
+            // $('.comment p').click(function() {
+            $(document).on('click','.comment p',function () {
+                var id = $(this).attr('data-id');
+                $('#' + id).addClass('none');
+                var $this=$(this);
+                var rewho=$this.find('.blue02').first().html();
+                var id=$(this).attr('data-id');
+                $(".comment_area" + id).removeClass('none');
+                $('.foot_menu').addClass('none');
+                $(".comment_area" + id + " input").focus();
+                $(".comment_area" + id + " input").attr('placeholder','回复'+rewho);
+                $(".comment_area" + id + " input").die().live('change',function () {
+                    var content=$(".comment_area" + id).find('input').val();
+                    var $sth=$(this);
+                    new contact(function (data) {
+                        $(".comment_area" + id).addClass('none');
+                        $('.foot_menu').removeClass('none');
+                        $this.after('<p class="f13 gray02"><span class="blue02">' + myname + '</span> 回复 <span class="blue02">' + rewho + '：</span>'+ content + '</p>');
+                    }).reply({pauthor:rewho,author:myname,cid:id,comment:content});
+                    $(".comment_area" + id).find('input').val('');
+                })
+
+            });
+
+
+
+        }).view({userId:userId});
+
+
+
+        console.log('用户id：'+userId);
 
         $('#publish').click(function () {
             window.location.href = '/weixin/circle/send.html';
@@ -288,63 +364,7 @@
             $('#' + id).toggleClass('none');
         });
 
-        //评论
-        // $(document).on('click','.pinglun',function () {
-        $('.pinglun').die().live('click',function () {
-            console.log('00')
-            var id = $(this).parent().attr('data-id');
-            $('#' + id).addClass('none');
-            var $this=$(this);
-            var myname = $(this).attr('data-name');
-            var id = $(this).parent().attr('id');
-            $(".comment_area" + id).removeClass('none');
-            $('.foot_menu').addClass('none');
-            $(".comment_area" + id + " input").focus();
-            $(".comment_area" + id + " input").die().live('change',function () {
-                var $sth=$(this);
-                var content= $(".comment_area" + id).find('input').val();
-                new contact(function (data) {
-                    $(".comment_area" + id).addClass('none');
-                    $('.foot_menu').removeClass('none');
-                    if($('.operationTxt'+id).length == 0){
-                        $this.parent().parent().parent().parent().append('<div class="operationTxt gray08_bg operationTxt' + id + '"><span class="arrow_top"></span><div class="comment topLine comment'+ id +'"><p class="f13 gray02"><span class="blue02">' + myname + '：</span>'+ content + '</p></div></div>')
-                    // <div class="operationTxt gray08_bg operationTxt6"><span class="arrow_top"></span><div class="comment topLine comment6"><p class="f13 gray02" data-id="6"><span class="blue02"></span>：1</p></div></div>
-                    }else if($('.comment'+id).length == 0){
-                        $this.parent().parent().parent().parent().find('.operationTxt'+id).append('<div class="comment topLine comment'+ id +'"><p class="f13 gray02"><span class="blue02">' + myname + '：</span>'+ content + '</p></div>')
-                    }else{
-                        $this.parent().parent().parent().parent().find('.comment').append('<p class="f13 gray02"><span class="blue02">' + myname + '：</span>'+ content + '</p>');
-                    }
-                    $(this).val('');
-                }).reply({pauthor:'',author:myname,cid:id,comment:content});
-                $(".comment_area" + id).find('input').val('');
-            })
-        });
 
-
-        //回复下方已有的评论
-        // $('.comment p').click(function() {
-        $(document).on('click','.comment p',function () {
-            var id = $(this).attr('data-id');
-            $('#' + id).addClass('none');
-            var $this=$(this);
-            var rewho=$this.find('.blue02').first().html();
-            var id=$(this).attr('data-id');
-            $(".comment_area" + id).removeClass('none');
-            $('.foot_menu').addClass('none');
-            $(".comment_area" + id + " input").focus();
-            $(".comment_area" + id + " input").attr('placeholder','回复'+rewho);
-            $(".comment_area" + id + " input").die().live('change',function () {
-                var content=$(".comment_area" + id).find('input').val();
-                var $sth=$(this);
-                new contact(function (data) {
-                    $(".comment_area" + id).addClass('none');
-                    $('.foot_menu').removeClass('none');
-                    $this.after('<p class="f13 gray02"><span class="blue02">' + myname + '</span> 回复 <span class="blue02">' + rewho + '：</span>'+ content + '</p>');
-                }).reply({pauthor:rewho,author:myname,cid:id,comment:content});
-                $(".comment_area" + id).find('input').val('');
-            })
-
-        });
 
 
         //预览大图

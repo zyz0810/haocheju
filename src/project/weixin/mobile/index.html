@@ -121,9 +121,20 @@
                         // console.log(cookie.getCookie('userId'));
                         // console.log(cookie.getCookie('username'));
                         // console.log(cookie.getCookie('phone'));
-                        setTimeout(function () {
-                            window.location.href = '/weixin/member/index.html';
-                        },2000)
+
+                        if(pageManager.GetQueryString('type') == 'sendCircle'){
+                            setTimeout(function () {
+                                window.location.href = '/weixin/circle/send.html';
+                            },2000)
+                        }else{
+                            setTimeout(function () {
+                                window.location.href = '/weixin/member/index.html';
+                            },2000)
+                        }
+
+
+
+
                     }).bindMobile({phonenum:phone,code:code,userId:userId})
                 }
             })
