@@ -127,7 +127,7 @@
                 $('#loadingToast').css('opacity', 0);
                 //                    $('.certification #uploadimg2').attr('src',data);
             });
-            fl.uploads(new FormData($("#idform2")[0]));
+            fl.uploads(new FormData($("#idform3")[0]));
         });
 
         //实时判断手机号
@@ -154,18 +154,70 @@
         });
 
         $(document).on('click','.publish_btn',function () {
+            if($('#uploadimg1').attr('src') == '/weixin/images/static/dealer/dealer.png'){
+                toast.show('请上传logo');
+                return;
+            }
+            if($('#uploadimg2').attr('src') == '/weixin/images/static/dealer/dealer.png'){
+                toast.show('请上传门店图片');
+                return;
+            }
+            if($('#uploadimg3').attr('src') == '/weixin/images/static/dealer/dealer.png'){
+                toast.show('请上传营业执照');
+                return;
+            }
             var providername = $('#providername').val();
             var prividerperson = $('#prividerperson').val();
             var address = $('#address').val();
             var position = $('#position').val();
             var phone = $('#phone').val();
-            var logo = img1src;
-            var images = img2src;
-            var license = img3src;
+            var logo = img1src.url;
+            var images = img2src.url;
+            var license = img3src.url;
             var name = $('#name').val();
+            console.log(img1src.url);
+            if(providername == ''){
+                toast.show('请输入服务商名称');
+                return;
+            }
+            if(prividerperson == ''){
+                toast.show('请输入经办人');
+                return;
+            }
+            if(address == ''){
+                toast.show('请输入地址');
+                return;
+            }
+            if(phone.length < 11){
+                toast.show('请输入正确手机号');
+                return;
+            }
+            if(position == ''){
+                toast.show('请输入职位');
+                return;
+            }
+            if(name == ''){
+                toast.show('请输入账号');
+                return;
+            }
+            if(logo == ''){
+                toast.show('请上传logo');
+                return;
+            }
+            if(images == ''){
+                toast.show('请上传门店图片');
+                return;
+            }
+            if(license == ''){
+                toast.show('请上传营业执照');
+                return;
+            }
             new member(function (data) {
-                toast.show('提交成功')
-            }).dealer({userId:userId,providername:providername,prividerperson:prividerperson,address:address,position:position,phone:phone,logo:logo,images:images,license:license,name:name})
+                toast.show('入驻成功，请耐心等待审核');
+                setTimeout(function () {
+                    window.location.href = '/weixin/member/index.html';
+                },3000)
+            }).dealer({userId:'4',providername:providername,prividerperson:prividerperson,address:address,position:position,phone:phone,logo:logo,images:images,license:license,name:name})
         })
 
 
