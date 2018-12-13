@@ -20,10 +20,31 @@
 
 @import "../../../model/widget/include/toast.html";
 @import "../../../model/widget/include/dialog.html";
+<script src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
 <script src="/weixin/js/wap.min.js"></script>
 <script type="text/javascript">
     $(function () {
         pageManager.show("index");
+        var dataId = pageManager.GetQueryString('dataId');
+        if(dataId == '1'){
+            $('.tab .driving').addClass('active').siblings().removeClass('none');
+            $('.driving_cont').removeClass('none');
+            $('.hire_car_cont').addClass('none');
+
+            if(pageManager.GetQueryString('type') == 'start'){
+                $('#start').val(unescape(pageManager.GetQueryString('start')))
+            }
+
+            if(pageManager.GetQueryString('type') == 'end'){
+                $('#end').val(unescape(pageManager.GetQueryString('end')))
+            }
+
+
+        }else{
+            $('.tab .hire_car').addClass('active').siblings().removeClass('none');
+            $('.hire_car_cont').removeClass('none');
+            $('.driving_cont').addClass('none');
+        }
 
         $('.car_mode span').click(function () {
            $(this).addClass('active').siblings().removeClass('active');
@@ -730,6 +751,8 @@
 
         $('#driving .driving_date').html(year + '-' + p(month) + "-" + p(date));
         $('#driving .driving_hour').html(p(h) + ':' + p(m) + ":" + p(s));
+        $('#driving').attr('data-id', year + '-' + month + '-' + date);
+        $('#driving').attr('data-time', p(h) + ':' + p(m));
 
         $('#driving').click(function () {
             // $(document).on('click', '#showReturnPicker', function () {
@@ -782,6 +805,7 @@
                         var time = result[0].label + ':' + result[2].label;
                         var expect_date = date + ' ' + time;
                         $('#driving .driving_hour').html(time);
+                        $('#driving').attr('data-time', time);
                         $(_this).find('.weui-cell__ft').text(expect_date);
                     },
                     id: 'ma_expect_time'
@@ -790,102 +814,98 @@
         });
 
 
+
+
+        $('.driving_btn').click(function () {
+            var mobile = $('#phone2').val();
+            var start = $('#start').val();
+            var end = $('#end').val();
+            var date = $('#driving').attr('data-id');
+            var hour = $('#driving').attr('data-time');
+            var datetime = date + ' ' + hour;
+            if(mobile.length < 11){
+                toast.show('请输入正确手机号');
+                return;
+            }
+            if($('#code').val().length != 6){
+                toast.show('请输入正确验证码');
+                return;
+            }
+            if(start == ''){
+                toast.show('请输入出发地');
+                return;
+            }
+            if(end == ''){
+                toast.show('请输入目的地');
+                return;
+            }
+
+            new rent(function () {
+                toast.show('预约成功')
+            }).driver({mobile:mobile,start:start,end:end,datetime:datetime})
+
+        });
+
         weixin.location(function (flag) {
+            // alert(weixin.lat)
 
-        })
+            $(document).on('click', '.goStart', function () {
+                var me = this;
+                // weixin.openLocation({
+                //     lat: weixin.lat,
+                //     lng: weixin.lng
+                //     // name: me.name,
+                //     // address: me.address
+                // });
 
-        //
-        // wx.getLocation({
-        //     success: function (res) {
-        //         console.log(res.latitude);  //纬度
-        //         console.log(res.longitude); //经度
-        //         alert(res.longitude);
-        //         var geocoder = new qq.maps.Geocoder({
-        //             complete: function (result) {   //解析成功的回调函数
-        //                 var address = result.detail.address;  //获取详细地址信息
-        //                 console.log(address);
-        //             }
-        //         });
-        //         geocoder.getAddress(new qq.maps.LatLng(res.latitude, res.longitude));
-        //     },
-        //     fail: function (res) {
-        //         alert(0)
-        //     },
-        //     cancel: function (res) {
+                window.location.href = '/weixin/map/index2.html?lat='+weixin.lat+'&lng='+weixin.lng+'&type=start';
+
+                    // window.location.href = 'https://m.amap.com/picker/?keywords=写字楼,小区,学校&zoom=15&center=' + weixin.lng + ',' + weixin.lat + '&radius=1000&total=20&key=abc99bf772060cfc0d55ad8aad9de9b0'
+
+
+            });
+
+            $(document).on('click', '.goEnd', function () {
+                var me = this;
+                // weixin.openLocation({
+                //     lat: weixin.lat,
+                //     lng: weixin.lng
+                //     // name: me.name,
+                //     // address: me.address
+                // });
+
+                window.location.href = '/weixin/map/index2.html?lat='+weixin.lat+'&lng='+weixin.lng+'&type=end';
+
+                // window.location.href = 'https://m.amap.com/picker/?keywords=写字楼,小区,学校&zoom=15&center=' + weixin.lng + ',' + weixin.lat + '&radius=1000&total=20&key=abc99bf772060cfc0d55ad8aad9de9b0'
+
+
+            });
+
+
+
+        });
+
+
+
+
+
+
+
+        // weixin.share({
+        //     title:'111',
+        //     desc:'111',
+        //     link: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc317b60f99f1a168&redirect_uri=http%3A%2F%2Fm.0556360.com%2Fweixin%2Fhire%2Findex.html&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect",
+        //     imgUrl:'111',
+        //     success:function () {
         //         alert(1)
+        //     },
+        //     fail:function () {
+        //         alert(2)
         //     }
         // });
 
 
-//         wx.getLocation({
-//             type: 'gcj02',
-//             success: function (res) {
-//                 alert('chengg ')
-//                 weixin.lat = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-//                 weixin.lng = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-//                 weixin.speed = res.speed; // 速度，以米/每秒计
-//                 weixin.accuracy = res.accuracy; // 位置精度
-//                 console.log("定位到的经纬度：");
-//                 console.log("lat:" + weixin.lat);
-//                 console.log("lng:" + weixin.lng);
-//
-//                 var geocoder = new qq.maps.Geocoder({
-//                     complete: function (result) {   //解析成功的回调函数
-//                         var address = result.detail.address;  //获取详细地址信息
-//                         console.log(address);
-//                     }
-//                 });
-//                 geocoder.getAddress(new qq.maps.LatLng(res.latitude, res.longitude));
-//
-//
-//
-//
-//             },
-//             fail: function () {
-//                 debugger
-//                 console.log("定位失败");
-// alert("定位失败");
-//             }
-//         });
-
-
-
-
-
-
-        wx.config({
-            debug: false,
-            appId: '', // 必填，公众号的唯一标识
-            timestamp: '', // 必填，生成签名的时间戳
-            nonceStr: '', // 必填，生成签名的随机串
-            signature: '',// 必填，签名
-            jsApiList: [
-                'checkJsApi',
-                'getLocation'
-            ]
-        });
-
-        wx.getLocation({
-            type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-            success: function (res) {
-                alert('1111');
-                var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-                var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-                var speed = res.speed; // 速度，以米/每秒计
-                var accuracy = res.accuracy; // 位置精度
-            },
-            fail:function () {
-                alert('获取失败')
-            }
-        });
-
-
-
-
-
     });
-
-
 </script>
 
 </body>

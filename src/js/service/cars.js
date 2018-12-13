@@ -162,6 +162,17 @@ cars.prototype = {
         });
     },
     /**
+     * 拼车详情
+     * @param id
+     */
+    carpoolDetail: function (data) {
+        ajax.post({
+            url: base + "api/carpool/detail",
+            data: data,
+            success: this.fn
+        });
+    },
+    /**
      * 拼车表单
      * @param type  、车找人 2 人找车
      */

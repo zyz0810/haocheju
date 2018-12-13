@@ -17,7 +17,7 @@
 
 @import "../../js/page.js";
 
-@import "/js/jweixin1.0.0.js";
+@import "/js/jweixin-1.4.0.js";
 
 @import "../../js/widget/dialog.js";
 

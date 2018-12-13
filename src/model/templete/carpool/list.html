@@ -1,6 +1,6 @@
 {{#each this}}
 {{#compare type '==' '1'}}
-<li data-id="{{id}}">
+<li data-id="{{id}}" class="car">
     <div class="weui-cell bordernone">
         <div class="weui-cell__hd head_img"><img src="/weixin/images/placeholder/logo.png" /></div>
         <div class="weui-cell__bd f15 gray05">{{name}}</div>
@@ -28,7 +28,7 @@
 </li>
 {{/compare}}
 {{#compare type '==' '2'}}
-<li data-id="{{id}}">
+<li data-id="{{id}}" class="personal">
     <div class="weui-cell bordernone">
         <div class="weui-cell__hd head_img"><img src="/weixin/images/placeholder/logo.png" /></div>
         <div class="weui-cell__bd f15 gray05">{{name}}</div>

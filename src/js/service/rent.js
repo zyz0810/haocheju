@@ -46,9 +46,21 @@ rent.prototype = {
             data:data,
             success: this.fn
         });
+    },
+    /**
+     * 代驾
+     * @param mobile  手机号
+     * @param start  出发地
+     * @param end  目的地
+     * @param datetime 出发时间 如 2018-12-12 8：30
+     */
+    driver: function (data) {
+        ajax.post({
+            url: base + "api/drive/order",
+            data:data,
+            success: this.fn
+        });
     }
-
-
 };
 
 

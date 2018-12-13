@@ -91,6 +91,10 @@
                 td.carPool(jsonsData);
             }
         });
+        $(document).on('click','.list2 li',function () {
+            var id = $(this).attr('data-id');
+            window.location.href = '/weixin/carpool/view/index.html?id=' + id;
+        });
     });
 </script>
 

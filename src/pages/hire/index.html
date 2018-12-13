@@ -126,10 +126,12 @@
                 <div class="driving_cont none" style="padding-top: 0;">
                     <div class="weui-cells weui-cells_form">
                         <div class="weui-cell f14">
-                            <div class="weui-cell__bd"><input class="weui-input" type="text" placeholder="请输入您的位置"></div>
+                            <div class="weui-cell__bd"><input class="weui-input" type="text" id="start" placeholder="请输入您的位置"></div>
+                            <div class="weui-cell__ft goStart" style="width: 30px;"><i class="iconfont icon-dingweiweizhi"></i></div>
                         </div>
                         <div class="weui-cell f14">
-                            <div class="weui-cell__bd"><input class="weui-input" type="text" placeholder="请输入目的地"></div>
+                            <div class="weui-cell__bd"><input class="weui-input" type="text" id="end" placeholder="请输入目的地"></div>
+                            <div class="weui-cell__ft goEnd" style="width: 30px;"><i class="iconfont icon-dingweiweizhi"></i></div>
                         </div>
                         <div class="weui-cell weui-cell_access f14">
                             <div class="weui-cell__bd" id="driving">
@@ -145,7 +147,7 @@
                             <div class="weui-cell__ft"><input type="button" id="getcap2" class="weui-btn weui-btn__primary" style="background:#00a0e9;font-size: 12px;" value="发送验证码"></div>
                         </div>
                         <div class="weui-cell">
-                            <div class="weui-cell__bd f14"><input type="number" class="weui-input" placeholder="请输入验证码"></div>
+                            <div class="weui-cell__bd f14"><input type="number" class="weui-input" id="code" placeholder="请输入验证码"></div>
                         </div>
                     </div>
                     <a href="javascript:;" class="weui-btn weui-btn_primary publish_btn driving_btn" style="position: relative; left: 0;">立即下单预约</a>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>选取位置</title>
+    @import "../include/header.inc";
+    <style type="text/css">
+        #test {width:100%; height: 100%; }
+    </style>
+
+</head>
+<body ontouchstart>
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+
+<!--首页-->
+<iframe id="test" src=''></iframe>
+
+
+@import "../../../model/widget/include/toast.html";
+@import "../../../model/widget/include/dialog.html";
+<!--<script src="https://webapi.amap.com/maps?v=1.4.8&key=abc99bf772060cfc0d55ad8aad9de9b0&callback=init"></script>-->
+<script src="/weixin/js/wap.min.js"></script>
+<script type="text/javascript">
+    (function(){
+        var lng = pageManager.GetQueryString('lng');
+        var lat = pageManager.GetQueryString('lat');
+        $('#test').attr('src','https://m.amap.com/picker/?keywords=写字楼,小区,学校&zoom=15&center=' + lng + ',' + lat + '&radius=1000&total=20&key=abc99bf772060cfc0d55ad8aad9de9b0')
+        var iframe = document.getElementById('test').contentWindow;
+        document.getElementById('test').onload = function(){
+            iframe.postMessage('hello','https://m.amap.com/picker/');
+        };
+        window.addEventListener("message", function(e){
+
+            // alert('您选择了:' + e.data.name + ',' + e.data.location)
+            // alert(pageManager.GetQueryString('type'))
+            if(pageManager.GetQueryString('type') == 'start'){
+                location.replace(location.origin + '/weixin/hire/index.html?dataId=1&type=start&start='+ escape(e.data.name));
+            }
+
+            if(pageManager.GetQueryString('type') == 'end'){
+                location.replace(location.origin + '/weixin/hire/index.html?dataId=1&type=end&end='+escape(e.data.name));
+            }
+
+
+
+
+        }, false);
+    }())
+</script>
+
+</body>
+</html>

@@ -26,9 +26,9 @@
 
 
         new cars(function (data) {
-            var h = render.fill($("#tpl_list"), data.return_new.data);
+            var h = render.fill($("#tpl_view"), data);
             $(".pageable .list2").html(h);
-        }).carPool(jsonsData);
+        }).carpoolDetail({id:pageManager.GetQueryString('id')});
 
 
 

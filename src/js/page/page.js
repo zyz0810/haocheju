@@ -465,6 +465,9 @@ var ajax={
             // },
             traditional:options.traditional?options.traditional:false,
             async: options.async != false,
+            beforeSend:function (xhr) {
+                xhr.widthCredentials = true;
+            },
             success: function (data) {
                 if(redirecting) return;
                 if (data.message.type == "success") {
@@ -510,6 +513,9 @@ var ajax={
             contentType:(options.contentType!==""&&options.contentType!==undefined)?options.contentType:"application/x-www-form-urlencoded",
             processData:(options.processData!==""&&options.processData!==undefined)?options.processData:true,
             traditional:options.traditional?options.traditional:false,
+            beforeSend:function (xhr) {
+                xhr.widthCredentials = true;
+            },
             success: function (data) {
 
                 if(redirecting) return;
