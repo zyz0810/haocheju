@@ -184,8 +184,33 @@
             }
         });
 
+        new member(function (data) {
+            if(data.nickname == ""){
+                $('#name').val(data.username);
+            }else{
+                $('#name').val(data.nickname);
+            }
+            if(data.verify == '1'){
+                $('#phone').val(data.phone);
+            }
+        }).view({userId:userId});
+
         $('.publish_btn').click(function () {
             if ($('#weuiAgree').is(':checked')) {
+
+                new member(function (data) {
+
+                    if(data.idtype != '1'){
+                        dialog.show('请先实名认证',function () {
+                            window.location.href = '/weixin/member/authentication/index.html?type=carpoolCar';
+                        })
+                    }
+                    if(data.verify != '1'){
+                        dialog.show('请先绑定手机号',function () {
+                            window.location.href = '/weixin/mobile/index.html?type=carpoolCar';
+                        })
+                    }
+
                 var name = $('#name').val();
                 var phone = $('#phone').val();
                 var start = $('#start').val();
@@ -219,10 +244,79 @@
                     remarks: remarks,
                     userId:userId
                 })
+
+                }).view({userId:userId});
+
+
             } else {
                 toast.show('请先阅读并同意《免责声明》')
             }
         });
+
+        weixin.location(function (flag) {
+            $(document).on('click', '.goStart', function () {
+                var me = this;
+                // weixin.openLocation({
+                //     lat: weixin.lat,
+                //     lng: weixin.lng
+                //     // name: me.name,
+                //     // address: me.address
+                // });
+                // window.location.href = '/weixin/map/index2.html?lat='+weixin.lat+'&lng='+weixin.lng+'&type=start';
+                // window.location.href = 'https://m.amap.com/picker/?keywords=写字楼,小区,学校&zoom=15&center=' + weixin.lng + ',' + weixin.lat + '&radius=1000&total=20&key=abc99bf772060cfc0d55ad8aad9de9b0'
+                $('.map').removeClass('none');
+                $('.map').attr('data-id','start');
+                $('#test').attr('src','https://m.amap.com/picker/?keywords=写字楼,小区,学校&zoom=15&center=' + weixin.lng + ',' + weixin.lat + '&radius=1000&total=20&key=abc99bf772060cfc0d55ad8aad9de9b0');
+                var iframe = document.getElementById('test').contentWindow;
+                document.getElementById('test').onload = function(){
+                    iframe.postMessage('hello','https://m.amap.com/picker/');
+                };
+
+            });
+
+            $(document).on('click', '.goEnd', function () {
+                var me = this;
+                // weixin.openLocation({
+                //     lat: weixin.lat,
+                //     lng: weixin.lng
+                //     // name: me.name,
+                //     // address: me.address
+                // });
+
+                // window.location.href = '/weixin/map/index2.html?lat='+weixin.lat+'&lng='+weixin.lng+'&type=end';
+                // window.location.href = 'https://m.amap.com/picker/?keywords=写字楼,小区,学校&zoom=15&center=' + weixin.lng + ',' + weixin.lat + '&radius=1000&total=20&key=abc99bf772060cfc0d55ad8aad9de9b0'
+                $('.map').removeClass('none');
+                $('.map').attr('data-id','end');
+                $('#test').attr('src','https://m.amap.com/picker/?keywords=写字楼,小区,学校&zoom=15&center=' + weixin.lng + ',' + weixin.lat + '&radius=1000&total=20&key=abc99bf772060cfc0d55ad8aad9de9b0');
+                var iframe = document.getElementById('test').contentWindow;
+                document.getElementById('test').onload = function(){
+                    iframe.postMessage('hello','https://m.amap.com/picker/');
+                };
+            });
+        });
+
+
+
+
+        //地图
+        window.addEventListener("message", function(e){
+
+            // alert('您选择了:' + e.data.name + ',' + e.data.location)
+            // alert(pageManager.GetQueryString('type'))
+            // alert($('.map').attr('data-id'))
+            if($('.map').attr('data-id') == 'start'){
+                // location.replace(location.origin + '/weixin/hire/index.html?dataId=1&type=start&start='+ escape(e.data.name));
+                $('.map').addClass('none');
+                $('#start').val(e.data.name);
+                $('.map').attr('data-id','');
+            }
+            if($('.map').attr('data-id') == 'end'){
+                // location.replace(location.origin + '/weixin/hire/index.html?dataId=1&type=end&end='+escape(e.data.name));
+                $('.map').addClass('none');
+                $('#end').val(e.data.name);
+                $('.map').attr('data-id','');
+            }
+        }, false);
 
     });
 </script>

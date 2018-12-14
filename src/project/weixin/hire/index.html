@@ -718,17 +718,9 @@
             }
         });
 
-
-
-
-
         // new rent(function (data) {
         //
         // }).car({providerid:1});
-
-
-
-
 
 
 
@@ -813,9 +805,6 @@
             }
         });
 
-
-
-
         $('.driving_btn').click(function () {
             var mobile = $('#phone2').val();
             var start = $('#start').val();
@@ -841,14 +830,15 @@
             }
 
             new rent(function () {
-                toast.show('预约成功')
+                toast.show('预约成功');
+                $('#start').val('');
+                $('#end').val('');
+                $('#code').val('');
             }).driver({mobile:mobile,start:start,end:end,datetime:datetime})
 
         });
 
         weixin.location(function (flag) {
-            // alert(weixin.lat)
-
             $(document).on('click', '.goStart', function () {
                 var me = this;
                 // weixin.openLocation({
@@ -857,11 +847,15 @@
                 //     // name: me.name,
                 //     // address: me.address
                 // });
-
-                window.location.href = '/weixin/map/index2.html?lat='+weixin.lat+'&lng='+weixin.lng+'&type=start';
-
-                    // window.location.href = 'https://m.amap.com/picker/?keywords=写字楼,小区,学校&zoom=15&center=' + weixin.lng + ',' + weixin.lat + '&radius=1000&total=20&key=abc99bf772060cfc0d55ad8aad9de9b0'
-
+                // window.location.href = '/weixin/map/index2.html?lat='+weixin.lat+'&lng='+weixin.lng+'&type=start';
+                // window.location.href = 'https://m.amap.com/picker/?keywords=写字楼,小区,学校&zoom=15&center=' + weixin.lng + ',' + weixin.lat + '&radius=1000&total=20&key=abc99bf772060cfc0d55ad8aad9de9b0'
+                $('.map').removeClass('none');
+                $('.map').attr('data-id','start');
+                $('#test').attr('src','https://m.amap.com/picker/?keywords=写字楼,小区,学校&zoom=15&center=' + weixin.lng + ',' + weixin.lat + '&radius=1000&total=20&key=abc99bf772060cfc0d55ad8aad9de9b0');
+                var iframe = document.getElementById('test').contentWindow;
+                document.getElementById('test').onload = function(){
+                    iframe.postMessage('hello','https://m.amap.com/picker/');
+                };
 
             });
 
@@ -874,20 +868,40 @@
                 //     // address: me.address
                 // });
 
-                window.location.href = '/weixin/map/index2.html?lat='+weixin.lat+'&lng='+weixin.lng+'&type=end';
-
+                // window.location.href = '/weixin/map/index2.html?lat='+weixin.lat+'&lng='+weixin.lng+'&type=end';
                 // window.location.href = 'https://m.amap.com/picker/?keywords=写字楼,小区,学校&zoom=15&center=' + weixin.lng + ',' + weixin.lat + '&radius=1000&total=20&key=abc99bf772060cfc0d55ad8aad9de9b0'
-
-
+                $('.map').removeClass('none');
+                $('.map').attr('data-id','end');
+                $('#test').attr('src','https://m.amap.com/picker/?keywords=写字楼,小区,学校&zoom=15&center=' + weixin.lng + ',' + weixin.lat + '&radius=1000&total=20&key=abc99bf772060cfc0d55ad8aad9de9b0');
+                var iframe = document.getElementById('test').contentWindow;
+                document.getElementById('test').onload = function(){
+                    iframe.postMessage('hello','https://m.amap.com/picker/');
+                };
             });
-
-
-
         });
 
 
 
 
+        //地图
+        window.addEventListener("message", function(e){
+
+            // alert('您选择了:' + e.data.name + ',' + e.data.location)
+            // alert(pageManager.GetQueryString('type'))
+            // alert($('.map').attr('data-id'))
+            if($('.map').attr('data-id') == 'start'){
+                // location.replace(location.origin + '/weixin/hire/index.html?dataId=1&type=start&start='+ escape(e.data.name));
+                $('.map').addClass('none');
+                $('#start').val(e.data.name);
+                $('.map').attr('data-id','');
+            }
+            if($('.map').attr('data-id') == 'end'){
+                // location.replace(location.origin + '/weixin/hire/index.html?dataId=1&type=end&end='+escape(e.data.name));
+                $('.map').addClass('none');
+                $('#end').val(e.data.name);
+                $('.map').attr('data-id','');
+            }
+        }, false);
 
 
 
