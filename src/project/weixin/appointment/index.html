@@ -144,16 +144,21 @@
                     }
                     var name = $('#name').val();
                     var phone = $('#phone').val();
+                    var code = ('#code').val();
                     if(phone.length < 11){
                         toast.show('请输入正确的手机号码');
                         return ;
                     }
-                    new cars(function (data) {
-                        toast.show('预约成功');
-                        setTimeout(function () {
-                            history.go(-1);
-                        },3000)
-                    }).subscribe({username:name,phonenum:phone,type:'1',productId:pageManager.GetQueryString("id")})
+
+                    new member(function (data) {
+                        new cars(function (data) {
+                            toast.show('预约成功');
+                            setTimeout(function () {
+                                history.go(-1);
+                            },3000)
+                        }).subscribe({username:name,phonenum:phone,type:'1',productId:pageManager.GetQueryString("id")})
+                    }).getcodeCheck({phonenum:phone,code:code})
+
 
                 }).view({userId:userId});
             })
@@ -204,12 +209,15 @@
                         toast.show('请输入正确的手机号码');
                         return ;
                     }
-                    new cars(function (data) {
-                        toast.show('预约成功');
-                        setTimeout(function () {
-                            history.go(-1);
-                        },3000)
-                    }).subscribe({username:name,phonenum:phone,type:'2',productId:pageManager.GetQueryString("id")})
+                    new member(function (data) {
+                        new cars(function (data) {
+                            toast.show('预约成功');
+                            setTimeout(function () {
+                                history.go(-1);
+                            },3000)
+                        }).subscribe({username:name,phonenum:phone,type:'2',productId:pageManager.GetQueryString("id")})
+                    }).getcodeCheck({phonenum:phone,code:code})
+
 
                 }).view({userId:userId});
 

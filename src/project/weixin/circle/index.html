@@ -27,8 +27,11 @@
 
 
         new member(function (data) {
-            var myname = data.nickname;
-
+            if(data.nickname == ""){
+                var myname = data.username;
+            }else{
+                var myname = data.nickname;
+            }
 
 
 
@@ -38,11 +41,11 @@
             //评论
             // $(document).on('click','.pinglun',function () {
             $('.pinglun').die().live('click',function () {
-                console.log('00')
+                console.log('00');
                 var id = $(this).parent().attr('data-id');
                 $('#' + id).addClass('none');
                 var $this=$(this);
-                var myname = $(this).attr('data-name');
+//                var myname = $(this).attr('data-name');
                 var id = $(this).parent().attr('id');
                 $(".comment_area" + id).removeClass('none');
                 $('.foot_menu').addClass('none');
@@ -316,6 +319,74 @@
                                 }
                                 str += '</div>';
                                 str += '</div>';
+                            }else{
+                                str += '<div class="zan_people none">';
+                                str += '<i class="iconfont icon-heart f13 blue02"></i>';
+                                str += '<div class="blue02 f13">';
+                                for(var l = 0; l < data.return_new.data[i].spotlist.length;l++){
+                                    if(l==data.return_new.data[i].spotlist.length - 1){
+                                        str += '<div data-id="' + data.return_new.data[i].spotlist[l].id + '"><span>' + data.return_new.data[i].spotlist[l].nickname + '<span></div>';
+                                    }else{
+                                        str += '<div data-id="' + data.return_new.data[i].spotlist[l].id + '"><span>' + data.return_new.data[i].spotlist[l].nickname + '<span>，</div>';
+                                    }
+                                }
+                                str += '</div>';
+                                str += '</div>';
+                            }
+
+                            if(data.return_new.data[i].comment != ''){
+                                if(data.return_new.data[i].comment.length > 6){
+                                    str += '<div class="comment more_height topLine comment' + data.return_new.data[i].id + '">';
+                                }else{
+                                    str += '<div class="comment topLine comment' + data.return_new.data[i].id + '">';
+                                }
+                                for(var k = 0; k<data.return_new.data[i].comment.length; k++){
+                                    if(data.return_new.data[i].comment[k].pname == ''){
+                                        str += '<p class="f13 gray02" data-id="' + data.return_new.data[i].id + '"><span class="blue02">' + data.return_new.data[i].comment[k].author + '</span>：'+ data.return_new.data[i].comment[k].comment + '</p>';
+                                    }else{
+                                        str += '<p class="f13 gray02" data-id="' + data.return_new.data[i].id + '"><span class="blue02">' + data.return_new.data[i].comment[k].pname + '</span> 回复 <span class="blue02">' + data.return_new.data[i].comment[k].author + '</span>：'+ data.return_new.data[i].comment[k].comment + '</p>';
+                                    }
+                                }
+                                if(data.return_new.data[i].comment.length > 6){
+                                    str += '<div class="more_comment f12 tc gray02 gray08_bg blue02">更多</div>';
+                                }
+                                str += '</div>';
+                            }else{
+                                if(data.return_new.data[i].comment.length > 6){
+                                    str += '<div class="comment more_height topLine comment' + data.return_new.data[i].id + '">';
+                                }else{
+                                    str += '<div class="comment topLine comment' + data.return_new.data[i].id + '">';
+                                }
+                                for(var k = 0; k<data.return_new.data[i].comment.length; k++){
+                                    if(data.return_new.data[i].comment[k].pname == ''){
+                                        str += '<p class="f13 gray02" data-id="' + data.return_new.data[i].id + '"><span class="blue02">' + data.return_new.data[i].comment[k].author + '</span>：'+ data.return_new.data[i].comment[k].comment + '</p>';
+                                    }else{
+                                        str += '<p class="f13 gray02" data-id="' + data.return_new.data[i].id + '"><span class="blue02">' + data.return_new.data[i].comment[k].pname + '</span> 回复 <span class="blue02">' + data.return_new.data[i].comment[k].author + '</span>：'+ data.return_new.data[i].comment[k].comment + '</p>';
+                                    }
+                                }
+                                if(data.return_new.data[i].comment.length > 6){
+                                    str += '<div class="more_comment f12 tc gray02 gray08_bg blue02">更多</div>';
+                                }
+                                str += '</div>';
+                            }
+                            str += '</div>';
+                        }else if(data.return_new.data[i].spotlist == '' && data.return_new.data[i].comment == ''){
+                            str += '<div class="operationTxt gray08_bg none operationTxt' +  data.return_new.data[i].id + '">';
+                            str += '<span class="arrow_top"></span>';
+
+                            if(data.return_new.data[i].spotlist != ''){
+                                str += '<div class="zan_people">';
+                                str += '<i class="iconfont icon-heart f13 blue02"></i>';
+                                str += '<div class="blue02 f13">';
+                                for(var l = 0; l < data.return_new.data[i].spotlist.length;l++){
+                                    if(l==data.return_new.data[i].spotlist.length - 1){
+                                        str += '<div data-id="' + data.return_new.data[i].spotlist[l].id + '"><span>' + data.return_new.data[i].spotlist[l].nickname + '<span></div>';
+                                    }else{
+                                        str += '<div data-id="' + data.return_new.data[i].spotlist[l].id + '"><span>' + data.return_new.data[i].spotlist[l].nickname + '<span>，</div>';
+                                    }
+                                }
+                                str += '</div>';
+                                str += '</div>';
                             }
 
                             if(data.return_new.data[i].comment != ''){
@@ -338,6 +409,10 @@
                             }
                             str += '</div>';
                         }
+
+
+
+
                         str += '</div>';
                         str += '<div class="weui-cell comment_area none comment_area' + data.return_new.data[i].id + '"><div class="weui-cell__bd"><input type="text" placeholder="评论" class="comment_txt" data-id="' + data.return_new.data[i].id + '" /></div><div class="weui-cell__ft">发送</div></div>';
                         str += '</div>';
@@ -408,7 +483,7 @@
                     $('#' + id).find('.dianzan_txt').removeClass('none');
                     $('#' + id).find('.quxiao_txt').addClass('none');
                     if(data.spotlist.length>0){
-                        if($('.cont' + id + '>div').hasClass('operationTxt')){
+//                        if($('.cont' + id + '>div').hasClass('operationTxt')){
                             var zanList = '';
                             // zanList += '<div class="zan_people">';
                             zanList += '<i class="iconfont icon-heart f13 blue02"></i>';
@@ -422,39 +497,40 @@
                             }
                             zanList += '</div>';
                             // zanList += '</div>';
-                            $('.cont' + id).find('.operationTxt .zan_people').prepend(zanList);
+                            $('.cont' + id).find('.operationTxt .zan_people').html(zanList);
 
-                        }else{
-                            var zanList = '';
-                            zanList += '<div class="operationTxt gray08_bg"><span class="arrow_top"></span>';
-                            zanList += '<div class="zan_people">';
-                            zanList += '<i class="iconfont icon-heart f13 blue02"></i>';
-                            zanList += '<div class="blue02 f13">';
-                            for(var m = 0; m < data.spotlist.length;m++){
-                                if(m==data.spotlist.length - 1){
-                                    zanList += '<div data-id="' + data.spotlist[m].id + '"><span>' + data.spotlist[m].nickname + '<span></div>';
-                                }else{
-                                    zanList += '<div data-id="' + data.spotlist[m].id + '"><span>' + data.spotlist[m].nickname + '<span>，</div>';
-                                }
-
-                            }
-                            zanList += '</div>';
-                            zanList += '</div>';
-                            zanList += '</div>';
-                            $('.cont'+id).append(zanList);
-                        }
+//                        }else{
+//                            var zanList = '';
+//                            zanList += '<div class="operationTxt gray08_bg"><span class="arrow_top"></span>';
+//                            zanList += '<div class="zan_people">';
+//                            zanList += '<i class="iconfont icon-heart f13 blue02"></i>';
+//                            zanList += '<div class="blue02 f13">';
+//                            for(var m = 0; m < data.spotlist.length;m++){
+//                                if(m==data.spotlist.length - 1){
+//                                    zanList += '<div data-id="' + data.spotlist[m].id + '"><span>' + data.spotlist[m].nickname + '<span></div>';
+//                                }else{
+//                                    zanList += '<div data-id="' + data.spotlist[m].id + '"><span>' + data.spotlist[m].nickname + '<span>，</div>';
+//                                }
+//
+//                            }
+//                            zanList += '</div>';
+//                            zanList += '</div>';
+//                            zanList += '</div>';
+//                            $('.cont'+id).append(zanList);
+//                        }
                     }else{
-                        if($('.cont' + id).find('.operationTxt').children().hasClass('comment')){
-                            // $('.comment'+id).parent().find('.zan_people').remove();
-                        }else{
-                            $('.cont' + id).find('.operationTxt').remove();
-                        }
+//                        if($('.cont' + id).find('.operationTxt').children().hasClass('comment')){
+//                            // $('.comment'+id).parent().find('.zan_people').remove();
+//                        }else{
+//                            $('.cont' + id).find('.operationTxt').remove();
+//                        }
+                        $('.cont' + id).find('.operationTxt .zan_people').addClass('none');
                     }
                 }else{
                     $('#' + id).find('.dianzan_txt').addClass('none');
                     $('#' + id).find('.quxiao_txt').removeClass('none');
-                    alert('点赞')
-                    alert(data.spotlist.length)
+                    alert('点赞');
+                    alert(data.spotlist.length);
                     if(data.spotlist.length>0){
                         if($('.cont' + id + '>div').hasClass('operationTxt')){
                             var zanList = '';
@@ -470,7 +546,8 @@
                             }
                             zanList += '</div>';
                             // zanList += '</div>';
-                            $('.cont' + id).find('.operationTxt .zan_people').prepend(zanList);
+                            $('.cont' + id).find('.operationTxt .zan_people').removeClass('none');
+                            $('.cont' + id).find('.operationTxt .zan_people').html(zanList);
                         }else{
                             // var zanList = '';
                             // zanList += '<div class="operationTxt gray08_bg"><span class="arrow_top"></span>';

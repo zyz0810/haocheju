@@ -108,7 +108,6 @@
         // 第一版结束
 
 
-
         var aa = new cars(
             function (data) {
                 $("#index_slider").silderDot(data, 1800, "");
@@ -121,40 +120,42 @@
                 }
                 if(data.return_oldcar.data.length == 0){
                     $('.commend').addClass('none')
+                }else{
+                    var h = render.fill($("#tpl_likeList"), data.return_oldcar.data);
+                    $(".pageable .used_list").html(h);
                 }
             }
         );
         aa.usedCommend();
 
 
-        var pge = $(".pageable").pageable({
-            loadUpFn: function (me) {
-                var tu = new cars(function (data) {
-                    me.pageNumber = me.pageNumber + 1;
-                    var h = render.fill($("#tpl_likeList"), data.return_oldcar.data);
-                    $(".pageable .used_list").html(h);
-                    $('img').picLazyLoad();
-                    pge.resetload();
-                });
-                me.pageNumber = 1;
-                tu.usedCommend({page:me.pageNumber,pageSize:10});
-            },
-            loadDownFn: function (me) {
-                var td = new cars(function (data) {
-                    me.pageNumber = me.pageNumber + 1;
-                    var h = render.fill($("#tpl_likeList"), data.return_oldcar.data);
-                    $(".pageable .used_list").append(h);
-                    $('img').picLazyLoad();
-                    if (data.return_oldcar.data.length < 10) {
-                        pge.lock();
-                        pge.noData();
-                    }
-                    pge.resetload();
-                });
-                td.usedCommend({page:me.pageNumber,pageSize:10});
-            }
-        });
-
+//        var pge = $(".pageable").pageable({
+//            loadUpFn: function (me) {
+//                var tu = new cars(function (data) {
+//                    me.pageNumber = me.pageNumber + 1;
+//                    var h = render.fill($("#tpl_likeList"), data.return_oldcar.data);
+//                    $(".pageable .used_list").html(h);
+//                    $('img').picLazyLoad();
+//                    pge.resetload();
+//                });
+//                me.pageNumber = 1;
+//                tu.usedCommend({page:me.pageNumber,pageSize:10});
+//            },
+//            loadDownFn: function (me) {
+//                var td = new cars(function (data) {
+//                    me.pageNumber = me.pageNumber + 1;
+//                    var h = render.fill($("#tpl_likeList"), data.return_oldcar.data);
+//                    $(".pageable .used_list").append(h);
+//                    $('img').picLazyLoad();
+//                    if (data.return_oldcar.data.length < 10) {
+//                        pge.lock();
+//                        pge.noData();
+//                    }
+//                    pge.resetload();
+//                });
+//                td.usedCommend({page:me.pageNumber,pageSize:10});
+//            }
+//        });
 
 
         //好货搜索searchGo
@@ -183,9 +184,6 @@
                 return false;
             }
         });
-
-
-
 
 
 

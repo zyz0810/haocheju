@@ -158,7 +158,33 @@ member.prototype = {
             data: data,
             success: this.fn
         });
-    }
+    },
+    /**
+     * 保险
+     * 	carno 车牌号
+     * 	mobile 手机号
+     */
+    insuranceAdd: function (data) {
+        ajax.post({
+            url: base + 'api/insurance/add',
+            data: data,
+            success: this.fn
+        });
+    },
+    /**
+     * 检验验证码
+     * 	phonenum
+     * 	code
+     */
+    getcodeCheck: function (data) {
+        ajax.post({
+            url: base + 'api/code/getcode',
+            data: data,
+            success: this.fn
+        });
+    },
+
+
 
 };
 
