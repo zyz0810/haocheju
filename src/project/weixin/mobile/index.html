@@ -110,25 +110,31 @@
                     new member(function (data) {
                         toast.show('绑定成功');
 
-                        if(pageManager.GetQueryString('type') == 'sendCircle'){
-                            setTimeout(function () {
-                                window.location.href = '/weixin/circle/send.html';
-                            },2000)
-                        }else if(pageManager.GetQueryString('type') == 'carpoolCar'){
-                            setTimeout(function () {
-                                window.location.href = '/weixin/carpool/find/car.html';
-                            },3000);
-                        }else if(pageManager.GetQueryString('type') == 'carpoolPeolple'){
-                            setTimeout(function () {
-                                window.location.href = '/weixin/carpool/find/people.html';
-                            },3000);
-                        }else{
-                            setTimeout(function () {
-                                window.location.href = '/weixin/member/index.html';
-                            },2000)
-                        }
+                        // if(pageManager.GetQueryString('type') == 'sendCircle'){
+                        //     setTimeout(function () {
+                        //         window.location.href = '/weixin/circle/send.html';
+                        //     },2000)
+                        // }else if(pageManager.GetQueryString('type') == 'carpoolCar'){
+                        //     setTimeout(function () {
+                        //         window.location.href = '/weixin/carpool/find/car.html';
+                        //     },3000);
+                        // }else if(pageManager.GetQueryString('type') == 'carpoolPeolple'){
+                        //     setTimeout(function () {
+                        //         window.location.href = '/weixin/carpool/find/people.html';
+                        //     },3000);
+                        // }else if(pageManager.GetQueryString('type') == 'appointment'){
+                        //     setTimeout(function () {
+                        //         window.location.href = '/weixin/appointment/index.html';
+                        //     },3000);
+                        // }else{
+                        //     setTimeout(function () {
+                        //         window.location.href = '/weixin/member/index.html';
+                        //     },3000)
+                        // }
 
-
+                        setTimeout(function () {
+                            history.go(-1);
+                        },3000);
 
 
                     }).bindMobile({phonenum:phone,code:code,userId:userId})

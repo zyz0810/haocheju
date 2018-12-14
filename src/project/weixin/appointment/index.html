@@ -23,29 +23,24 @@
         var userId = cookie.getCookie('userId');
         var id = pageManager.GetQueryString("id");
 
+        new member(function (data) {
+            console.log(data);
 
-        //实时判断手机号
-        var mobilevalid = /^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$/;
-        var bind_name = 'input';
-        if (navigator.userAgent.indexOf("MSIE") != -1) {
-            bind_name = 'propertychange';
-        }
-        if (navigator.userAgent.match(/android/i) == "android") {
-            bind_name = "keydown";
-        }
-        $("#phone").bind(bind_name, function (event) {
-            var number = $('#phone').val();
-            if (number.length == 11) {
-                if (!mobilevalid.test(number)) {
-                    dialog.show("请输入正确的手机号码！");
-                    return false;
-                }
-            } else if (number.length > 11) {
-                $('#phone').val('');
-                dialog.show("请输入11位手机号码！");
-                return false;
+            if(data.nickname == ""){
+                $('#name').html(data.username);
+            }else{
+                $('#name').html(data.nickname);
             }
-        });
+
+            if(data.verify == '1'){
+                $('#phone').val(data.phone);
+            }else{
+                dialog.show('请先绑定手机号',function () {
+                    window.location.href = '/weixin/mobile/index.html?type=appointment';
+                })
+            }
+
+        }).view({userId:userId});
 
 
         var countdown = 60;
@@ -138,21 +133,30 @@
             }).subscribeNew({productId:id});
 
             $('.publish_btn').click(function () {
-                var name = $('#name').val();
-                var phone = $('#phone').val();
-                if(phone.length < 11){
-                    toast.show('请输入正确的手机号码');
-                    return ;
-                }
-                new cars(function (data) {
-                    toast.show('预约成功');
-                    setTimeout(function () {
-                        history.go(-1);
-                    },3000)
-                }).subscribe({username:name,phonenum:phone,type:'1',productId:pageManager.GetQueryString("id")})
+
+                new member(function (data) {
+                    console.log(data);
+
+                    if(data.verify != '1'){
+                        dialog.show('请先绑定手机号',function () {
+                            window.location.href = '/weixin/mobile/index.html?type=appointment';
+                        })
+                    }
+                    var name = $('#name').val();
+                    var phone = $('#phone').val();
+                    if(phone.length < 11){
+                        toast.show('请输入正确的手机号码');
+                        return ;
+                    }
+                    new cars(function (data) {
+                        toast.show('预约成功');
+                        setTimeout(function () {
+                            history.go(-1);
+                        },3000)
+                    }).subscribe({username:name,phonenum:phone,type:'1',productId:pageManager.GetQueryString("id")})
+
+                }).view({userId:userId});
             })
-
-
         }else{
 
             new cars(function (data) {
@@ -181,18 +185,38 @@
             }).subscribeOld({productId:pageManager.GetQueryString("id")});
 
             $('.publish_btn').click(function () {
-                var name = $('#name').val();
-                var phone = $('#phone').val();
-                if(phone.length < 11){
-                    toast.show('请输入正确的手机号码');
-                    return ;
-                }
-                new cars(function (data) {
-                    toast.show('预约成功');
-                    setTimeout(function () {
-                        history.go(-1);
-                    },3000)
-                }).subscribe({username:name,phonenum:phone,type:'2',productId:pageManager.GetQueryString("id")})
+
+
+
+                new member(function (data) {
+                    console.log(data);
+
+                    if(data.verify != '1'){
+                        dialog.show('请先绑定手机号',function () {
+                            window.location.href = '/weixin/mobile/index.html?type=appointment';
+                        })
+                    }
+
+
+                    var name = $('#name').val();
+                    var phone = $('#phone').val();
+                    if(phone.length < 11){
+                        toast.show('请输入正确的手机号码');
+                        return ;
+                    }
+                    new cars(function (data) {
+                        toast.show('预约成功');
+                        setTimeout(function () {
+                            history.go(-1);
+                        },3000)
+                    }).subscribe({username:name,phonenum:phone,type:'2',productId:pageManager.GetQueryString("id")})
+
+                }).view({userId:userId});
+
+
+
+
+
             })
 
 
@@ -236,7 +260,6 @@
                 $('.publish_btn').css({'background':'#ccc'});
             }
         });
-
 
 
     });
