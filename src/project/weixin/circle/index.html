@@ -35,8 +35,6 @@
 
 
 
-
-
             //评论
             // $(document).on('click','.pinglun',function () {
             $('.pinglun').die().live('click',function () {
@@ -409,6 +407,7 @@
                     $('#' + id).find('.dianzan_txt').removeClass('none');
                     $('#' + id).find('.quxiao_txt').addClass('none');
                     if(data.spotlist.length>0){
+                        alert(0)
                         if($('.cont' + id + '>div').hasClass('operationTxt')){
                             var zanList = '';
                             zanList += '<div class="zan_people">';
@@ -446,6 +445,7 @@
                             $('.cont'+id).append(zanList);
                         }
                     }else{
+                        alert(1)
                         if($('.cont' + id).find('.operationTxt').children().hasClass('comment')){
                             $('.comment'+id).parent().find('.zan_people').remove();
                         }else{
@@ -497,7 +497,7 @@
                         }
                     }
                 }
-            }).liked({pid:id,userId:1})
+            }).liked({pid:id,userId:userId})
         });
 
         //更多评论

@@ -147,6 +147,17 @@ member.prototype = {
             processData: false,
             success: this.fn
         });
+    },
+    /**
+     * 分享
+     * 	url 当前页面路径
+     */
+    shareApi: function (data) {
+        ajax.post({
+            url: base + 'api/share/index',
+            data: data,
+            success: this.fn
+        });
     }
 
 };

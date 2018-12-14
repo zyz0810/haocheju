@@ -61,13 +61,13 @@
             function (data) {
                 $("#index_slider").silderDot(data, 1800, "");
                 console.log(data);
-                if(data.return_oldcar.data.length == 0){
+                if (data.return_oldcar.data.length == 0) {
                     $('.hot_list').addClass('none');
-                }else{
+                } else {
                     var hot = render.fill($("#tpl_hotList"), data.return_oldcar.data);
                     $(".hot_list").html(hot);
                 }
-                if(data.return_newcar.data.length == 0){
+                if (data.return_newcar.data.length == 0) {
                     $('.commend').addClass('none')
                 }
             }
@@ -85,7 +85,7 @@
                     pge.resetload();
                 });
                 me.pageNumber = 1;
-                tu.newList({page:me.pageNumber,pageSize:10});
+                tu.newList({page: me.pageNumber, pageSize: 10});
             },
             loadDownFn: function (me) {
                 var td = new cars(function (data) {
@@ -99,9 +99,15 @@
                     }
                     pge.resetload();
                 });
-                td.newList({page:me.pageNumber,pageSize:10});
+                td.newList({page: me.pageNumber, pageSize: 10});
             }
         });
+
+        weixin.share({
+            title: '汽贸交易',
+            desc: '你只看到我的背影，却无法感受我的激情，你有你的A8，我们有属于我们自己的机车，你嘲笑我，不知四轮的安逸，我可怜你，不懂速度的真谛。'
+        });
+
     });
 </script>
 

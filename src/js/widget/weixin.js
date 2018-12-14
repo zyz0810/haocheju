@@ -1,7 +1,7 @@
 // 微信插件
 var weixin = {
-    // url: base + 'api/share/index',
-    url:'http://che.0556360.com/api/share/index',
+    url: base + 'api/share/index',
+    // url:'http://che.0556360.com/api/share/index',
     cardUrl: base + 'weixin/mutual/get_card_ext.jhtml',
     lat: 0, // 纬度，浮点数，范围为90 ~ -90
     lng: 0, // 经度，浮点数，范围为180 ~ -180。
@@ -104,19 +104,26 @@ var weixin = {
                     menuList: ["menuItem:share:appMessage","menuItem:share:timeline","menuItem:share:qq","menuItem:share:weiboApp","menuItem:share:QZone"] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
                 });
 
+
+                // alert(config.sharelink)
+
                 var username = cookie.getCookie("username");
-                var link = location.origin + location.pathname + (username ? (location.search ? (location.search + "&extension=" + username) : ("?extension=" + username)) : location.search) + location.hash;
+                // var link = location.origin + location.pathname + (username ? (location.search ? (location.search + "&extension=" + username) : ("?extension=" + username)) : location.search) + location.hash;
+                // var link = location.origin + location.pathname + (username ? (location.search ? (location.search + "&extension=" + username) : ("?extension=" + username)) : location.search) + location.hash;
+
+                // var link = 'http://m.0556360.com/weixin/home/index.html?data=eyJuaWNrbmFtZSI6Inp5eiIsInVzZXJJZCI6NCwidmVyaWZ5IjoxLCJ0eXBlIjoxLCJtb2JpbGUiOiIxNTE1NTEzMzk1NSIsIm9wZW5pZCI6Im9paEVaeEFWUk84SVNKWm81Zm5teFA1RmtFWXciLCJhdmF0YXIiOiJodHRwOlwvXC90aGlyZHd4LnFsb2dvLmNuXC9tbW9wZW5cL3ZpXzMyXC9RMGo0VHdHVGZUSWNzaEdpYld2aDJzR2Rid2FyQjNQaHl1bXVFTFF3VmVlNm1OaWIxb0hZcmNqaWE0ck1hRjFoZXI2S3F2SVIyWUJPenRIUTltaWFlNTFUcUFcLzEzMiIsImlkdHlwZSI6MX0=';
+
 
                 //分享到朋友圈
                 wx.onMenuShareTimeline({
                     title: jsons && jsons.title ? jsons.title : config.sharetitle,
                     desc: jsons && jsons.desc ? jsons.desc : config.sharedesc,
-                    // link: jsons && jsons.link ? jsons.link : config.sharelink,
-                    link: link,
+                    link: jsons && jsons.link ? jsons.link : config.sharelink,
+                    // link: link,
                     imgUrl: jsons && jsons.imgUrl ? jsons.imgUrl : config.shareimage,
                     success: function () {
                         // 用户确认分享后执行的回调函数
-                        new common().updateLuck();
+                        // new common().updateLuck();
                     },
                     cancel: function () {
                         // 用户取消分享后执行的回调函数
@@ -126,11 +133,12 @@ var weixin = {
                 wx.onMenuShareAppMessage({
                     title: jsons && jsons.title ? jsons.title : config.sharetitle,
                     desc: jsons && jsons.desc ? jsons.desc : config.sharedesc,
-                    link: link,
+                    link: jsons && jsons.link ? jsons.link : config.url,
+                    // link: link,
                     imgUrl: jsons && jsons.imgUrl ? jsons.imgUrl : config.shareimage,
                     success: function () {
                         // 用户确认分享后执行的回调函数
-                        new common().updateLuck();
+                        // alert(link)
                     },
                     cancel: function () {
                         // 用户取消分享后执行的回调函数
@@ -140,11 +148,12 @@ var weixin = {
                 wx.onMenuShareQQ({
                     title: jsons && jsons.title ? jsons.title : config.sharetitle,   // 分享标题
                     desc: jsons && jsons.desc ? jsons.desc : config.sharedesc,   // 分享描述
-                    link: link,
+                    link: jsons && jsons.link ? jsons.link : config.sharelink,
+                    // link: link,
                     imgUrl: jsons && jsons.imgUrl ? jsons.imgUrl : config.shareimage,   // 分享图标
                     success: function () {
                         // 用户确认分享后执行的回调函数
-                        new common().updateLuck();
+                        // new common().updateLuck();
                     },
                     cancel: function () {
                         // 用户取消分享后执行的回调函数
@@ -154,11 +163,12 @@ var weixin = {
                 wx.onMenuShareWeibo({
                     title: jsons && jsons.title ? jsons.title : config.sharetitle,   // 分享标题
                     desc: jsons && jsons.desc ? jsons.desc : config.sharedesc,   // 分享描述
-                    link: link,
+                    link: jsons && jsons.link ? jsons.link : config.sharelink,
+                    // link: link,
                     imgUrl: jsons && jsons.imgUrl ? jsons.imgUrl : config.shareimage,   // 分享图标
                     success: function () {
                         // 用户确认分享后执行的回调函数
-                        new common().updateLuck();
+                        // new common().updateLuck();
                     },
                     cancel: function () {
                         // 用户取消分享后执行的回调函数
@@ -168,17 +178,16 @@ var weixin = {
                 wx.onMenuShareQZone({
                     title: jsons && jsons.title ? jsons.title : config.sharetitle,   // 分享标题
                     desc: jsons && jsons.desc ? jsons.desc : config.sharedesc,   // 分享描述
-                    link: link,
+                    link: jsons && jsons.link ? jsons.link : config.sharelink,
+                    // link: link,
                     imgUrl: jsons && jsons.imgUrl ? jsons.imgUrl : config.shareimage,   // 分享图标
                     success: function () {
                         // 用户确认分享后执行的回调函数
-
                     },
                     cancel: function () {
                         // 用户取消分享后执行的回调函数
                     }
                 });
-
             });
         });
     },
