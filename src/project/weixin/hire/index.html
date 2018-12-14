@@ -812,6 +812,8 @@
             var date = $('#driving').attr('data-id');
             var hour = $('#driving').attr('data-time');
             var datetime = date + ' ' + hour;
+            var start_address = $('#start').attr('data-address');
+            var end_address = $('#end').attr('data-address');
             if(mobile.length < 11){
                 toast.show('请输入正确手机号');
                 return;
@@ -834,7 +836,7 @@
                 $('#start').val('');
                 $('#end').val('');
                 $('#code').val('');
-            }).driver({mobile:mobile,start:start,end:end,datetime:datetime})
+            }).driver({mobile:mobile,start:start,end:end,datetime:datetime,start_address:start_address,end_address:end_address})
 
         });
 
@@ -893,12 +895,14 @@
                 // location.replace(location.origin + '/weixin/hire/index.html?dataId=1&type=start&start='+ escape(e.data.name));
                 $('.map').addClass('none');
                 $('#start').val(e.data.name);
+                $('#start').attr('data-address',e.data.address);
                 $('.map').attr('data-id','');
             }
             if($('.map').attr('data-id') == 'end'){
                 // location.replace(location.origin + '/weixin/hire/index.html?dataId=1&type=end&end='+escape(e.data.name));
                 $('.map').addClass('none');
                 $('#end').val(e.data.name);
+                $('#end').attr('data-address',e.data.address);
                 $('.map').attr('data-id','');
             }
         }, false);

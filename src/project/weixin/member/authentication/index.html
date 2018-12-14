@@ -28,9 +28,24 @@
             var idcard = $('#idcard').val();
             new member(function () {
                 toast.show('提交成功');
-                setTimeout(function () {
-                    window.location.href = '/weixin/member/index.html';
-                },3000);
+
+                if(pageManager.GetQueryString('type') == 'carpoolCar'){
+                    setTimeout(function () {
+                        window.location.href = '/weixin/carpool/find/car.html';
+                    },3000);
+                }else if(pageManager.GetQueryString('type') == 'carpoolPeolple'){
+                    setTimeout(function () {
+                        window.location.href = '/weixin/carpool/find/people.html';
+                    },3000);
+                }else{
+                    setTimeout(function () {
+                        window.location.href = '/weixin/member/index.html';
+                    },3000);
+                }
+
+
+
+
             }).autonym({username:username,idcard:idcard,userId:userId})
         })
 

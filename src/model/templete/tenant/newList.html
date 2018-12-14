@@ -1,5 +1,5 @@
 {{#each this}}
-<a href="/weixin/car/new/index.html?id={{id}}" class="weui-cell">
+<a href="/weixin/car/new/index.html?id={{productid}}" class="weui-cell">
     <div class="weui-cell__hd">
         <img src="{{carbanner}}"/>
         <span class="car_tag f12">新车</span>
@@ -9,7 +9,7 @@
         {{#compare carconfig '!=' ''}}
         <p class="f12">配置：{{carconfig}}</p>
         {{/compare}}
-        <p class="f12 yellow01">销售价：{{saleprice}}元 <object><a href="/weixin/appointment/index.html" class="call fr">立即预约</a></object></p>
+        <p class="f12 yellow01">销售价：{{carprice}}元 <object><a href="/weixin/appointment/index.html?type=new&id={{productid}}" class="call fr">立即预约</a></object></p>
     </div>
 </a>
 {{/each}}

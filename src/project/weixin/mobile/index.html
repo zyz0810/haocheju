@@ -38,11 +38,6 @@
                     dialog.show("请输入正确的手机号码！");
                     return false;
                 }
-                // if($('.code_num').val().length == 6 && $('#weuiAgree').is(':checked')){
-                //     $('.publish_btn').css({'background':'#0f84de'});
-                // }else{
-                //     $('.publish_btn').css({'background':'#ccc'});
-                // }
             } else if (number.length > 11) {
                 $('#phone').val('');
                 $('.publish_btn').css({'background':'#ccc'});
@@ -114,18 +109,19 @@
                     var code = $('.code_num').val();
                     new member(function (data) {
                         toast.show('绑定成功');
-                        // cookie.delCookie("verify");
-                        // cookie.setCookie("verify", '1', 1);
-                        // cookie.setCookie("phone", phone, 1);
-                        //
-                        // console.log(cookie.getCookie('userId'));
-                        // console.log(cookie.getCookie('username'));
-                        // console.log(cookie.getCookie('phone'));
 
                         if(pageManager.GetQueryString('type') == 'sendCircle'){
                             setTimeout(function () {
                                 window.location.href = '/weixin/circle/send.html';
                             },2000)
+                        }else if(pageManager.GetQueryString('type') == 'carpoolCar'){
+                            setTimeout(function () {
+                                window.location.href = '/weixin/carpool/find/car.html';
+                            },3000);
+                        }else if(pageManager.GetQueryString('type') == 'carpoolPeolple'){
+                            setTimeout(function () {
+                                window.location.href = '/weixin/carpool/find/people.html';
+                            },3000);
                         }else{
                             setTimeout(function () {
                                 window.location.href = '/weixin/member/index.html';
