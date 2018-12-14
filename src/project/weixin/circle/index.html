@@ -407,7 +407,6 @@
                     $('#' + id).find('.dianzan_txt').removeClass('none');
                     $('#' + id).find('.quxiao_txt').addClass('none');
                     if(data.spotlist.length>0){
-                        alert(0)
                         if($('.cont' + id + '>div').hasClass('operationTxt')){
                             var zanList = '';
                             zanList += '<div class="zan_people">';
@@ -419,7 +418,6 @@
                                 }else{
                                     zanList += '<div data-id="' + data.spotlist[m].id + '"><span>' + data.spotlist[m].nickname + '<span>，</div>';
                                 }
-
                             }
                             zanList += '</div>';
                             zanList += '</div>';
@@ -445,7 +443,6 @@
                             $('.cont'+id).append(zanList);
                         }
                     }else{
-                        alert(1)
                         if($('.cont' + id).find('.operationTxt').children().hasClass('comment')){
                             $('.comment'+id).parent().find('.zan_people').remove();
                         }else{
