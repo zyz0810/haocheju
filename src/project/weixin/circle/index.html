@@ -403,13 +403,14 @@
                 console.log(data);
 
                 if(data.isspot == '0'){
+                    alert('取消')
                     console.log('取消点赞');
                     $('#' + id).find('.dianzan_txt').removeClass('none');
                     $('#' + id).find('.quxiao_txt').addClass('none');
                     if(data.spotlist.length>0){
                         if($('.cont' + id + '>div').hasClass('operationTxt')){
                             var zanList = '';
-                            zanList += '<div class="zan_people">';
+                            // zanList += '<div class="zan_people">';
                             zanList += '<i class="iconfont icon-heart f13 blue02"></i>';
                             zanList += '<div class="blue02 f13">';
                             for(var m = 0; m < data.spotlist.length;m++){
@@ -420,8 +421,8 @@
                                 }
                             }
                             zanList += '</div>';
-                            zanList += '</div>';
-                            $('.cont' + id).find('.operationTxt').prepend(zanList);
+                            // zanList += '</div>';
+                            $('.cont' + id).find('.operationTxt .zan_people').prepend(zanList);
 
                         }else{
                             var zanList = '';
@@ -444,7 +445,7 @@
                         }
                     }else{
                         if($('.cont' + id).find('.operationTxt').children().hasClass('comment')){
-                            $('.comment'+id).parent().find('.zan_people').remove();
+                            // $('.comment'+id).parent().find('.zan_people').remove();
                         }else{
                             $('.cont' + id).find('.operationTxt').remove();
                         }
@@ -452,10 +453,12 @@
                 }else{
                     $('#' + id).find('.dianzan_txt').addClass('none');
                     $('#' + id).find('.quxiao_txt').removeClass('none');
+                    alert('点赞')
+                    alert(data.spotlist.length)
                     if(data.spotlist.length>0){
                         if($('.cont' + id + '>div').hasClass('operationTxt')){
                             var zanList = '';
-                            zanList += '<div class="zan_people">';
+                            // zanList += '<div class="zan_people">';
                             zanList += '<i class="iconfont icon-heart f13 blue02"></i>';
                             zanList += '<div class="blue02 f13">';
                             for(var m = 0; m < data.spotlist.length;m++){
@@ -466,25 +469,28 @@
                                 }
                             }
                             zanList += '</div>';
-                            zanList += '</div>';
-                            $('.cont' + id).find('.operationTxt').prepend(zanList);
+                            // zanList += '</div>';
+                            $('.cont' + id).find('.operationTxt .zan_people').prepend(zanList);
                         }else{
-                            var zanList = '';
-                            zanList += '<div class="operationTxt gray08_bg"><span class="arrow_top"></span>';
-                            zanList += '<div class="zan_people">';
-                            zanList += '<i class="iconfont icon-heart f13 blue02"></i>';
-                            zanList += '<div class="blue02 f13">';
-                            for(var m = 0; m < data.spotlist.length;m++){
-                                if(m==data.spotlist.length - 1){
-                                    zanList += '<div data-id="' + data.spotlist[m].id + '"><span>' + data.spotlist[m].nickname + '<span></div>';
-                                }else{
-                                    zanList += '<div data-id="' + data.spotlist[m].id + '"><span>' + data.spotlist[m].nickname + '<span>，</div>';
-                                }
-                            }
-                            zanList += '</div>';
-                            zanList += '</div>';
-                            zanList += '</div>';
-                            $('.cont'+id).append(zanList);
+                            // var zanList = '';
+                            // zanList += '<div class="operationTxt gray08_bg"><span class="arrow_top"></span>';
+                            // zanList += '<div class="zan_people">';
+                            // zanList += '<i class="iconfont icon-heart f13 blue02"></i>';
+                            // zanList += '<div class="blue02 f13">';
+                            // for(var m = 0; m < data.spotlist.length;m++){
+                            //     if(m==data.spotlist.length - 1){
+                            //         zanList += '<div data-id="' + data.spotlist[m].id + '"><span>' + data.spotlist[m].nickname + '<span></div>';
+                            //     }else{
+                            //         zanList += '<div data-id="' + data.spotlist[m].id + '"><span>' + data.spotlist[m].nickname + '<span>，</div>';
+                            //     }
+                            // }
+                            // zanList += '</div>';
+                            // zanList += '</div>';
+                            // zanList += '</div>';
+                            // $('.cont'+id).append(zanList);
+
+                            $('.cont'+id).find('.operationTxt .zan_people').html('');
+
                         }
                     }else{
                         if($('.cont' + id).find('.operationTxt').children().hasClass('comment')){
