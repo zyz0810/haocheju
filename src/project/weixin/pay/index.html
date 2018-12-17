@@ -49,6 +49,9 @@
             var goodname = $('.goods_name').html();
             var amount = $('.money').attr('data-id');
             new order(function (data) {
+
+                console.log('appid:'+data.appId);
+
                 function onBridgeReady() {
                     WeixinJSBridge.invoke(
                         'getBrandWCPayRequest', {
