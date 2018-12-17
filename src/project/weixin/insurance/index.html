@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>理赔查询</title>
+    <title>保险预约</title>
     @import "../include/header.inc";
 
 </head>
@@ -13,6 +13,8 @@
 
 <!--首页-->
 <link rel="import" href="../../../pages/insurance/index.html">
+
+
 
 @import "../../../model/widget/include/toast.html";
 @import "../../../model/widget/include/dialog.html";
@@ -26,8 +28,15 @@
             if(data.verify == '1'){
                 $('#phone').val(data.phone);
             }
-
         }).view({userId:userId});
+
+        $('.peccancy .area').click(function () {
+            $("#areaCont").actionsheet();
+        });
+        $('#areaCont ul li').click(function () {
+            $('.peccancy .area_txt').html($(this).html());
+            $("#areaCont").actionsheetClose();
+        });
 
         //实时判断手机号
         var mobilevalid = /^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$/;
@@ -96,22 +105,20 @@
             }
         });
 
-
-
         $(document).on('click','.publish_btn',function () {
-            alert(0)
-//            var carno = $('#carno').val();
-//            var mobile = $('#phone').val();
-//
-//            new member(function (data) {
-//                new  member(function (data) {
-//
-//                }).insuranceAdd({carno:carno,mobile:mobile})
-//            }).getcodeCheck({phonenum:phone,code:code})
+           var carno = $('#carno').val();
+           var mobile = $('#phone').val();
+           var code = $('#code').val();
 
-            new member(function (data) {
+           new member(function (data) {
+               new  member(function (data) {
+                    toast.show('预约保险成功，请等待客服联系您')
+               }).insuranceAdd({carno:carno,mobile:mobile})
+           }).getcodeCheck({phonenum:mobile,code:code})
 
-            }).insuranceAdd({carno:'沪C0559E',mobile:"15155133955"});
+            // new member(function (data) {
+            //
+            // }).insuranceAdd({carno:'沪C0559E',mobile:"15155133955"});
 
         });
 

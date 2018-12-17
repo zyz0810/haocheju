@@ -57,6 +57,11 @@
                 // $('.heart').css('')
             }
 
+            weixin.share({
+                title: data.carname + data.cartype,
+                desc:data.useproperty + data.color + data.displacement + data.gearbox
+            });
+
         }).usedView({id:pageManager.GetQueryString("id"),userId:userId});
 
 
