@@ -66,6 +66,12 @@
                 $('.tenant_btn').attr('href','/weixin/tenant/index.html?id='+data.providerid);
             }
 
+            weixin.share({
+                title: data.carname + data.cartype,
+                desc:data.engine + data.drivingmode + data.gearbox + data.bodywork
+            });
+
+
         }).newView({id:pageManager.GetQueryString("id")});
 
 
@@ -98,7 +104,7 @@
                 new cars(function (data) {
                     $('.collect').attr('data-id','0');
                     heart.removeClass("heartAnimation");
-                    heart.css("background-position","left");
+                    heart.css("background-position","-7px -32px");
                     $('.collect>p').html('收藏');
                     // toast.show('取消收藏');
                 }).delFavorite({cid:cid})
@@ -106,7 +112,10 @@
         });
         $('#sheet_buy_now').click(function () {
             window.location.href = '/weixin/appointment/index.html?type=new&id='+pageManager.GetQueryString("id");
-        })
+        });
+
+
+
     })
 </script>
 

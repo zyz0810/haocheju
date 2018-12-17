@@ -300,8 +300,8 @@ var weixin = {
                         imgUrl: data.imgUrl,
                         success: function () {
                             // 用户确认分享后执行的回调函数
-                            new product().extend({id:id});
-                            new common().updateLuck();
+                            // new product().extend({id:id});
+                            // new common().updateLuck();
                         },
                         cancel: function () {
                             // 用户取消分享后执行的回调函数
@@ -315,8 +315,8 @@ var weixin = {
                         imgUrl: data.imgUrl,
                         success: function () {
                             // 用户确认分享后执行的回调函数
-                            new product().extend({id:id});
-                            new common().updateLuck();
+                            // new product().extend({id:id});
+                            // new common().updateLuck();
                         },
                         cancel: function () {
                             // 用户取消分享后执行的回调函数
@@ -330,8 +330,8 @@ var weixin = {
                         imgUrl: data.imgUrl,
                         success: function () {
                             // 用户确认分享后执行的回调函数
-                            new product().extend({id:id});
-                            new common().updateLuck();
+                            // new product().extend({id:id});
+                            // new common().updateLuck();
                         },
                         cancel: function () {
                             // 用户取消分享后执行的回调函数
@@ -345,7 +345,7 @@ var weixin = {
                         imgUrl: data.imgUrl,
                         success: function () {
                             // 用户确认分享后执行的回调函数
-                            new product().extend({id:id});
+                            // new product().extend({id:id});
                         },
                         cancel: function () {
                             // 用户取消分享后执行的回调函数

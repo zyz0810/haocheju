@@ -419,13 +419,13 @@ var isWeiXin = function () {
 };
 
 $(function () {
-    // console.log('登陆')
-    // new member(function (data) {
-    //     console.log(00000)
-    //     console.log(data)
-    //     console.log(1111)
-    // }).checkLogin();
-    // console.log('登陆2')
+    console.log('登陆')
+    new member(function (data) {
+        console.log(00000)
+        console.log(data)
+        console.log(1111)
+    }).checkLogin();
+    console.log('登陆2')
 
     // new member(function (data) {
     //     console.log(data);
@@ -512,6 +512,18 @@ $(document).on("ajaxStart", function () {
         //         }
         //     }).checkLogin(false);
         // }
+
+        if (isWeiXin() && !redirecting && !hasLogin) {
+            new member(function (data) {
+                if (data) {
+                    hasLogin = true;
+                } else {
+                    redirecting = true;
+                    location.href = base + 'weixin/index/login.jhtml?redirectUrl=' + encodeURIComponent(location.href);
+                }
+            }).checkLogin(false);
+        }
+
     }
 }).on("ajaxBeforeSend", function () {
     if (redirecting) return false;

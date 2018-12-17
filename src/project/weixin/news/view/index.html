@@ -32,6 +32,12 @@
             $('#watch').html(data.hitcount);
             $('.cont').html(data.content);
             console.log(data);
+
+            weixin.share({
+                title: data.title
+                // desc:data.engine + data.drivingmode + data.gearbox + data.bodywork
+            });
+
         });
         aa.view({id: pageManager.GetQueryString("id")});
     });

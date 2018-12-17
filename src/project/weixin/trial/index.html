@@ -14,6 +14,9 @@
 <!--首页-->
 <link rel="import" href="../../../pages/trial/index.html">
 
+<!--模板-->
+<link rel="import" href="../../../model/templete/trial/list.html">
+
 @import "../../../model/widget/include/toast.html";
 @import "../../../model/widget/include/dialog.html";
 <script src="/weixin/js/wap.min.js"></script>
@@ -36,6 +39,7 @@
         });
 
         $('.peccancy .area').click(function () {
+            $("#areaCont2").actionsheetClose();
             $("#areaCont").actionsheet();
         });
         $('#areaCont ul li').click(function () {
@@ -44,12 +48,19 @@
         });
 
         $('.trial_cont .area').click(function () {
+            $("#areaCont").actionsheetClose();
             $("#areaCont2").actionsheet();
         });
         $('#areaCont2 ul li').click(function () {
             $('.trial_cont .area_txt').html($(this).html());
             $("#areaCont2").actionsheetClose();
         });
+
+        //违章记录
+        $('#mask').click(function () {
+            $("#resultList").actionsheetClose();
+        });
+
 
         //违章查询
         $('#peccancy_btn').click(function () {
@@ -59,10 +70,9 @@
             var peccancy_engine = $('#peccancy_engine').val();
 
             new drivers(function (data) {
-                console.log('1')
-                console.log(data)
-                console.log('2')
-
+                var h = render.fill($("#tpl_list"), data);
+                $("#resultList .result").html(h);
+                $("#resultList").actionsheet();
             }).violation({carno:peccancy_area + peccancy_license,engineno:peccancy_frame,vin:peccancy_engine})
 
         });

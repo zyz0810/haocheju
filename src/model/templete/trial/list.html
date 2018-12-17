@@ -1,0 +1,23 @@
+{{#each this}}
+<div class="weui-cell">
+    <div class="weui-cell__hd">
+        <p>{{wz_code}}</p>
+        <p class="f12 gray10">{{wz_city}}</p>
+    </div>
+    <div class="weui-cell__bd" style="margin: 0 2%;">
+        <p class="overtwo f12 gray10">{{act}}</p>
+        <p class="overtwo f14">{{area}}</p>
+        <p class="f12 gray10">{{wz_date}}</p>
+    </div>
+    <div class="weui-cell__ft f12 gray10">
+        <p>扣{{fen}}分</p>
+        <p>罚款{{money}}元</p>
+        {{#compare handled '==' '0'}}
+        <p class="red">未处理</p>
+        {{/compare}}
+        {{#compare handled '==' '1'}}
+        <p class="gray10">已处理</p>
+        {{/compare}}
+    </div>
+</div>
+{{/each}}

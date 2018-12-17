@@ -24,11 +24,19 @@
         var id = pageManager.GetQueryString('id');
         var aa = new product(
             function (data) {
+                document.title = data.shopgoods;
                 $("#index_slider").silderDot(data.images, 1800, "", "product");
                 $('.name').html(data.shopgoods);
                 $('.price_now').html(data.cost);
                 $('.price_old').html(data.price);
                 $('.detail').html(data.detail);
+
+                weixin.share({
+                    title: data.shopgoods,
+                    desc:data.desc,
+                    imgUrl:data.images[0]
+                });
+
             }
         );
         aa.view({id:id});

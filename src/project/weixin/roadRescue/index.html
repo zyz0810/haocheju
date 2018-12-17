@@ -27,6 +27,9 @@
         });
         aa.road();
         var pge = $(".pageable").pageable({
+            scrollFn:function () {
+                $(window).trigger('scroll');
+            },
             loadUpFn: function (me) {
                 var tu = new personnel(function (data) {
                     me.pageNumber = me.pageNumber + 1;

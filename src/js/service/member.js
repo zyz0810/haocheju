@@ -12,23 +12,23 @@ member.prototype = {
     //         async: async,
     //         url: base + 'weixin/index/check_login.jhtml',
     //         success: this.fn
-    //     });
+    //     });http://che.0556360.com/api/share/wxlogin
     // },
-    // checkLogin: function (data) {
-    //     ajax.post({
-    //         url:'http://dev.susonghaoniu.com/Api/User/login',
-    //         success: this.fn,
-    //         data:data
-    //     });
-    // },
-
     checkLogin: function (data) {
-        ajax.get({
-            url:'http://che.0556360.com/api/index/getOauthRedirect',
+        ajax.post({
+            url: base + 'api/share/wxlogin',
             success: this.fn,
             data:data
         });
     },
+
+    // checkLogin: function (data) {
+    //     ajax.get({
+    //         url:'http://che.0556360.com/api/index/getOauthRedirect',
+    //         success: this.fn,
+    //         data:data
+    //     });
+    // },
 
     /**
      * 绑定手机获取验证码
