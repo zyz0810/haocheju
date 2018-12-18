@@ -20,30 +20,9 @@
 @import "../../../../model/widget/include/dialog.html";
 <script src="/weixin/js/wap.min.js"></script>
 <script type="text/javascript">
-
-
     $(function () {
         pageManager.show("index");
         var userId = cookie.getCookie('userId');
-
-        // var list = [
-        //     {
-        //         content: '/weixin/images/static/home/banner01.jpg'
-        //     },
-        //     {
-        //         content: '/weixin/images/static/home/banner02.jpg'
-        //     }
-        // ];
-        // var S = new iSlider({
-        //     dom: document.getElementById('index_slider'),
-        //     data: list,
-        //     isLooping: 1,
-        //     isOverspread: 1,
-        //     animateTime: 800, // ms
-        //     plugins: ['dot']
-        // });
-
-
 
         new cars(function (data) {
             // $("#index_slider").silderDot(data, 1800, "");
@@ -54,9 +33,13 @@
             if(data.isCollection == '1'){
                 $('.collect').attr('data-id','1');
                 $('.collect>p').html('已收藏');
+                $('.collect>p').addClass('yellow01');
+                $('.collect>.iconfont').removeClass('icon-heart').addClass('icon-icon3 yellow01');
             }else{
                 $('.collect').attr('data-id','0');
                 $('.collect>p').html('收藏');
+                $('.collect>p').removeClass('yellow01');
+                $('.collect>.iconfont').removeClass('icon-icon3 yellow01').addClass('icon-heart');
             }
 
             if(data.providerid == null){
@@ -96,7 +79,9 @@
                     $('.collect').attr('data-id','1');
                     $('.collect').attr('data-cid',data.cid);
                     heart.addClass("heartAnimation");
+                    $('.collect>.iconfont').removeClass('icon-heart').addClass('icon-icon3 yellow01');
                     $('.collect>p').html('已收藏');
+                    $('.collect>p').addClass('yellow01');
                     // toast.show('收藏成功');
                 }).favorite({userId:userId,productId:pageManager.GetQueryString("id"),type:'1'})
             }else{
@@ -105,7 +90,9 @@
                     $('.collect').attr('data-id','0');
                     heart.removeClass("heartAnimation");
                     heart.css("background-position","-7px -32px");
+                    $('.collect>.iconfont').removeClass('icon-icon3 yellow01').addClass('icon-heart');
                     $('.collect>p').html('收藏');
+                    $('.collect>p').removeClass('yellow01');
                     // toast.show('取消收藏');
                 }).delFavorite({cid:cid})
             }
@@ -113,8 +100,6 @@
         $('#sheet_buy_now').click(function () {
             window.location.href = '/weixin/appointment/index.html?type=new&id='+pageManager.GetQueryString("id");
         });
-
-
 
     })
 </script>
