@@ -3,7 +3,6 @@
 var base = "http://che.0556360.com/";
 var paymentBase= "http://che.0556360.com/";
 
-
 var redirecting = false;
 var hasLogin=false;
 var winH = $(window).height();
@@ -394,23 +393,15 @@ var isWeiXin = function() {
 };
 
 $(function () {
-    console.log('登陆')
-    new member(function (data) {
-        console.log(00000)
-        console.log(data)
-        console.log(1111)
-    }).checkLogin();
-    console.log('登陆2')
-
-    // new member(function (data) {
-    //     console.log(data);
-    //     cookie.setCookie("userId", data.userId, 1);
-    //     cookie.setCookie("userName", data.nickname, 1);
-    // }).checkLogin({phonenum:'15056575017'});
-
+    // cookie.delCookie('userId');
     // new member(function (data) {
     //     console.log(data);
     // }).checkLogin();
+
+    // alert(cookie.getCookie('userId'));
+    // if(cookie.getCookie('userId') == ''){
+    //     window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc317b60f99f1a168&redirect_uri=http://m.0556360.com/weixin/users/login.html&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
+    // }
 });
 
 /* ==========================================================================
@@ -443,18 +434,18 @@ $(document).on("ajaxStart", function () {
         //     }).checkLogin(false);
         // }
 
-        if (isWeiXin() && !redirecting && !hasLogin) {
-            new member(function (data) {
-                if (data) {
-                    hasLogin = true;
-                } else {
-                    redirecting = true;
-                    location.href = base + 'weixin/index/login.jhtml?redirectUrl=' + encodeURIComponent(location.href);
-                }
-            }).checkLogin(false);
-        }
-
     }
+
+    // cookie.delCookie('userId');
+    // if(cookie.getCookie('userId') == ''){
+    //     setTimeout(function () {
+    //         window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc317b60f99f1a168&redirect_uri=http://m.0556360.com/weixin/users/login.html&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
+    //     },3000)
+    //
+    // }
+
+
+
 }).on("ajaxBeforeSend",function () {
     if(redirecting) return false;
 });
@@ -489,15 +480,12 @@ var ajax={
                         options.error(data.message);
                     } else {
                         setTimeout(function () {
-                            toast.show(data.message.content);
+                            // toast.show(data.message.content);
                         },100);
                     }
                 }
             },
             error: function (a) {
-                console.log(1)
-                console.log(a)
-                console.log(2)
             }
             // error: function (xhr, type) {
                 // if(redirecting) return;
@@ -539,7 +527,7 @@ var ajax={
                     } else {
                         toast.closeLoading();
                         setTimeout(function () {
-                            toast.show(data.message.content);
+                            // toast.show(data.message.content);
                         },100);
                     }
                 }
@@ -547,7 +535,7 @@ var ajax={
             error: function (xhr, type) {
                 if(redirecting) return;
                 if (options.error != null) {
-                    options.error(data.message);
+                    // options.error(data.message);
                 } else {
                     // toast.show("获取数据失败");
                 }

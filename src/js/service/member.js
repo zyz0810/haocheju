@@ -12,7 +12,7 @@ member.prototype = {
     //         async: async,
     //         url: base + 'weixin/index/check_login.jhtml',
     //         success: this.fn
-    //     });http://che.0556360.com/api/share/wxlogin
+    //     });
     // },
     checkLogin: function (data) {
         ajax.post({
@@ -21,15 +21,6 @@ member.prototype = {
             data:data
         });
     },
-
-    // checkLogin: function (data) {
-    //     ajax.get({
-    //         url:'http://che.0556360.com/api/index/getOauthRedirect',
-    //         success: this.fn,
-    //         data:data
-    //     });
-    // },
-
     /**
      * 绑定手机获取验证码
      * phonenum 手机号
@@ -183,6 +174,21 @@ member.prototype = {
             success: this.fn
         });
     },
+    /**
+     * 微信获取用户信息
+     * 	code 微信code
+     */
+    wxLogin: function (data) {
+        ajax.post({
+            url: base + 'api/index/wxusers',
+            data: data,
+            success: this.fn
+        });
+}
+
+
+
+
 
 
 

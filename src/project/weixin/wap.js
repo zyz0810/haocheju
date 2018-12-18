@@ -15,7 +15,7 @@
 
 @import "/js/handlebars.min.js";
 
-@import "../../js/page.js";
+
 
 @import "/js/jweixin-1.4.0.js";
 
@@ -56,6 +56,8 @@
 @import "/js/picker.min.js";
 
 @import "/js/base64_2.js";
+
+@import "../../js/page.js";
 
 @import "../../js/widget.js";
 
