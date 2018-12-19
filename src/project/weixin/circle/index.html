@@ -34,19 +34,14 @@
             }
 
 
-
-
-
-
             //评论
             // $(document).on('click','.pinglun',function () {
             $('.pinglun').die().live('click',function () {
                 console.log('00');
-                alert(0)
                 var id = $(this).parent().attr('data-id');
                 $('#' + id).addClass('none');
                 var $this=$(this);
-//                var myname = $(this).attr('data-name');
+//              var myname = $(this).attr('data-name');
                 var id = $(this).parent().attr('id');
                 // $(".comment_area" + id).removeClass('none');
                 // $('.foot_menu').addClass('none');
@@ -78,6 +73,7 @@
 
 
             $(".comment_area input").die().live('change',function () {
+                console.log(11111111)
                 var $this=$(this);
                 var id = $(this).attr('data-id');
                 var content= $(".comment_area" + id).find('input').val();
@@ -85,12 +81,14 @@
                     // $(".comment_area" + id).addClass('none');
                     // $('.foot_menu').removeClass('none');
                     if($('.operationTxt'+id).length == 0){
-                        $this.parent().find('.cont'+id).append('<div class="operationTxt gray08_bg operationTxt' + id + '"><span class="arrow_top"></span><div class="comment topLine comment'+ id +'"><p class="f13 gray02"><span class="blue02">' + myname + '：</span>'+ content + '</p></div></div>')
+                        $this.parent().parent().find('.cont'+id).append('<div class="operationTxt gray08_bg operationTxt' + id + '"><span class="arrow_top"></span><div class="comment topLine comment'+ id +'"><p class="f13 gray02"><span class="blue02">' + myname + '：</span>'+ content + '</p></div></div>')
                         // <div class="operationTxt gray08_bg operationTxt6"><span class="arrow_top"></span><div class="comment topLine comment6"><p class="f13 gray02" data-id="6"><span class="blue02"></span>：1</p></div></div>
                     }else if($('.comment'+id).length == 0){
-                        $this.parent().find('.operationTxt'+id).append('<div class="comment topLine comment'+ id +'"><p class="f13 gray02"><span class="blue02">' + myname + '：</span>'+ content + '</p></div>')
+                        $this.parent().parent().find('.operationTxt'+id).append('<div class="comment topLine comment'+ id +'"><p class="f13 gray02"><span class="blue02">' + myname + '：</span>'+ content + '</p></div>')
                     }else{
-                        $this.parent().find('.comment').append('<p class="f13 gray02"><span class="blue02">' + myname + '：</span>'+ content + '</p>');
+                        console.log('评论');
+                        console.log($this.parent().parent().find('.comment'));
+                        $this.parent().parent().find('.comment').append('<p class="f13 gray02"><span class="blue02">' + myname + '：</span>'+ content + '</p>');
                     }
                     $(this).val('');
                 }).reply({pauthor:'',author:myname,cid:id,comment:content});
@@ -104,6 +102,7 @@
             //回复下方已有的评论
             // $('.comment p').click(function() {
             $(document).on('click','.comment p',function () {
+                console.log(222222)
                 var id = $(this).attr('data-id');
                 $('#' + id).addClass('none');
                 var $this=$(this);
@@ -119,7 +118,7 @@
                     new contact(function (data) {
                         // $(".comment_area" + id).addClass('none');
                         // $('.foot_menu').removeClass('none');
-                        $this.after(2222)
+                        console.log($this)
                         $this.after('<p class="f13 gray02"><span class="blue02">' + myname + '</span> 回复 <span class="blue02">' + rewho + '：</span>'+ content + '</p>');
                     }).reply({pauthor:rewho,author:myname,cid:id,comment:content});
                     $(".comment_area" + id).find('input').val('');

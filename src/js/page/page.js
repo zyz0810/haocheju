@@ -393,17 +393,21 @@ var isWeiXin = function() {
 };
 
 $(function () {
-    // cookie.delCookie('userId');
     // new member(function (data) {
     //     console.log(data);
     // }).checkLogin();
-
-    // alert(cookie.getCookie('userId'));
-    // if(cookie.getCookie('userId') == ''){
-    //     window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc317b60f99f1a168&redirect_uri=http://m.0556360.com/weixin/users/login.html&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
-    // }
+    // cookie.delCookie('userId');
+    if(cookie.getCookie('userId') == ''){
+        // var url = encodeURIComponent(location.href.split('#')[0]);
+        var url = location.href.split('#')[0];
+        // window.location.href = 'http://che.0556360.com/api/index/getOauthRedirect?url=' + url;
+        // window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc317b60f99f1a168&redirect_uri=http://m.0556360.com/weixin/users/login.html&response_type=code&scope=snsapi_userinfo&state='+ url +'#wechat_redirect'
+        // window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc317b60f99f1a168&redirect_uri=http://m.0556360.com/weixin/users/login.html&response_type=code&scope=snsapi_userinfo&state= http://www.baidu.com#wechat_redirect'
+    }
 });
 
+
+//http://m.0556360.com/weixin/home/index.html
 /* ==========================================================================
  封装  ajax数据请求
  { options:url,  必选
@@ -443,8 +447,6 @@ $(document).on("ajaxStart", function () {
     //     },3000)
     //
     // }
-
-
 
 }).on("ajaxBeforeSend",function () {
     if(redirecting) return false;

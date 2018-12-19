@@ -24,12 +24,10 @@
         new member(function (data) {
             console.log(data);
             cookie.setCookie("userId", data.userId, 1, '/');
-            // history.go(-1);
-
-        }).wxLogin({code:pageManager.GetQueryString('code')})
+            window.location.href = data.url;
+        }).wxLogin({code:pageManager.GetQueryString('code'),url:pageManager.GetQueryString('state')})
 
     });
 </script>
-
 </body>
 </html>
