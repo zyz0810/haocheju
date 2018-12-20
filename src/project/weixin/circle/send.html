@@ -90,13 +90,13 @@
                 if(data.verify != '1'){
                     toast.show('请先绑定手机');
                     setTimeout(function () {
-                        // window.location.href = '/weixin/mobile/index.html?type=sendCircle';
+                        window.location.href = '/weixin/mobile/index.html?type=sendCircle';
                     },3000)
                 }else{
                     var sc = new contact(function (data) {
                         toast.show('发布成功');
                         setTimeout(function () {
-                            // window.location.href = '/weixin/circle/index.html';
+                            window.location.href = '/weixin/circle/index.html';
                         },3000)
                     });
                     var formData = new FormData($('#updateForm')[0]);

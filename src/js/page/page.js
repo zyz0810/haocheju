@@ -396,17 +396,7 @@ $(function () {
     // new member(function (data) {
     //     console.log(data);
     // }).checkLogin();
-    // cookie.delCookie('userId');
-    if(cookie.getCookie('userId') == ''){
-        // var url = encodeURIComponent(location.href.split('#')[0]);
-        var url = location.href.split('#')[0];
-        // window.location.href = 'http://che.0556360.com/api/index/getOauthRedirect?url=' + url;
-        // window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc317b60f99f1a168&redirect_uri=http://m.0556360.com/weixin/users/login.html&response_type=code&scope=snsapi_userinfo&state='+ url +'#wechat_redirect'
-        // window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc317b60f99f1a168&redirect_uri=http://m.0556360.com/weixin/users/login.html&response_type=code&scope=snsapi_userinfo&state= http://www.baidu.com#wechat_redirect'
-    }
 });
-
-
 //http://m.0556360.com/weixin/home/index.html
 /* ==========================================================================
  封装  ajax数据请求
@@ -482,21 +472,21 @@ var ajax={
                         options.error(data.message);
                     } else {
                         setTimeout(function () {
-                            // toast.show(data.message.content);
+                            toast.show(data.message.content);
                         },100);
                     }
                 }
             },
-            error: function (a) {
-            }
-            // error: function (xhr, type) {
-                // if(redirecting) return;
-                // if (options.error) {
-                //     options.error(data.message);
-                // } else {
-                //     toast.show("获取数据失败");
-                // }
+            // error: function (a) {
             // }
+            error: function (xhr, type) {
+                if(redirecting) return;
+                if (options.error) {
+                    options.error(data.message);
+                } else {
+                    toast.show("获取数据失败");
+                }
+            }
         })
     },
     //标准 ajax post 方法
@@ -529,7 +519,7 @@ var ajax={
                     } else {
                         toast.closeLoading();
                         setTimeout(function () {
-                            // toast.show(data.message.content);
+                            toast.show(data.message.content);
                         },100);
                     }
                 }
@@ -537,14 +527,14 @@ var ajax={
             error: function (xhr, type) {
                 if(redirecting) return;
                 if (options.error != null) {
-                    // options.error(data.message);
+                    options.error(data.message);
                 } else {
-                    // toast.show("获取数据失败");
+                    toast.show("获取数据失败");
                 }
             }
         })
     }
-
+    
 };
 
 var render={

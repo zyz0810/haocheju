@@ -169,18 +169,31 @@ member.prototype = {
      */
     getcodeCheck: function (data) {
         ajax.post({
-            url: base + 'api/code/getcode',
+            url: base + 'api/code/ckeckCode',
             data: data,
             success: this.fn
         });
     },
-    /**
+    /**http://che.0556360.com/api/index/wxusers?code=0114lvtS1LYku41qlbuS1Q2ctS14lvt6&from=844b&vit=fps
      * 微信获取用户信息
      *    code 微信code
      */
     wxLogin: function (data) {
         ajax.get({
+            // async: async,
             url: base + 'api/index/wxusers',
+            data: data,
+            success: this.fn
+        });
+    },
+    /**
+     * 获取当前页面url
+     *    url 当前页面url
+     */
+    wxUrl: function (data) {
+        ajax.get({
+            // async: async,
+            url: base + 'api/share/wxurl',
             data: data,
             success: this.fn
         });

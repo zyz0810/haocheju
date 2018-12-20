@@ -16,7 +16,7 @@
 
 @import "../../../model/widget/include/toast.html";
 @import "../../../model/widget/include/dialog.html";
-<script src="/weixin/js/wap.min.js"></script>
+<script src="/weixin/js/common.min.js"></script>
 <script type="text/javascript">
     $(function () {
         pageManager.show("login");
@@ -25,7 +25,8 @@
             console.log(data);
             cookie.setCookie("userId", data.userId, 1, '/');
             window.location.href = data.url;
-        }).wxLogin({code:pageManager.GetQueryString('code'),url:pageManager.GetQueryString('state')})
+        }).wxLogin({code: pageManager.GetQueryString('code'), url: pageManager.GetQueryString('state')})
+        // }).wxLogin({code: pageManager.GetQueryString('code'), url: cookie.getCookie('url')})
 
     });
 </script>

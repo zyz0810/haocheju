@@ -133,7 +133,6 @@
             }).subscribeNew({productId:id});
 
             $('.publish_btn').click(function () {
-
                 new member(function (data) {
                     console.log(data);
 
@@ -144,7 +143,7 @@
                     }
                     var name = $('#name').val();
                     var phone = $('#phone').val();
-                    var code = ('#code').val();
+                    var code = $('#code').val();
                     if(phone.length < 11){
                         toast.show('请输入正确的手机号码');
                         return ;
@@ -190,21 +189,16 @@
             }).subscribeOld({productId:pageManager.GetQueryString("id")});
 
             $('.publish_btn').click(function () {
-
-
-
                 new member(function (data) {
                     console.log(data);
-
                     if(data.verify != '1'){
                         dialog.show('请先绑定手机号',function () {
                             window.location.href = '/weixin/mobile/index.html?type=appointment';
                         })
                     }
-
-
                     var name = $('#name').val();
                     var phone = $('#phone').val();
+                    var code = $('#code').val();
                     if(phone.length < 11){
                         toast.show('请输入正确的手机号码');
                         return ;
@@ -213,21 +207,12 @@
                         new cars(function (data) {
                             toast.show('预约成功');
                             setTimeout(function () {
-                                history.go(-1);
+                                // history.go(-1);
                             },3000)
                         }).subscribe({username:name,phonenum:phone,type:'2',productId:pageManager.GetQueryString("id")})
                     }).getcodeCheck({phonenum:phone,code:code})
-
-
                 }).view({userId:userId});
-
-
-
-
-
             })
-
-
         }
 
         //实时判断手机号

@@ -59,6 +59,6 @@
 
 @import "../../js/page.js";
 
-@import "../../js/widgetLogin.js";
+@import "../../js/widget.js";
 
 @import "../../js/service.js";

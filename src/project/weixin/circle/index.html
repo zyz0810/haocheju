@@ -43,21 +43,24 @@
                 var $this=$(this);
 //              var myname = $(this).attr('data-name');
                 var id = $(this).parent().attr('id');
-                // $(".comment_area" + id).removeClass('none');
+                $(".comment_area" + id).removeClass('none');
                 // $('.foot_menu').addClass('none');
                 $(".comment_area" + id + " input").focus();
                 $(".comment_area" + id + " input").die().live('change',function () {
                     var $sth=$(this);
                     var content= $(".comment_area" + id).find('input').val();
                     new contact(function (data) {
-                        // $(".comment_area" + id).addClass('none');
+                        $(".comment_area" + id).addClass('none');
                         // $('.foot_menu').removeClass('none');
                         if($('.operationTxt'+id).length == 0){
+                            $('.operationTxt'+id).removeClass('none');
                             $this.parent().parent().parent().parent().append('<div class="operationTxt gray08_bg operationTxt' + id + '"><span class="arrow_top"></span><div class="comment topLine comment'+ id +'"><p class="f13 gray02"><span class="blue02">' + myname + '：</span>'+ content + '</p></div></div>')
                             // <div class="operationTxt gray08_bg operationTxt6"><span class="arrow_top"></span><div class="comment topLine comment6"><p class="f13 gray02" data-id="6"><span class="blue02"></span>：1</p></div></div>
                         }else if($('.comment'+id).length == 0){
+                            $('.operationTxt'+id).removeClass('none');
                             $this.parent().parent().parent().parent().find('.operationTxt'+id).append('<div class="comment topLine comment'+ id +'"><p class="f13 gray02"><span class="blue02">' + myname + '：</span>'+ content + '</p></div>')
                         }else{
+                            $('.operationTxt'+id).removeClass('none');
                             $this.parent().parent().parent().parent().find('.comment').append('<p class="f13 gray02"><span class="blue02">' + myname + '：</span>'+ content + '</p>');
                         }
                         $(this).val('');
@@ -67,33 +70,30 @@
             });
 
 
-            // $(document).on('click','.send_btn',function () {
-            //
+
+
+            // $(".comment_area input").die().live('change',function () {
+            //     console.log(11111111)
+            //     var $this=$(this);
+            //     var id = $(this).attr('data-id');
+            //     var content= $(".comment_area" + id).find('input').val();
+            //     new contact(function (data) {
+            //         // $(".comment_area" + id).addClass('none');
+            //         // $('.foot_menu').removeClass('none');
+            //         if($('.operationTxt'+id).length == 0){
+            //             $this.parent().parent().parent().find('.cont'+id).append('<div class="operationTxt gray08_bg operationTxt' + id + '"><span class="arrow_top"></span><div class="comment topLine comment'+ id +'"><p class="f13 gray02"><span class="blue02">' + myname + '：</span>'+ content + '</p></div></div>')
+            //             // <div class="operationTxt gray08_bg operationTxt6"><span class="arrow_top"></span><div class="comment topLine comment6"><p class="f13 gray02" data-id="6"><span class="blue02"></span>：1</p></div></div>
+            //         }else if($('.comment'+id).length == 0){
+            //             $this.parent().parent().parent().find('.operationTxt'+id).append('<div class="comment topLine comment'+ id +'"><p class="f13 gray02"><span class="blue02">' + myname + '：</span>'+ content + '</p></div>')
+            //         }else{
+            //             console.log('评论');
+            //             console.log($this.parent().parent().find('.comment'));
+            //             $this.parent().parent().parent().find('.comment').append('<p class="f13 gray02"><span class="blue02">' + myname + '：</span>'+ content + '</p>');
+            //         }
+            //         $(this).val('');
+            //     }).reply({pauthor:'',author:myname,cid:id,comment:content});
+            //     $(".comment_area" + id).find('input').val('');
             // });
-
-
-            $(".comment_area input").die().live('change',function () {
-                console.log(11111111)
-                var $this=$(this);
-                var id = $(this).attr('data-id');
-                var content= $(".comment_area" + id).find('input').val();
-                new contact(function (data) {
-                    // $(".comment_area" + id).addClass('none');
-                    // $('.foot_menu').removeClass('none');
-                    if($('.operationTxt'+id).length == 0){
-                        $this.parent().parent().find('.cont'+id).append('<div class="operationTxt gray08_bg operationTxt' + id + '"><span class="arrow_top"></span><div class="comment topLine comment'+ id +'"><p class="f13 gray02"><span class="blue02">' + myname + '：</span>'+ content + '</p></div></div>')
-                        // <div class="operationTxt gray08_bg operationTxt6"><span class="arrow_top"></span><div class="comment topLine comment6"><p class="f13 gray02" data-id="6"><span class="blue02"></span>：1</p></div></div>
-                    }else if($('.comment'+id).length == 0){
-                        $this.parent().parent().find('.operationTxt'+id).append('<div class="comment topLine comment'+ id +'"><p class="f13 gray02"><span class="blue02">' + myname + '：</span>'+ content + '</p></div>')
-                    }else{
-                        console.log('评论');
-                        console.log($this.parent().parent().find('.comment'));
-                        $this.parent().parent().find('.comment').append('<p class="f13 gray02"><span class="blue02">' + myname + '：</span>'+ content + '</p>');
-                    }
-                    $(this).val('');
-                }).reply({pauthor:'',author:myname,cid:id,comment:content});
-                $(".comment_area" + id).find('input').val('');
-            });
 
 
 
@@ -108,7 +108,7 @@
                 var $this=$(this);
                 var rewho=$this.find('.blue02').first().html();
                 var id=$(this).attr('data-id');
-                // $(".comment_area" + id).removeClass('none');
+                $(".comment_area" + id).removeClass('none');
                 // $('.foot_menu').addClass('none');
                 $(".comment_area" + id + " input").focus();
                 $(".comment_area" + id + " input").attr('placeholder','回复'+rewho);
@@ -116,7 +116,7 @@
                     var content=$(".comment_area" + id).find('input').val();
                     var $sth=$(this);
                     new contact(function (data) {
-                        // $(".comment_area" + id).addClass('none');
+                        $(".comment_area" + id).addClass('none');
                         // $('.foot_menu').removeClass('none');
                         console.log($this)
                         $this.after('<p class="f13 gray02"><span class="blue02">' + myname + '</span> 回复 <span class="blue02">' + rewho + '：</span>'+ content + '</p>');
@@ -201,12 +201,16 @@
         aa.list();
 
         var pge = $(".pageable").pageable({
+            scrollFn:function () {
+                $(window).trigger('scroll');
+            },
             loadUpFn: function (me) {
                 new contact(function (data) {
                     $(".circle_list").html('');
                     console.log(data);
                     for(var i = 0; i<data.return_new.data.length; i++){
                         var str = '';
+                        str += '<div class="weui-cells bordernone list_item" data-id="' + data.return_new.data[i].id + '">';
                         str += '<div class="circle_item weui-cell" data-id="' + data.return_new.data[i].id + '">';
                         if(data.return_new.data[i].headerimg == null){
                             str += '<div class="weui-cell__hd headImg"><img src="/weixin/images/placeholder/logo.png"/></div>';
@@ -314,8 +318,8 @@
                             str += '<div class="operationTxt gray08_bg none operationTxt' +  data.return_new.data[i].id + '">';
                             str += '<span class="arrow_top"></span>';
 
-                            if(data.return_new.data[i].spotlist != ''){
-                                str += '<div class="zan_people">';
+                            if(data.return_new.data[i].spotlist == ''){
+                                str += '<div class="zan_people none">';
                                 str += '<i class="iconfont icon-heart f13 blue02"></i>';
                                 str += '<div class="blue02 f13">';
                                 for(var l = 0; l < data.return_new.data[i].spotlist.length;l++){
@@ -329,11 +333,11 @@
                                 str += '</div>';
                             }
 
-                            if(data.return_new.data[i].comment != ''){
+                            if(data.return_new.data[i].comment == ''){
                                 if(data.return_new.data[i].comment.length > 6){
-                                    str += '<div class="comment more_height topLine comment' + data.return_new.data[i].id + '">';
+                                    str += '<div class="comment more_height more_list none topLine comment' + data.return_new.data[i].id + '">';
                                 }else{
-                                    str += '<div class="comment topLine comment' + data.return_new.data[i].id + '">';
+                                    str += '<div class="comment none topLine comment' + data.return_new.data[i].id + '">';
                                 }
                                 for(var k = 0; k<data.return_new.data[i].comment.length; k++){
                                     if(data.return_new.data[i].comment[k].pname == ''){
@@ -349,13 +353,12 @@
                             }
                             str += '</div>';
                         }
-
                         str += '</div>';
 
                         // str += '<div class="weui-cell comment_area none comment_area' + data.return_new.data[i].id + '"><div class="weui-cell__bd"><input type="text" placeholder="评论" class="comment_txt" data-id="' + data.return_new.data[i].id + '" /></div><div class="weui-cell__ft" style="cursor: pointer;">发送</div></div>';
                         str += '</div>';
-                        str += '<div class="weui-cell comment_area comment_area' + data.return_new.data[i].id + '" style="position: static;"><div class="weui-cell__bd"><input type="text" placeholder="评论" class="comment_txt" data-id="' + data.return_new.data[i].id + '" /></div></div>';
-
+                        str += '<div class="weui-cell bordernone comment_area none comment_area' + data.return_new.data[i].id + '" data-id="' + data.return_new.data[i].id + '><div class="weui-cell__bd"><input type="text" placeholder="评论" class="comment_txt" data-id="' + data.return_new.data[i].id + '" /></div></div>';
+                        str += '</div>';
                         $(".circle_list").append(str);
                     }
 
@@ -480,8 +483,8 @@
                             str += '<div class="operationTxt gray08_bg none operationTxt' +  data.return_new.data[i].id + '">';
                             str += '<span class="arrow_top"></span>';
 
-                            if(data.return_new.data[i].spotlist != ''){
-                                str += '<div class="zan_people">';
+                            if(data.return_new.data[i].spotlist == ''){
+                                str += '<div class="zan_people none">';
                                 str += '<i class="iconfont icon-heart f13 blue02"></i>';
                                 str += '<div class="blue02 f13">';
                                 for(var l = 0; l < data.return_new.data[i].spotlist.length;l++){
@@ -495,11 +498,11 @@
                                 str += '</div>';
                             }
 
-                            if(data.return_new.data[i].comment != ''){
+                            if(data.return_new.data[i].comment == ''){
                                 if(data.return_new.data[i].comment.length > 6){
-                                    str += '<div class="comment more_height topLine comment' + data.return_new.data[i].id + '">';
+                                    str += '<div class="comment more_height more_list none topLine comment' + data.return_new.data[i].id + '">';
                                 }else{
-                                    str += '<div class="comment topLine comment' + data.return_new.data[i].id + '">';
+                                    str += '<div class="comment none topLine comment' + data.return_new.data[i].id + '">';
                                 }
                                 for(var k = 0; k<data.return_new.data[i].comment.length; k++){
                                     if(data.return_new.data[i].comment[k].pname == ''){
@@ -519,7 +522,7 @@
                         
                         // str += '<div class="weui-cell comment_area none comment_area' + data.return_new.data[i].id + '"><div class="weui-cell__bd"><input type="text" placeholder="评论" class="comment_txt" data-id="' + data.return_new.data[i].id + '" /></div><div class="weui-cell__ft" style="cursor: pointer;">发送</div></div>';
                         str += '</div>';
-                        str += '<div class="weui-cell bordernone comment_area comment_area' + data.return_new.data[i].id + '" data-id="' + data.return_new.data[i].id + '><div class="weui-cell__bd"><input type="text" placeholder="评论" class="comment_txt" data-id="' + data.return_new.data[i].id + '" /></div></div>';
+                        str += '<div class="weui-cell bordernone comment_area none comment_area' + data.return_new.data[i].id + '" data-id="' + data.return_new.data[i].id + '><div class="weui-cell__bd"><input type="text" placeholder="评论" class="comment_txt" data-id="' + data.return_new.data[i].id + '" /></div></div>';
                         str += '</div>';
                         $(".circle_list").append(str);
                     }
