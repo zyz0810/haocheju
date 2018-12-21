@@ -1,22 +1,25 @@
 {{#each this}}
 <!--<a href="/weixin/discount/view/index.html" class="listGrid_item fl">-->
-<a href="/weixin/discount/view/index.html?id={{id}}" class="listGrid_item fl">
-    <span class="tag white f13">特价</span>
-    {{#compare logo '==' null}}
-    <div class="img"><img src="/weixin/images/placeholder/logo.png" /></div>
-    {{/compare}}
-    {{#compare logo '!=' null}}
-    <div class="img"><img src="/weixin/images/placeholder/logo.png" data-original="{{logo}}"/></div>
-    {{/compare}}
-
-    <p class="f14 gray09 overtwo">{{shopgoods}}</p>
-    <p class="f12 gray11 overone">{{desc}}</p>
-    <!--<p class="f12 gray09 tc">最多可优惠 <span class="f15 orange03">￥3.3万</span></p>-->
-    <!--<p class="f12 gray09 tc">市场价 <span class="f15 orange03">￥{{price}}</span></p>-->
-    <!--<p class="price clearfix">-->
+<a href="/weixin/discount/view/index.html?id={{id}}" class="weui-cell">
+    <div class="weui-cell__hd">
+        <span class="tag white f13">特价</span>
+        {{#compare logo '==' null}}
+        <div class="img"><img src="/weixin/images/placeholder/logo.png" /></div>
+        {{/compare}}
+        {{#compare logo '!=' null}}
+        <div class="img"><img src="/weixin/images/placeholder/logo.png" data-original="{{logo}}"/></div>
+        {{/compare}}
+    </div>
+    <div class="weui-cell__bd">
+        <p class="f14 gray09 overtwo">{{shopgoods}}</p>
+        <p class="f12 gray11 overone">{{desc}}</p>
+        <!--<p class="f12 gray09 tc">最多可优惠 <span class="f15 orange03">￥3.3万</span></p>-->
+        <!--<p class="f12 gray09 tc">市场价 <span class="f15 orange03">￥{{price}}</span></p>-->
+        <!--<p class="price clearfix">-->
         <!--<span class="f12 gray02 fl mini_price">现价:￥{{cost}} 起</span>-->
         <!--&lt;!&ndash;<span class="f13 white inquiry_btn fr">询价</span>&ndash;&gt;-->
-    <!--</p>-->
-    <p class="f12"><span class="orange03 f14 fl">￥{{cost}}</span><s class="fr">￥{{price}}</s></p>
+        <!--</p>-->
+        <p class="f12"><span class="orange03 f14 fl">￥{{cost}}</span><s class="fr">￥{{price}}</s></p>
+    </div>
 </a>
 {{/each}}

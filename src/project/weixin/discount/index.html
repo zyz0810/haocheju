@@ -37,7 +37,8 @@
                 var tu = new product(function (data) {
                     me.pageNumber = me.pageNumber + 1;
                     var h = render.fill($("#tpl_list"), data.return_shop.data);
-                    $(".pageable .discount_listGrid").html(h);
+//                    $(".pageable .discount_listGrid").html(h);
+                    $('.pageable .discount_list').html(h);
                     $('img').picLazyLoad();
                     pge.resetload();
                 });
@@ -48,7 +49,8 @@
                 var td = new product(function (data) {
                     me.pageNumber = me.pageNumber + 1;
                     var h = render.fill($("#tpl_list"), data.return_shop.data);
-                    $(".pageable .discount_listGrid").append(h);
+//                    $(".pageable .discount_listGrid").append(h);
+                    $('.pageable .discount_list').append(h);
                     $('img').picLazyLoad();
                     if (data.return_shop.data.length < 10) {
                         pge.lock();

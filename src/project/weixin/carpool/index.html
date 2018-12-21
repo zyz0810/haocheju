@@ -95,6 +95,10 @@
             var id = $(this).attr('data-id');
             window.location.href = '/weixin/carpool/view/index.html?id=' + id;
         });
+        weixin.share({
+            title: '车相关拼车',
+            desc: '每天都有大量真实的拼车回家信息供大家选择,是拼车网友寻找拼车信息的在线平台'
+        });
     });
 </script>
 

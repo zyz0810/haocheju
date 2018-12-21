@@ -119,7 +119,7 @@
 
 
         $('#showCar').click(function () {
-            if ($('#brandBtn').val() == '') {
+            if ($('#brandBtn input').val() == '') {
                 toast.show('请先填写品牌')
             } else {
                 $("#carMode").actionsheet();
@@ -218,8 +218,8 @@
                 var startdate = $('.showDatePicker').html();
                 var starttime = $('.showTimePicker').html();
                 var seat = $('.showPeoplePicker').val();
-                var series = $('#showCar').val();
-                var brand = $('#brandBtn').val();
+                var series = $('#showCar input').val();
+                var brand = $('#brandBtn input').val();
                 var remarks = $('#remarks').val();
                 var start_address = $('#start').attr('data-address');
                 var end_address = $('#end').attr('data-address');
