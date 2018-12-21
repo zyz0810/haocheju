@@ -365,7 +365,7 @@
                     $('img').picLazyLoad();
                     pge.resetload();
 
-                }).list({page: 1,pageSize:10})
+                }).list({page: 1,pageSize:10,userId:userId})
             },
             loadDownFn: function (me) {
                 new contact(function (data) {
@@ -534,7 +534,7 @@
                     }
                     pge.resetload();
 
-                }).list({page: me.pageNumber,pageSize:10});
+                }).list({page: me.pageNumber,pageSize:10,userId:userId});
             }
         });
 
