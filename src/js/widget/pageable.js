@@ -33,14 +33,20 @@
             scrollArea : me.$element,                                            // 滑动区域
             domUp : {                                                            // 上方DOM
                 domClass   : 'pageable-up',
-                domRefresh : '<div class="pageable-refresh">↓下拉刷新</div>',
-                domUpdate  : '<div class="pageable-update">↑释放更新</div>',
-                domLoad    : '<div class="pageable-load "><span class="loading"></span>加载中...</div>'
+                // domRefresh : '<div class="pageable-refresh">↓下拉刷新</div>',
+                domRefresh : '<div class="pageable-refresh"><img src="/weixin/images/placeholder/refresh2.gif" /></div>',
+                // domUpdate  : '<div class="pageable-update">↑释放更新</div>',
+                domUpdate  : '<div class="pageable-update"><img src="/weixin/images/placeholder/refresh2.gif" /></div>',
+                // domLoad    : '<div class="pageable-load "><span class="loading"></span>加载中...</div>',
+                domLoad    : '<div class="pageable-load "><img src="/weixin/images/placeholder/refresh2.gif" /></div>'
             },
             domDown : {                                                          // 下方DOM
                 domClass   : 'pageable-down',
-                domRefresh : '<div class="pageable-refresh">↑上拉加载更多</div>',
-                domLoad    : '<div class="pageable-load"><span class="loading"></span>加载中...</div>',
+                // domRefresh : '<div class="pageable-refresh">↑上拉加载更多</div>',
+                domRefresh : '<div class="pageable-refresh"><img src="/weixin/images/placeholder/load.gif" /></div>',
+                // domLoad    : '<div class="pageable-load"><span class="loading"></span>加载中...</div>',
+                domLoad    : '<div class="pageable-load"><img src="/weixin/images/placeholder/load.gif" /></div>',
+                // domNoData  : '<div class="pageable-noData">亲，已经到底了</div>'
                 domNoData  : '<div class="pageable-noData">亲，已经到底了</div>'
             },
             autoLoad : true,                                                     // 自动加载

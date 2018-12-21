@@ -12,8 +12,8 @@ var cookie = {
     setCookie: function (c_name, value, expiredays, path) {
         var exdate = new Date();
         exdate.setDate(exdate.getDate() + expiredays);
+        // document.cookie = c_name + "=" + escape(value) + ((expiredays == null) ? "" : ";expires=" + exdate.toGMTString()) + ";path=" + path;
         document.cookie = c_name + "=" + escape(value) + ((expiredays == null) ? "" : ";expires=" + exdate.toGMTString()) + ";path=" + path;
-
         console.log(c_name + "=" + escape(value) + ((expiredays == null) ? "" : ";expires=" + exdate.toGMTString()) + ";path=" + path)
 
     },
@@ -38,6 +38,7 @@ var cookie = {
         var exdate = new Date();
         exdate.setDate(exdate.getDate() - 1);
         var c_value = this.getCookie(c_name);
-        if (c_value != null && c_value != "") cookie.setCookie(c_name, c_value, -1);
+        // if (c_value != null && c_value != "") cookie.setCookie(c_name, c_value, -1);
+        if (c_value != null && c_value != "") cookie.setCookie(c_name, '', -1);
     }
 };

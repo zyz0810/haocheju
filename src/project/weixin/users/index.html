@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>登陆</title>
+    @import "../include/header.inc";
+
+</head>
+<body ontouchstart>
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+<div class="container" id="container"></div>
+
+<!--首页-->
+<link rel="import" href="../../../pages/users/index.html">
+
+@import "../../../model/widget/include/toast.html";
+@import "../../../model/widget/include/dialog.html";
+<script src="/weixin/js/wap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        pageManager.show("index");
+        $('.publish_btn').click(function () {
+            var url = location.href.split('#')[0];
+            // window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc317b60f99f1a168&redirect_uri=http://m.0556360.com/weixin/users/login.html&response_type=code&scope=snsapi_userinfo&state='+url+'#wechat_redirect'
+
+            window.location.href = 'http://che.0556360.com/api/index/getOauthRedirect'
+
+        })
+
+
+        // if(pageManager.GetQueryString('code')!=''){
+        //     new member(function (data) {
+        //         alert(data)
+        //         console.log(data);
+        //         cookie.setCookie("userId", data.userId, 1, '/');
+        //     }).wxLogin({code:pageManager.GetQueryString('code'),url:pageManager.GetQueryString('state')})
+        // }
+
+
+    });
+</script>
+
+</body>
+</html>

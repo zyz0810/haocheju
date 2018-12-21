@@ -12,24 +12,15 @@ member.prototype = {
     //         async: async,
     //         url: base + 'weixin/index/check_login.jhtml',
     //         success: this.fn
-    //     });http://che.0556360.com/api/share/wxlogin
+    //     });
     // },
     checkLogin: function (data) {
         ajax.post({
             url: base + 'api/share/wxlogin',
             success: this.fn,
-            data:data
+            data: data
         });
     },
-
-    // checkLogin: function (data) {
-    //     ajax.get({
-    //         url:'http://che.0556360.com/api/index/getOauthRedirect',
-    //         success: this.fn,
-    //         data:data
-    //     });
-    // },
-
     /**
      * 绑定手机获取验证码
      * phonenum 手机号
@@ -117,16 +108,16 @@ member.prototype = {
     },
     /**
      * 添加车商
-     * 	userId 用户Id
-     * 	providername 车商名字
-     * 	prividerperson 联系人
-     * 	address 公司地址
-     * 	position 职位
-     * 	phone 手机号
-     * 	logo logo
-     * 	images 门面图
-     * 	license 营业执照
-     * 	name 账号（只能是英文或数字）
+     *    userId 用户Id
+     *    providername 车商名字
+     *    prividerperson 联系人
+     *    address 公司地址
+     *    position 职位
+     *    phone 手机号
+     *    logo logo
+     *    images 门面图
+     *    license 营业执照
+     *    name 账号（只能是英文或数字）
      */
     dealer: function (data) {
         ajax.post({
@@ -137,7 +128,7 @@ member.prototype = {
     },
     /**
      * 上传图片
-     * 	file 文件名
+     *    file 文件名
      */
     uploads: function (data) {
         ajax.post({
@@ -150,7 +141,7 @@ member.prototype = {
     },
     /**
      * 分享
-     * 	url 当前页面路径
+     *    url 当前页面路径
      */
     shareApi: function (data) {
         ajax.post({
@@ -161,8 +152,8 @@ member.prototype = {
     },
     /**
      * 保险
-     * 	carno 车牌号
-     * 	mobile 手机号
+     *    carno 车牌号
+     *    mobile 手机号
      */
     insuranceAdd: function (data) {
         ajax.post({
@@ -173,19 +164,40 @@ member.prototype = {
     },
     /**
      * 检验验证码
-     * 	phonenum
-     * 	code
+     *    phonenum
+     *    code
      */
     getcodeCheck: function (data) {
         ajax.post({
-            url: base + 'api/code/getcode',
+            url: base + 'api/code/ckeckCode',
             data: data,
             success: this.fn
         });
     },
-
-
-
+    /**http://che.0556360.com/api/index/wxusers?code=0114lvtS1LYku41qlbuS1Q2ctS14lvt6&from=844b&vit=fps
+     * 微信获取用户信息
+     *    code 微信code
+     */
+    wxLogin: function (data) {
+        ajax.get({
+            // async: async,
+            url: base + 'api/index/wxusers',
+            data: data,
+            success: this.fn
+        });
+    },
+    /**
+     * 获取当前页面url
+     *    url 当前页面url
+     */
+    wxUrl: function (data) {
+        ajax.get({
+            // async: async,
+            url: base + 'api/share/wxurl',
+            data: data,
+            success: this.fn
+        });
+    }
 };
 
 

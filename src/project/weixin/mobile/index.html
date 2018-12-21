@@ -87,7 +87,7 @@
                     return;
                 } else {
                     val.setAttribute("disabled", true);
-                    $(val).html(countdown);
+                    val.value = countdown;
                     countdown--;
                 }
                 setTimeout(function () {
