@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>意见反馈</title>
+    @import "../../include/header.inc";
+
+</head>
+<body ontouchstart>
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+<div class="container" id="container"></div>
+
+<!--首页-->
+<link rel="import" href="../../../../pages/member/feedback/index.html">
+
+
+@import "../../../../model/widget/include/toast.html";
+@import "../../../../model/widget/include/dialog.html";
+<script src="/weixin/js/wap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        pageManager.show("index");
+
+        var userId = cookie.getCookie('userId');
+
+        //正面图片预览方法
+        function getFullPath() {
+            var file = document.getElementById('idcard1');
+            var fileList = file.files;
+            var img = document.getElementById("uploadimg1");
+            for (var i = 0; i < fileList.length; i++) {
+                if (file.files[0]) {
+                    img.style.display = 'block';
+                    img.style.width = '100px';
+                    img.style.height = '100px';
+                    if (window.createObjectURL != undefined) { // basic
+                        img.src = window.createObjectURL(file.files[0]);
+                    } else if (window.URL != undefined) { // mozilla(firefox)
+                        img.src = window.URL.createObjectURL(file.files[0]);
+                    } else if (window.webkitURL != undefined) { // webkit or chrome
+                        img.src = window.webkitURL.createObjectURL(file.files[0]);
+                    }
+                }
+                var f_i = new FormData();
+                f_i.append("file", fileList[i])
+            }
+        }
+
+
+        var img1src;
+        $("#idcard1").on('change', function () {
+            toast.loading2('上传中');
+            $('#loadingToast').css('opacity', 1);
+            var fl = new member(function (data) {
+                getFullPath();
+                img1src = data;
+                $('#loadingToast').css('opacity', 0);
+            });
+            fl.uploads(new FormData($("#idform1")[0]));
+        });
+
+
+        //实时判断手机号
+        var mobilevalid = /^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$/;
+        var bind_name = 'input';
+        if (navigator.userAgent.indexOf("MSIE") != -1) {
+            bind_name = 'propertychange';
+        }
+        if (navigator.userAgent.match(/android/i) == "android") {
+            bind_name = "keydown";
+        }
+        $("#phone").bind(bind_name, function (event) {
+            var number = $('#phone').val();
+            if (number.length == 11) {
+                if (!mobilevalid.test(number)) {
+                    dialog.show("请输入正确的手机号码！");
+                    return false;
+                }
+            } else if (number.length > 11) {
+                $('#phone').val('');
+                dialog.show("请输入11位手机号码！");
+                return false;
+            }
+        });
+
+        $(document).on('click','.publish_btn',function () {
+            var images = '';
+            if($('#uploadimg1').attr('src') == '/weixin/images/static/dealer/dealer.png'){
+                var images = '';
+            }else{
+                var images = img1src.url;
+            }
+
+            var phone = $('#phone').val();
+            var content = $('#content').val();
+            if(phone.length != 0 && phone.length < 11){
+                toast.show('请输入正确手机号');
+                return;
+            }
+            if(content == ''){
+                toast.show('请填写反馈内容');
+                return;
+            }
+
+            new member(function (data) {
+                toast.show('提交成功');
+            }).feedback({userId:userId,phone:phone,images:images,content:content,userId:userId})
+        })
+
+
+
+
+
+
+
+    });
+
+</script>
+
+</body>
+</html>

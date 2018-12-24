@@ -197,7 +197,22 @@ member.prototype = {
             data: data,
             success: this.fn
         });
+    },
+    /**
+     * 获取当前页面url
+     *    phone 手机号
+     *    images 图片
+     *    content 内容
+     *    userId 用户Id
+     */
+    feedback: function (data) {
+        ajax.post({
+            url: base + 'api/feedback/index',
+            data: data,
+            success: this.fn
+        });
     }
+
 };
 
 
