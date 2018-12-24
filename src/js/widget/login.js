@@ -2,7 +2,7 @@
  * Created by Administrator on 2016/11/8 0018.
  */
 /**
- * 登陆
+ * 登录
  */
 
 $(function () {
