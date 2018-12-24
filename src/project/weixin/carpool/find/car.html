@@ -172,11 +172,11 @@
 
                 new member(function (data) {
 
-                    if(data.idtype != '1'){
-                        dialog.show('请先实名认证',function () {
-                            window.location.href = '/weixin/member/authentication/index.html?type=carpoolCar';
-                        })
-                    }
+                    // if(data.idtype != '1'){
+                    //     dialog.show('请先实名认证',function () {
+                    //         window.location.href = '/weixin/member/authentication/index.html?type=carpoolCar';
+                    //     })
+                    // }
                     if(data.verify != '1'){
                         dialog.show('请先绑定手机号',function () {
                             window.location.href = '/weixin/mobile/index.html?type=carpoolCar';

@@ -58,7 +58,14 @@
             loadUpFn: function (me) {
                 var tu = new member(function (data) {
                     jsonsData.page = jsonsData.page + 1;
-                    var h = render.fill($("#tpl_new"), data.data);
+
+                    if(jsonsData.type == '1'){
+                        var h = render.fill($("#tpl_new"), data.data);
+                    }else{
+                        var h = render.fill($("#tpl_old"), data.data);
+                    }
+
+
                     $(".pageable .member_carList").html(h);
                     $('img').picLazyLoad();
                     pge.resetload();
@@ -69,7 +76,15 @@
             loadDownFn: function (me) {
                 var td = new member(function (data) {
                     jsonsData.page = jsonsData.page + 1;
-                    var h = render.fill($("#tpl_new"), data.data);
+
+
+                    if(jsonsData.type == '1'){
+                        var h = render.fill($("#tpl_new"), data.data);
+                    }else{
+                        var h = render.fill($("#tpl_old"), data.data);
+                    }
+
+
                     $(".pageable .member_carList").append(h);
                     $('img').picLazyLoad();
                     if (data.data.length < 10) {

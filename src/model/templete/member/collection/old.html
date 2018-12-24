@@ -1,20 +1,39 @@
+<!--{{#each this}}-->
+<!--<a href="/weixin/car/used/index.html?id={{oldproductid}}" data-id="{{oldproductid}}" class="weui-cell">-->
+    <!--<div class="weui-cell__hd">-->
+
+        <!--{{#compare applistthumb '==' null}}-->
+        <!--<img src="{{applistthumb}}"/>-->
+        <!--{{/compare}}-->
+        <!--{{#compare applistthumb '!=' null}}-->
+        <!--<img src="../images/placeholder/logo.png" data-original="{{applistthumb}}" />-->
+        <!--{{/compare}}-->
+
+
+
+    <!--</div>-->
+    <!--<div class="weui-cell__bd f17 gray05">-->
+        <!--<p class="f14 overtwo">{{carname}} {{cartype}} {{carconfig}}</p>-->
+        <!--<p class="f14 yellow01">{{saleprice}}元</p>-->
+        <!--&lt;!&ndash;<p class="f11 gray10">已有3人购买</p>&ndash;&gt;-->
+    <!--</div>-->
+<!--</a>-->
+<!--{{/each}}-->
+
+
 {{#each this}}
-<a href="/weixin/car/used/index.html?id={{oldproductid}}" data-id="{{oldproductid}}" class="weui-cell">
+<a href="/weixin/car/used/index.html?id={{productid}}" data-id="productid" class="weui-cell">
     <div class="weui-cell__hd">
-
-        {{#compare applistthumb '==' null}}
-        <img src="{{applistthumb}}"/>
+        {{#compare logo '==' null}}
+        <img src="../images/placeholder/logo.png"/>
         {{/compare}}
-        {{#compare applistthumb '!=' null}}
-        <img src="../images/placeholder/logo.png" data-original="{{applistthumb}}" />
+        {{#compare logo '!=' null}}
+        <img src="../images/placeholder/logo.png" data-original="{{logo}}" />
         {{/compare}}
-
-
-
     </div>
     <div class="weui-cell__bd f17 gray05">
-        <p class="f14 overtwo">{{carname}} {{cartype}} {{carconfig}}</p>
-        <p class="f14 yellow01">{{saleprice}}元</p>
+        <p class="f14 overtwo">{{name}} {{config}}</p>
+        <p class="f14 yellow01">{{price}}元</p>
         <!--<p class="f11 gray10">已有3人购买</p>-->
     </div>
 </a>
