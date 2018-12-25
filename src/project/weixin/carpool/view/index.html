@@ -23,14 +23,15 @@
     $(function () {
         pageManager.show("index");
 
-
-
         new cars(function (data) {
             var h = render.fill($("#tpl_view"), data);
             $(".pageable .list2").html(h);
         }).carpoolDetail({id:pageManager.GetQueryString('id')});
 
-
+        weixin.share({
+            title: '车相关拼车',
+            desc: '车相关人人参与 顺路捎,分享经济平台。'
+        });
 
     });
 </script>
