@@ -27,10 +27,10 @@
 
         var trade_no = pageManager.GetQueryString('trade_no');
 
-        var openid = cookie.getCookie('openid');
+        var userId = cookie.getCookie('userId');
 
-        console.log(222222222222222)
-        console.log(openid)
+
+
 
         new order(function (data) {
             console.log(data);
@@ -48,6 +48,11 @@
         $(document).on('click','#pay_btn',function () {
             var goodname = $('.goods_name').html();
             var amount = $('.money').attr('data-id');
+
+            new member(function (data) {
+                var openid = data.openid;
+
+
             new order(function (data) {
 
                 console.log('appid:'+data.appId);
@@ -85,6 +90,8 @@
                     onBridgeReady();
                 }
             }).pay({trade_no:trade_no,goodname:goodname,amount:amount,openid:openid})
+
+            }).view({userId:userId});
         })
     });
 </script>
