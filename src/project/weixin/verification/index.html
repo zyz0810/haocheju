@@ -23,11 +23,19 @@
 
 
         var str = decode(pageManager.GetQueryString("data"));
+
+
+
         console.log('str:'+str);
         console.log(2222);
         var regex3 = /\{(.+?)\}/g;
         var aa = str.match(regex3);
         var bb = JSON.parse(aa);
+
+
+        console.log('打印')
+        console.log(bb)
+        console.log('打印')
 
         var type = bb.type;
         var content = bb.content;

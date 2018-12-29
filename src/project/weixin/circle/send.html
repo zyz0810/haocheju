@@ -81,17 +81,28 @@
         });
 
 
+        setTimeout(function () {
+            new member(function (data) {
+                console.log(data);
+                if(data.verify != '1'){
+                    dialog.show('请先绑定手机',function () {
+                        window.location.href = '/weixin/mobile/index.html?type=sendCircle';
+                    });
+                }
+            }).view({userId:userId});
+        },3000);
+
+
         $('#publish').click(function () {
-
-
             new member(function (data) {
                 console.log(data);
 
                 if(data.verify != '1'){
                     toast.show('请先绑定手机');
-                    setTimeout(function () {
+                    dialog.show('请先绑定手机',function () {
                         window.location.href = '/weixin/mobile/index.html?type=sendCircle';
-                    },3000)
+                    });
+
                 }else{
                     var sc = new contact(function (data) {
                         toast.show('发布成功');
