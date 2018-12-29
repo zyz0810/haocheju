@@ -1,7 +1,12 @@
 // var base = location.origin == "http://localhost:8080" ? "https://dev.tiaohuo.com/" : location.origin + "/";
 // var paymentBase = location.origin == "http://localhost:8080" ? "https://dev.tiaohuo.com/" : location.origin + "/";
-var base = "http://www.chexiangguan.com/";
-var paymentBase= "http://www.chexiangguan.com/";
+
+//测试环境域名
+var base = "http://che.0556360.com/";
+var paymentBase= "http://che.0556360.com/";
+//生产环境域名
+// var base = "http://www.chexiangguan.com/";
+// var paymentBase= "http://www.chexiangguan.com/";
 
 var redirecting = false;
 var hasLogin=false;
