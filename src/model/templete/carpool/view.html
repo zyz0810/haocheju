@@ -1,7 +1,16 @@
 {{#compare type '==' '1'}}
 <li data-id="{{id}}">
     <div class="weui-cell bordernone">
+
+
+        {{#compare headerimg '==' null}}
         <div class="weui-cell__hd head_img"><img src="/weixin/images/placeholder/logo.png" /></div>
+        {{/compare}}
+
+        {{#compare headerimg '!=' null}}
+        <div class="weui-cell__hd head_img"><img src="{{headerimg}}" /></div>
+        {{/compare}}
+
         <div class="weui-cell__bd f15 gray05">{{name}}</div>
         <div class="weui-cell__ft f12 gray10">{{wz_addtime}}</div>
     </div>
@@ -29,7 +38,13 @@
 {{#compare type '==' '2'}}
 <li data-id="{{id}}">
     <div class="weui-cell bordernone">
+        {{#compare headerimg '==' null}}
         <div class="weui-cell__hd head_img"><img src="/weixin/images/placeholder/logo.png" /></div>
+        {{/compare}}
+
+        {{#compare headerimg '!=' null}}
+        <div class="weui-cell__hd head_img"><img src="{{headerimg}}" /></div>
+        {{/compare}}
         <div class="weui-cell__bd f15 gray05">{{name}}</div>
         <div class="weui-cell__ft f12 gray10">{{wz_addtime}}</div>
     </div>
