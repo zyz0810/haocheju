@@ -192,6 +192,19 @@
             }
             if(data.verify == '1'){
                 $('#phone').val(data.phone);
+                if(data.idtype != '1'){
+                    setTimeout(function () {
+                        dialog.show('请先实名认证',function () {
+                            window.location.href = '/weixin/member/authentication/index.html?type=carpoolPeolple';
+                        })
+                    })
+                }
+            }else{
+                setTimeout(function () {
+                    dialog.show('请先绑定手机号',function () {
+                        window.location.href = '/weixin/mobile/index.html?type=carpoolPeolple';
+                    })
+                },3000)
             }
         }).view({userId:userId});
 

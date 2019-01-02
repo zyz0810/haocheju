@@ -164,7 +164,14 @@
             }
             if(data.verify == '1'){
                 $('#phone').val(data.phone);
+            }else{
+                setTimeout(function () {
+                    dialog.show('请先绑定手机号',function () {
+                        window.location.href = '/weixin/mobile/index.html?type=carpoolCar';
+                    })
+                },3000)
             }
+
         }).view({userId:userId});
 
         $('.publish_btn').click(function () {
