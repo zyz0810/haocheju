@@ -31,4 +31,4 @@
 @import "../../js/widget/silderGalleryTenant.js";
 @import "../../js/widget/serachBar.js";
 @import "../../js/widget/dianzan.js";
-@import "../../js/widget/login.js";;
+@import "../../js/widget/login.js";
