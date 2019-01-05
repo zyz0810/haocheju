@@ -199,7 +199,7 @@ member.prototype = {
         });
     },
     /**
-     * 获取当前页面url
+     * 建议反馈
      *    phone 手机号
      *    images 图片
      *    content 内容
