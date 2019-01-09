@@ -1,6 +1,6 @@
 {{#each this}}
 {{#compare @index '==' '0'}}
-<li class="f13 gray02 tc active">{{brandname}}</li>
+<li class="f13 gray02 tc active" data-id="all">{{brandname}}</li>
 {{/compare}}
 {{#compare @index '!=' '0'}}
 <li class="f13 gray02 tc">{{brandname}}</li>

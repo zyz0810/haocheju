@@ -65,7 +65,11 @@
         //好货搜索searchGo
         $(document).on('click','.brandList li',function () {
             var keyword = $(this).html();
-            window.location.href='/weixin/search/result.html?type=usedCar&keyword='+ escape(keyword);
+            if(this.attr('data-id')=='all'){
+                window.location.href='/weixin/search/result.html?type=usedCar&keyword=""';
+            }else{
+                window.location.href='/weixin/search/result.html?type=usedCar&keyword='+ escape(keyword);
+            }
             return false;
         });
 
