@@ -27,9 +27,9 @@
             console.log(data);
 
             if(data.nickname == ""){
-                $('#name').html(data.username);
+                $('#name').val(data.username);
             }else{
-                $('#name').html(data.nickname);
+                $('#name').val(data.nickname);
             }
 
             if(data.verify == '1'){
