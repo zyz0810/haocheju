@@ -2,11 +2,11 @@
 // var paymentBase = location.origin == "http://localhost:8080" ? "https://dev.tiaohuo.com/" : location.origin + "/";
 
 //测试环境域名
-var base = "http://che.0556360.com/";
-var paymentBase= "http://che.0556360.com/";
+// var base = "https://che.0556360.com/";
+// var paymentBase= "https://che.0556360.com/";
 //生产环境域名
-// var base = "http://www.chexiangguan.com/";
-// var paymentBase= "http://www.chexiangguan.com/";
+var base = "https://www.chexiangguan.com/";
+var paymentBase= "https://www.chexiangguan.com/";
 
 var redirecting = false;
 var hasLogin=false;
@@ -489,7 +489,7 @@ var ajax={
                 if (options.error) {
                     options.error(data.message);
                 } else {
-                    toast.show("获取数据失败");
+                    // toast.show("获取数据失败");
                 }
             }
         })
@@ -534,7 +534,7 @@ var ajax={
                 if (options.error != null) {
                     options.error(data.message);
                 } else {
-                    toast.show("获取数据失败");
+                    // toast.show("获取数据失败");
                 }
             }
         })

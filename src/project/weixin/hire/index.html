@@ -246,6 +246,7 @@
         // $('.shop .weui-cell').click(function () {
         $(document).on('click', '.shop .weui-cell', function () {
             $('#chooseTenant').html($(this).html());
+            jsonsCar.providerid == $('#chooseTenant').find('weui-cell__bd').attr('data-id')
             $('.shop').addClass('none');
         });
 

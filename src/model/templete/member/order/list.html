@@ -12,13 +12,13 @@
     </div>
     {{#compare pay_status '==' '1'}}
     <div class="weui-cell">
-        <div class="weui-cell__bd f13">共1件商品合计：￥3000.00</div>
+        <div class="weui-cell__bd f13">共1件商品合计：￥{{cost}}</div>
         <div class="weui-cell__ft"><a href="javascript:;" class="pay_btn f14 baseColor payBtn" data-id="{{trade_no}}">去支付</a></div>
     </div>
     {{/compare}}
     {{#compare pay_status '==' '2'}}
     <div class="weui-cell">
-        <div class="weui-cell__bd f13">共1件商品合计：￥3000.00</div>
+        <div class="weui-cell__bd f13">共1件商品合计：￥{{cost}}</div>
         <!--<div class="weui-cell__ft"><a href="javascript:pageManager.go('use?trade_no={{trade_no}}')" class="pay_btn f14 baseColor">去使用</a></div>-->
         <div class="weui-cell__ft"><a href="/weixin/member/use?trade_no={{trade_no}}" class="pay_btn f14 baseColor">去使用</a></div>
     </div>

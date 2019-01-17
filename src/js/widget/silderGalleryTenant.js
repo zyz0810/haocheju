@@ -18,11 +18,13 @@
             var str = '';
             for (var i = 0; i < this.data.length; i++) {
                 var _url = "";
-                if(this.data[i].linkurl == ''){
+                // if(this.data[i].linkurl == ''){
+                //     _url = 'javascript:;';
+                // }else if(this.data[i].linkurl != ''){
+                //     _url = this.data[i].linkurl;
+                // }else{
                     _url = 'javascript:;';
-                }else {
-                    _url = this.data[i].linkurl;
-                }
+                // }
 
                 if ((i % 1) == 0) {
                     str = '<a href="' + _url + '">';
