@@ -66,10 +66,10 @@
             }else{
                 $('#bindPhone').css({'display':'inline-block'});
             }
-            if(data.type == '2'){//type 1、普通用户 2、服务商
-                $('#bindDealer').css({'display':'none'});
-            }else{
+            if(data.type == '1'){//type 1、普通用户 2、服务商
                 $('#bindDealer').css({'display':'inline-block'});
+            }else{
+                $('#bindDealer').css({'display':'none'});
             }
         }).view({userId:userId});
 
