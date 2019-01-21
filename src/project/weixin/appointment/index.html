@@ -180,9 +180,9 @@
                 str += '<p class="f14">' + data.carname + ' ' + data.cartype + '</p>';
                 if(data.configure != ''){
                     // str += '<p class="f12 gray02">配置：' + data.configure + '</p>';
-                    str += '<p class="f12 gray02">配置：'</p>';
+                    str += '<p class="f12 gray02">配置：</p>';
                     for(var i=0;i<data.configure.length;i++){
-                        str += '<p>' + data.cartype[i].name + data.cartype[i].val + '</p>'
+                        str += '<p class="f12 gray02">' + data.configure[i].name + data.configure[i].val + '</p>'
                     }
                 }
                 str += '<p class="f12 yellow01">销售价：' + data.saleprice + '元</p>';
