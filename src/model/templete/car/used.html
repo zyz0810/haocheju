@@ -86,4 +86,13 @@
         <!--<li class="f12 fl gray03">变速箱：{{gearbox}}</li>-->
         <!--<li class="f12 fl gray03">整车质保：三年或10公里</li>-->
     <!--</ul>-->
+
+</div>
+<div class="condition">
+    <div class="title f16">车辆配置</div>
+    <ul class="clearfix" style="padding: 0 4%;">
+        {{#each config}}
+        <li class="f12 gray02 fl" style="width: 50%;">{{name}}{{val}}</li>
+        {{/each}}
+    </ul>
 </div>

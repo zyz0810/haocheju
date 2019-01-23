@@ -182,6 +182,17 @@ cars.prototype = {
             data: data,
             success: this.fn
         });
+    },
+    /**
+     * 修改拼车状态
+     * @param id  拼车Id
+     */
+    editCarpool: function (data) {
+        ajax.post({
+            url: base + "Api/Carpool/modify",
+            data: data,
+            success: this.fn
+        });
     }
 };
 

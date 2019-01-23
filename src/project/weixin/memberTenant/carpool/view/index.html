@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>在线拼车</title>
+    @import "../../../include/header.inc";
+
+</head>
+<body ontouchstart>
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+<div class="container" id="container"></div>
+
+<!--首页-->
+<link rel="import" href="../../../../../pages/member/carpool/view/index.html">
+
+<!--模板-->
+<link rel="import" href="../../../../../model/templete/member/carpool/view.html">
+@import "../../../../../model/widget/include/toast.html";
+@import "../../../../../model/widget/include/dialog.html";
+<script src="/weixin/js/wap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        pageManager.show("index");
+
+        new cars(function (data) {
+            var h = render.fill($("#tpl_view"), data);
+            $(".pageable .list2").html(h);
+        }).carpoolDetail({id:pageManager.GetQueryString('id')});
+
+        $(document).on('click','.setOut',function () {
+            var id = $(this).attr('data-id');
+            var that = $(this);
+            new cars(function (data) {
+                toast.show('更改状态成功');
+                that.addClass('none');
+                that.parent('li').find('.state').removeClass('none')
+            }).editCarpool({id:id})
+        });
+
+        weixin.share({
+            title: '车相关拼车',
+            desc: '车相关人人参与 顺路捎,分享经济平台。'
+        });
+
+    });
+</script>
+
+</body>
+</html>

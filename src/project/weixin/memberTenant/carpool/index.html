@@ -12,10 +12,10 @@
 <div class="container" id="container"></div>
 
 <!--首页-->
-<link rel="import" href="../../../../pages/memberTenant/carpool/index.html">
+<link rel="import" href="../../../../pages/member/carpool/index.html">
 
 <!--模板-->
-<link rel="import" href="../../../../model/templete/carpool/list.html">
+<link rel="import" href="../../../../model/templete/member/carpool/list.html">
 
 @import "../../../../model/widget/include/toast.html";
 @import "../../../../model/widget/include/dialog.html";
@@ -70,6 +70,16 @@
                 td.carPool(jsonsData);
             }
         });
+
+        $(document).on('click','.setOut',function () {
+            var id = $(this).attr('data-id');
+            var that = $(this);
+            new cars(function (data) {
+                toast.show('更改状态成功');
+                that.addClass('none');
+                that.parent('li').find('.state').removeClass('none')
+            }).editCarpool({id:id})
+        })
 
     });
 </script>

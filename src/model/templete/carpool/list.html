@@ -1,6 +1,11 @@
 {{#each this}}
 {{#compare type '==' '1'}}
 <li data-id="{{id}}" class="car">
+    {{#compare ready '==' '2'}}
+    <div class='state'>
+        <img src='/weixin/images/static/carpool/state.png'>
+    </div>
+    {{/compare}}
     <a href="/weixin/carpool/view/index.html?id={{id}}">
     <div class="weui-cell bordernone">
         {{#compare headerimg '==' null}}
@@ -25,20 +30,24 @@
     <div class="weui-cell site bordernone">
         <div class="weui-cell__hd"></div>
         <div class="weui-cell__bd f14">
-            <p>提供座位&nbsp;&nbsp;&nbsp;<span class="red">{{seat}}</span>个</p>
+            <p style="position: relative;">提供座位&nbsp;&nbsp;&nbsp;<span class="red">{{seat}}</span>个<object><a href="tel:{{mobile}}" class="carpool_call f16 white tc">拨号</a></object></p>
             <p>汽车型号&nbsp;&nbsp;&nbsp;{{brand}} {{series}}</p>
             <!--<p style="position: relative;">车牌号&nbsp;&nbsp;&nbsp;皖322256<a href="tel:{{mobile}}" class="carpool_call f16 white tc">拨号</a></p>-->
             <p class="time">出发时间&nbsp;&nbsp;&nbsp;{{startdate}} {{starttime}}</p>
             <p class="gray10">车主留言：{{remark}}</p>
         </div>
-
     </div>
     </a>
-    <a href="tel:{{mobile}}" class="carpool_call f16 white tc">拨号</a>
+    <!--<a href="tel:{{mobile}}" class="carpool_call f16 white tc">拨号</a>-->
 </li>
 {{/compare}}
 {{#compare type '==' '2'}}
 <li data-id="{{id}}" class="personal">
+    {{#compare ready '==' '2'}}
+    <div class='state'>
+        <img src='/weixin/images/static/carpool/state.png'>
+    </div>
+    {{/compare}}
     <a  href="/weixin/carpool/view/index.html?id={{id}}">
     <div class="weui-cell bordernone">
 
@@ -64,13 +73,13 @@
     <div class="weui-cell site bordernone">
         <div class="weui-cell__hd"></div>
         <div class="weui-cell__bd f14">
-            <p style="position:relative;">座位需求&nbsp;&nbsp;&nbsp;<span class="red">{{seat}}</span>个</p>
+            <p style="position:relative;">座位需求&nbsp;&nbsp;&nbsp;<span class="red">{{seat}}</span>个<object><a href="tel:{{mobile}}" class="carpool_call f16 white tc">拨号</a></object></p>
             <p class="time">出发时间&nbsp;&nbsp;&nbsp;{{startdate}} {{starttime}}</p>
             <p class="gray10">留言：{{remark}}</p>
         </div>
     </div>
     </a>
-    <a href="tel:{{mobile}}" class="carpool_call f16 white tc">拨号</a>
+    <!--<a href="tel:{{mobile}}" class="carpool_call f16 white tc">拨号</a>-->
 </li>
 {{/compare}}
 {{/each}}

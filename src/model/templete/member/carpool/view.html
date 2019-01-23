@@ -1,11 +1,17 @@
 {{#compare type '==' '1'}}
 <li data-id="{{id}}">
+    {{#compare ready '==' '1'}}
+    <div class='state none'>
+        <img src='/weixin/images/static/carpool/state.png'>
+    </div>
+    {{/compare}}
     {{#compare ready '==' '2'}}
     <div class='state'>
         <img src='/weixin/images/static/carpool/state.png'>
     </div>
     {{/compare}}
     <div class="weui-cell bordernone">
+
         {{#compare headerimg '==' null}}
         <div class="weui-cell__hd head_img"><img src="/weixin/images/placeholder/logo.png" /></div>
         {{/compare}}
@@ -36,10 +42,18 @@
         </div>
 
     </div>
+    {{#compare ready '==' '1'}}
+    <div class="setOut f16 white tc" data-id="{{id}}">出发</div>
+    {{/compare}}
 </li>
 {{/compare}}
 {{#compare type '==' '2'}}
 <li data-id="{{id}}">
+    {{#compare ready '==' '1'}}
+    <div class='state none'>
+        <img src='/weixin/images/static/carpool/state.png'>
+    </div>
+    {{/compare}}
     {{#compare ready '==' '2'}}
     <div class='state'>
         <img src='/weixin/images/static/carpool/state.png'>
@@ -79,5 +93,8 @@
         </div>
 
     </div>
+    {{#compare ready '==' '1'}}
+    <div class="setOut f16 white tc" data-id="{{id}}">出发</div>
+    {{/compare}}
 </li>
 {{/compare}}
