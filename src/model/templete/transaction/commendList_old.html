@@ -1,0 +1,14 @@
+{{#each this}}
+<a href="/weixin/car/new/index.html?id={{productid}}" data-id="{{productid}}" class="commend_item">
+    {{#compare carbanner '!=' ''}}
+    <img src="{{carbanner}}"/>
+    {{/compare}}
+    {{#compare carbanner '==' ''}}
+    <img src="/weixin/images/placeholder/logo.png"/>
+    {{/compare}}
+    <p class="yellow01 f13 price">{{carprice}}元</p>
+    <p class="f14 overtwo name gray09">{{carname}} {{cartype}} {{carconfig}}</p>
+    <!--<p class="f10 overone gray10">已有3人购买</p>-->
+</a>
+{{/each}}
+

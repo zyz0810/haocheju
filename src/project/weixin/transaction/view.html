@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>汽贸交易</title>
+    @import "../include/header.inc";
+
+</head>
+<body ontouchstart>
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+<div class="container" id="container"></div>
+
+<!--首页-->
+<link rel="import" href="../../../pages/transaction/view.html">
+
+@import "../../../model/widget/include/toast.html";
+@import "../../../model/widget/include/dialog.html";
+<script src="/weixin/js/wap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        pageManager.show("view");
+
+        var tu = new ruzhu(function (data) {
+            $("#index_slider").silderDot(data.bannerlogo, 1800, "","product");
+            $(".tenant_logo > img").attr('src',data.logo);
+            $(".tenant_name").html(data.name);
+            $(".tenant_time").html(data.opentime);
+            $(".tenant_address").html(data.address);
+            $(".tenant_address").attr('data-lant',data.lant);
+            $(".tenant_address").attr('data-long',data.long);
+            $(".tenant_phone").attr('href','tel:' + data.phone);
+        });
+        tu.view({id:pageManager.GetQueryString('id')});
+
+        //到这里去
+        $(document).on('click', '.tenant_address', function () {
+            var me = this;
+            weixin.openLocation({
+                lat: me.attr('data-lant'),
+                lng: me.attr('data-long'),
+                // name: me.name,
+                address: me.html()
+            });
+        });
+
+
+    });
+</script>
+
+</body>
+</html>

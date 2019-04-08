@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>商家入驻</title>
+    @import "../include/header.inc";
+
+</head>
+<body ontouchstart>
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+<div class="container" id="container"></div>
+
+<!--首页-->
+<link rel="import" href="../../../pages/transaction/setIn.html">
+
+@import "../../../model/widget/include/toast.html";
+@import "../../../model/widget/include/dialog.html";
+<script src="/weixin/js/wap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        pageManager.show("setIn");
+
+        //正面图片预览方法
+        function getFullPath() {
+            var file = document.getElementById('idcard1');
+            var fileList = file.files;
+            var img = document.getElementById("uploadimg1");
+            for (var i = 0; i < fileList.length; i++) {
+                if (file.files[0]) {
+                    img.style.display = 'block';
+                    img.style.width = '100px';
+                    img.style.height = '100px';
+                    if (window.createObjectURL != undefined) { // basic
+                        img.src = window.createObjectURL(file.files[0]);
+                    } else if (window.URL != undefined) { // mozilla(firefox)
+                        img.src = window.URL.createObjectURL(file.files[0]);
+                    } else if (window.webkitURL != undefined) { // webkit or chrome
+                        img.src = window.webkitURL.createObjectURL(file.files[0]);
+                    }
+                }
+                var f_i = new FormData();
+                f_i.append("file", fileList[i])
+            }
+        }
+
+        var img1src;
+
+        $("#idcard1").on('change', function () {
+            toast.loading2('上传中');
+            $('#loadingToast').css('opacity', 1);
+            var fl = new member(function (data) {
+                getFullPath();
+                img1src = data;
+                //                    $('.certification #uploadimg1').attr('src',data);
+                $('#loadingToast').css('opacity', 0);
+            });
+            fl.uploads(new FormData($("#idform1")[0]));
+        });
+
+        //实时判断手机号
+        var mobilevalid = /^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$/;
+        var bind_name = 'input';
+        if (navigator.userAgent.indexOf("MSIE") != -1) {
+            bind_name = 'propertychange';
+        }
+        if (navigator.userAgent.match(/android/i) == "android") {
+            bind_name = "keydown";
+        }
+        $("#phone").bind(bind_name, function (event) {
+            var number = $('#phone').val();
+            if (number.length == 11) {
+                if (!mobilevalid.test(number)) {
+                    dialog.show("请输入正确的手机号码！");
+                    return false;
+                }
+            } else if (number.length > 11) {
+                $('#phone').val('');
+                dialog.show("请输入11位手机号码！");
+                return false;
+            }
+        });
+
+        weixin.location(function (flag) {
+            $(document).on('click', '.address_btn', function () {
+                $('.map').removeClass('none');
+                $('#test').attr('src', 'https://m.amap.com/picker/?keywords=写字楼,小区,学校&zoom=15&center=' + weixin.lng + ',' + weixin.lat + '&radius=1000&total=20&key=abc99bf772060cfc0d55ad8aad9de9b0');
+                var iframe = document.getElementById('test').contentWindow;
+                document.getElementById('test').onload = function () {
+                    iframe.postMessage('hello', 'https://m.amap.com/picker/');
+                };
+            });
+        });
+
+        //地图
+        window.addEventListener("message", function (e) {
+            // location.replace(location.origin + '/weixin/hire/index.html?dataId=1&type=end&end='+escape(e.data.name));
+            $('.map').addClass('none');
+            $('#address').val(e.data.name);
+            $('#address').attr('data-address', e.data.address);
+            $('#address').attr('data-lant', e.data.lant);
+            $('#address').attr('data-long', e.data.long);
+        }, false);
+
+        $(document).on('click', '.publish_btn', function () {
+            if ($('#uploadimg1').attr('src') == '/weixin/images/static/dealer/dealer.png') {
+                toast.show('请上传logo');
+                return;
+            }
+            var name = $('#name').val();
+            var address = $('#address').val();
+            var long = $('#address').attr('data-long');
+            var lant = $('#address').attr('data-lant');
+            var phone = $('#phone').val();
+            var logo = img1src.images;
+            console.log(img1src.images);
+            if (name == '') {
+                toast.show('请输入商家名称');
+                return;
+            }
+            if (phone.length < 11) {
+                toast.show('请输入正确手机号');
+                return;
+            }
+            if (address == '') {
+                toast.show('请选择地址');
+                return;
+            }
+            if (time == '') {
+                toast.show('请填写营业时间');
+                return;
+            }
+            if (logo == '') {
+                toast.show('请上传logo');
+                return;
+            }
+
+            new ruzhu(function (data) {
+                toast.show('入驻成功，请耐心等待审核');
+                // setTimeout(function () {
+                //     window.location.href = '/weixin/member/index.html';
+                // },3000)
+            }).add({name: name, logo: logo, address: address, phone: phone, long: long, lant: lant, type: 1})
+        })
+
+
+    });
+</script>
+
+</body>
+</html>

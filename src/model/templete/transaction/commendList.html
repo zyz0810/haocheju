@@ -1,14 +1,13 @@
 {{#each this}}
-<a href="/weixin/car/new/index.html?id={{productid}}" data-id="{{productid}}" class="commend_item">
-    {{#compare carbanner '!=' ''}}
-    <img src="{{carbanner}}"/>
-    {{/compare}}
-    {{#compare carbanner '==' ''}}
-    <img src="/weixin/images/placeholder/logo.png"/>
-    {{/compare}}
-    <p class="yellow01 f13 price">{{carprice}}元</p>
-    <p class="f14 overtwo name gray09">{{carname}} {{cartype}} {{carconfig}}</p>
-    <!--<p class="f10 overone gray10">已有3人购买</p>-->
+<a class="weui-cell" href="/weixin/transaction/view.html?id={{id}}" data-id="{{id}}">
+    <div class="weui-cell__hd tenant_img"><img src="{{logo}}" /></div>
+    <div class="weui-cell__bd">
+        <p class="f14 bold">{{name}}</p>
+        <p class="f14 gray02">营业时间：{{opentime}}</p>
+        <p class="f12 gray04" data-lant="{{lant}}" data-long="{{long}}">
+            <i class="iconfont icon-dingweiweizhi f14 clr_lightGray"></i>{{address}}
+        </p>
+    </div>
 </a>
 {{/each}}
 

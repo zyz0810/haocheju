@@ -14,9 +14,6 @@
 <!--首页-->
 <link rel="import" href="../../../pages/transaction/index.html">
 
-<!--<link rel="import" href="../../../model/templete/transaction/brand.html"> &lt;!&ndash;品牌列表&ndash;&gt;-->
-<!--<link rel="import" href="../../../model/templete/transaction/listTop.html"> &lt;!&ndash;汽贸交易列表&ndash;&gt;-->
-<link rel="import" href="../../../model/templete/transaction/hotList.html"> <!--热销列表-->
 <link rel="import" href="../../../model/templete/transaction/commendList.html"> <!--推荐列表-->
 @import "../../../model/widget/include/toast.html";
 @import "../../../model/widget/include/dialog.html";
@@ -24,82 +21,38 @@
 <script type="text/javascript">
     $(function () {
         pageManager.show("index");
-        // 第一版开始
-        // $('#nav .weui-flex__item.brand_btn').click(function () {
-        //         $('.brand').toggle('none');
-        //         $('.mask').toggle('none');
-        // });
-        // $('.mask').click(function () {
-        //     $('.brand').css({'display':'none !important'});
-        //     $('.mask').css({'display':'none !important'});
-        // });
-        //
-        // $('.brand li').click(function () {
-        //     var brand = $(this).html();
-        //     $('.brand_btn').html(brand);
-        //     $('.brand').css({'display':'none !important'});
-        //     $('.mask').css({'display':'none !important'});
-        // });
-        //
-        // var aa = new tenant(function (data) {
-        //     $("#index_slider").silderDot(data, 1800, "");
-        //     var h = render.fill($("#tpl_brand"), data.brandlist);
-        //     console.log(data.brandlist);
-        //     $('.brand').html(h)
-        // });
-        // aa.list();
-        //
-        // document.getElementById('mask').addEventListener('touchmove', function (event) {     //对蒙版绑定touchmove的属性
-        //     //判断条件,条件成立才阻止背景页面滚动,其他情况不会再影响到页面滚动
-        //     if ($('#mask').css("display","block")) {
-        //         event.preventDefault();
-        //     }
-        // });
-        // 第一版结束
 
-        var aa = new cars(
-            function (data) {
-                $("#index_slider").silderDot(data, 1800, "");
-                console.log(data);
-                if (data.return_oldcar.data.length == 0) {
-                    $('.hot_list').addClass('none');
-                } else {
-                    var hot = render.fill($("#tpl_hotList"), data.return_oldcar.data);
-                    $(".hot_list").html(hot);
-                }
-                if (data.return_newcar.data.length == 0) {
-                    $('.commend').addClass('none')
-                }
-            }
-        );
-        aa.newList();
-
+        var tu = new ruzhu(function (data) {
+            $(".list_ad>img").attr('src',data.images);
+            $("#index_slider").silderDot(data, 1800, "");
+        });
+        tu.list({page: 1, pageSize: 10, type: 1});
 
         var pge = $(".pageable").pageable({
             loadUpFn: function (me) {
-                var tu = new cars(function (data) {
+                var tu = new ruzhu(function (data) {
                     me.pageNumber = me.pageNumber + 1;
-                    var h = render.fill($("#tpl_commendList"), data.return_newcar.data);
-                    $(".pageable .commend_list").html(h);
+                    var h = render.fill($("#tpl_commendList"), data.list.data);
+                    $(".pageable .list").html(h);
                     $('img').picLazyLoad();
                     pge.resetload();
                 });
                 me.pageNumber = 1;
-                tu.newList({page: me.pageNumber, pageSize: 10});
+                tu.list({page: me.pageNumber, pageSize: 10, type: 1});
             },
             loadDownFn: function (me) {
-                var td = new cars(function (data) {
+                var td = new ruzhu(function (data) {
                     me.pageNumber = me.pageNumber + 1;
-                    var h = render.fill($("#tpl_commendList"), data.return_newcar.data);
-                    $(".pageable .commend_list").append(h);
+                    var h = render.fill($("#tpl_commendList"), data.list.data);
+                    $(".pageable .list").append(h);
                     $('img').picLazyLoad();
-                    if (data.return_newcar.data.length < 10) {
+                    if (data.list.data.length < 10) {
                         pge.lock();
                         pge.noData();
                     }
                     pge.resetload();
                 });
-                td.newList({page: me.pageNumber, pageSize: 10});
+                td.list({page: me.pageNumber, pageSize: 10, type: 1});
             }
         });
 
