@@ -33,6 +33,7 @@
             $(".tenant_address").attr('data-lant',data.lant);
             $(".tenant_address").attr('data-long',data.long);
             $(".tenant_phone").attr('href','tel:' + data.phone);
+            $(".tenant_desc").html(data.desc);
         });
         tu.view({id:pageManager.GetQueryString('id')});
 
