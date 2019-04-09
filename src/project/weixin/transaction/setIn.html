@@ -137,9 +137,9 @@
 
             new ruzhu(function (data) {
                 toast.show('入驻成功，请耐心等待审核');
-                // setTimeout(function () {
-                //     window.location.href = '/weixin/member/index.html';
-                // },3000)
+                setTimeout(function () {
+                    window.location.href = '/weixin/transaction/index.html';
+                },3000)
             }).add({name: name, logo: logo, address: address, phone: phone, long: long, lant: lant, type: 1})
         })
 

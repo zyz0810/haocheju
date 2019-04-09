@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>汽贸交易</title>
+    <title>商家详情</title>
     @import "../include/header.inc";
 
 </head>
@@ -22,7 +22,10 @@
         pageManager.show("view");
 
         var tu = new ruzhu(function (data) {
-            $("#index_slider").silderDot(data.bannerlogo, 1800, "","product");
+            document.title = data.name;
+            if(data.bannerlogo.length > 0){
+                $("#index_slider").silderDot(data.bannerlogo, 1800, "","product");
+            }
             $(".tenant_logo > img").attr('src',data.logo);
             $(".tenant_name").html(data.name);
             $(".tenant_time").html(data.opentime);
@@ -35,15 +38,16 @@
 
         //到这里去
         $(document).on('click', '.tenant_address', function () {
-            var me = this;
+            var $this = $(this);
+            var lat = Number($(this).attr('data-lant'));
+            var log = Number($(this).attr('data-long'));
             weixin.openLocation({
-                lat: me.attr('data-lant'),
-                lng: me.attr('data-long'),
-                // name: me.name,
-                address: me.html()
+                lat: lat,
+                lng: log,
+                name: $this.html(),
+                address: $this.html()
             });
         });
-
 
     });
 </script>

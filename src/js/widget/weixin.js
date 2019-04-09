@@ -562,6 +562,9 @@ var weixin = {
     openLocation: function (jsons) {
         weixin.init().done(function (config) {
             wx.ready(function () {
+
+                console.log('打开地图')
+                console.log(jsons.name);
                 wx.openLocation({
                     latitude: jsons.lat,
                     longitude: jsons.lng,
