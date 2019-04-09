@@ -113,6 +113,7 @@
             var lant = $('#address').attr('data-lant');
             var phone = $('#phone').val();
             var logo = img1src.images;
+            var time = $('#time').val();
             console.log(img1src.images);
             if (name == '') {
                 toast.show('请输入商家名称');
@@ -140,7 +141,7 @@
                 setTimeout(function () {
                     window.location.href = '/weixin/transaction/index.html';
                 },3000)
-            }).add({name: name, logo: logo, address: address, phone: phone, long: long, lant: lant, type: 1})
+            }).add({name: name, logo: logo, address: address, phone: phone, long: long, lant: lant,opentime: time, type: 1})
         })
 
 

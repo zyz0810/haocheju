@@ -112,6 +112,7 @@
             var long = $('#address').attr('data-long');
             var lant = $('#address').attr('data-lant');
             var phone = $('#phone').val();
+            var time = $('#time').val();
             var logo = img1src.images;
             console.log(img1src.images);
             if (name == '') {
@@ -140,7 +141,7 @@
                 setTimeout(function () {
                     window.location.href = '/weixin/hire/index.html';
                 },3000)
-            }).add({name: name, logo: logo, address: address, phone: phone, long: long, lant: lant, type: 2})
+            }).add({name: name, logo: logo, address: address, phone: phone, long: long, lant: lant, opentime: time, type: 2})
         })
     });
 </script>
